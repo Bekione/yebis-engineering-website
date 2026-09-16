@@ -4,8 +4,16 @@ import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { cn } from "@/lib/utils";
+import {
+  SITE_URL,
+  SITE_NAME,
+  SITE_TAGLINE,
+  SITE_DESCRIPTION,
+  OG_IMAGE,
+  getOrganizationJsonLd,
+} from "@/lib/seo";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -26,28 +34,76 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Yebis Engineering PLC — From Structure to Finish",
-  description:
-    "Grade 1 Ethiopian general contractor delivering structural construction, MEP, interior finishing, joinery and metalworks for residential, commercial and institutional projects across Addis Ababa and Ethiopia.",
-  authors: [{ name: "Yebis Engineering PLC" }],
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  keywords: [
+    "Yebis Engineering",
+    "Yebis Engineering PLC",
+    "Ethiopian contractor",
+    "Grade 1 General Contractor Ethiopia",
+    "construction company Addis Ababa",
+    "structural engineering Ethiopia",
+    "building contractor Ethiopia",
+    "interior finishing Addis Ababa",
+    "MEP contractor Ethiopia",
+    "commercial construction Ethiopia",
+    "joinery and aluminum Addis Ababa",
+    "renovation contractor Ethiopia",
+    "BIM coordination Ethiopia",
+  ],
+  alternates: {
+    canonical: "./",
+  },
   openGraph: {
-    title: "Yebis Engineering PLC — From Structure to Finish",
-    description:
-      "Grade 1 Ethiopian general contractor delivering structural construction, MEP, interior finishing, joinery and metalworks for residential, commercial and institutional projects across Addis Ababa and Ethiopia.",
-    type: "website",
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
     locale: "en_US",
-    siteName: "Yebis Engineering PLC",
+    type: "website",
+    images: [
+      {
+        url: OG_IMAGE.url,
+        width: OG_IMAGE.width,
+        height: OG_IMAGE.height,
+        alt: OG_IMAGE.alt,
+        type: OG_IMAGE.type,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yebis Engineering PLC — From Structure to Finish",
-    description:
-      "Grade 1 Ethiopian general contractor delivering structural construction, MEP, interior finishing, joinery and metalworks across Ethiopia.",
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+    images: [OG_IMAGE.url],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   icons: {
-    icon: "/favicon-32x32.png",
-    apple: "/apple-touch-icon.png",
+    icon: [
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
+  manifest: "/site.webmanifest",
 };
 
 export const viewport: Viewport = {
@@ -64,7 +120,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", spaceGrotesk.variable, inter.variable, jetbrainsMono.variable, "font-sans", geist.variable)}
+      className={cn(
+        "h-full",
+        "antialiased",
+        spaceGrotesk.variable,
+        inter.variable,
+        jetbrainsMono.variable,
+        "font-sans",
+        geist.variable
+      )}
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -76,6 +140,12 @@ export default function RootLayout({
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(getOrganizationJsonLd()),
+          }}
         />
       </head>
       <body className="min-h-full flex flex-col bg-surface text-on-surface">

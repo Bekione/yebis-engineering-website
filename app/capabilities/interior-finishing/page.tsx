@@ -2,11 +2,21 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { IMG } from "@/lib/site-images";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Interior Finishing — Yebis Engineering PLC",
+  title: "Interior Finishing & Architectural Millwork",
   description:
     "Swiss-tolerance interior finishing: acoustic gypsum ceilings, calibrated terrazzo and porcelain, drywall partitions, and bespoke surface treatments for commercial and residential projects.",
+  alternates: {
+    canonical: `${SITE_URL}/capabilities/interior-finishing`,
+  },
+  openGraph: {
+    title: "Interior Finishing & Architectural Millwork | Yebis Engineering PLC",
+    description:
+      "Precision interior finishing, acoustic gypsum ceilings, calibrated terrazzo, and bespoke surface treatments across Ethiopia.",
+    url: `${SITE_URL}/capabilities/interior-finishing`,
+  },
 };
 
 const SPECS = [

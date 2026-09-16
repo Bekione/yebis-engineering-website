@@ -2,11 +2,21 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { IMG } from "@/lib/site-images";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "About — Yebis Engineering PLC",
+  title: "About Us & Corporate Credentials",
   description:
     "Ethiopian-grounded, Grade 1 certified general contractor. Corporate dossier, 5-phase execution model, leadership, equipment fleet, and organizational credentials.",
+  alternates: {
+    canonical: `${SITE_URL}/about`,
+  },
+  openGraph: {
+    title: "About Us & Corporate Credentials | Yebis Engineering PLC",
+    description:
+      "Ethiopian-grounded, Grade 1 certified general contractor. Corporate dossier, 5-phase execution model, and credentials.",
+    url: `${SITE_URL}/about`,
+  },
 };
 
 const METRICS = [

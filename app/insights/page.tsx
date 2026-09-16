@@ -2,11 +2,21 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { IMG } from "@/lib/site-images";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Insights — Yebis Engineering PLC",
+  title: "Engineering Insights & Field Briefings",
   description:
     "Technical monographs, field briefings, and engineering intelligence from Yebis Engineering. Geotechnical analysis, concrete mix design for Addis Ababa volcanic clay, and EBCS compliance guides.",
+  alternates: {
+    canonical: `${SITE_URL}/insights`,
+  },
+  openGraph: {
+    title: "Engineering Insights & Field Briefings | Yebis Engineering PLC",
+    description:
+      "Technical monographs, field briefings, and engineering intelligence from Yebis Engineering.",
+    url: `${SITE_URL}/insights`,
+  },
 };
 
 const FEATURED = {

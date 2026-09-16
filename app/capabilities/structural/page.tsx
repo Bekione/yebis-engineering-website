@@ -2,11 +2,21 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { IMG } from "@/lib/site-images";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Structural & Civil Engineering — Yebis Engineering PLC",
+  title: "Structural & Civil Engineering",
   description:
     "Deep foundations, basalt rock excavation, 5-stage pour protocol, and high-seismic structural specifications. Grade 1 certified Ethiopian contractor.",
+  alternates: {
+    canonical: `${SITE_URL}/capabilities/structural`,
+  },
+  openGraph: {
+    title: "Structural & Civil Engineering | Yebis Engineering PLC",
+    description:
+      "Deep foundations, basalt rock excavation, and high-seismic structural engineering across Ethiopia.",
+    url: `${SITE_URL}/capabilities/structural`,
+  },
 };
 
 const SPECS = [

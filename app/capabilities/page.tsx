@@ -2,11 +2,21 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { IMG } from "@/lib/site-images";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Capabilities — Yebis Engineering PLC",
+  title: "Capabilities & Divisions",
   description:
     "Eight integrated engineering divisions under single-source responsibility: structural works, BIM coordination, MEP systems, plumbing, interior finishing, joinery, metal fabrication, and renovation.",
+  alternates: {
+    canonical: `${SITE_URL}/capabilities`,
+  },
+  openGraph: {
+    title: "Capabilities & Divisions | Yebis Engineering PLC",
+    description:
+      "Eight integrated engineering divisions under single-source responsibility across Ethiopia.",
+    url: `${SITE_URL}/capabilities`,
+  },
 };
 
 const METRICS = [

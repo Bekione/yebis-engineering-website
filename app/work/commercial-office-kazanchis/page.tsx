@@ -1,10 +1,21 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { IMG } from "@/lib/site-images";
+import { SITE_URL } from "@/lib/seo";
 
-export const metadata = {
-  title: "Commercial Office Building — Kazanchis | Yebis Engineering",
+export const metadata: Metadata = {
+  title: "Commercial Office Building — Kazanchis",
   description:
     "Case study of a prime-grade commercial office development in Kazanchis, Addis Ababa: deep basements, structural frame, facade envelope and integrated MEP.",
+  alternates: {
+    canonical: `${SITE_URL}/work/commercial-office-kazanchis`,
+  },
+  openGraph: {
+    title: "Commercial Office Building — Kazanchis | Yebis Engineering PLC",
+    description:
+      "Case study of a prime-grade commercial office development in Kazanchis, Addis Ababa: deep basements, structural frame, facade envelope and integrated MEP.",
+    url: `${SITE_URL}/work/commercial-office-kazanchis`,
+  },
 };
 
 export default function KazanchisCaseStudyPage() {
