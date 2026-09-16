@@ -151,7 +151,7 @@ const COMPLIANCE_ROWS = [
   {
     discipline: "Rebar Bending Schedule Detailing",
     baseline: "Zero Field Cutting / Bending",
-    protocol: "Factory Rebar Fabrication & 3D Model Interlock",
+    protocol: "Workshop Rebar Fabrication & 3D Model Interlock",
     standard: "BS 8666 / ASTM A615",
     status: "CERTIFIED LOD 400",
   },

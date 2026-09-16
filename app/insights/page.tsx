@@ -172,7 +172,7 @@ export default function InsightsPage() {
                   key={item.label}
                   className="flex flex-col border-b border-outline-variant/20 pb-3 last:border-0 last:pt-1"
                 >
-                  <span className="font-label-sm text-label-sm text-secondary uppercase">
+                  <span className="font-label-sm text-label-sm text-on-surface-variant font-semibold uppercase">
                     {item.label}
                   </span>
                   <div className="flex items-baseline gap-2 mt-1">
@@ -180,7 +180,7 @@ export default function InsightsPage() {
                       {item.value}
                     </span>
                     <span
-                      className={`font-label-sm text-label-sm ${item.highlight ? "text-primary font-medium" : "text-secondary"}`}
+                      className={`font-label-sm text-label-sm ${item.highlight ? "text-primary font-bold" : "text-on-surface-variant font-medium"}`}
                     >
                       {item.badge}
                     </span>

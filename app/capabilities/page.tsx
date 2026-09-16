@@ -229,7 +229,7 @@ export default function CapabilitiesPage() {
                 key={m.label}
                 className="bg-surface-container p-space-md flex flex-col justify-between"
               >
-                <span className="font-label-sm text-label-sm text-secondary uppercase">
+                <span className="font-label-sm text-label-sm text-on-surface-variant font-semibold uppercase">
                   {m.label}
                 </span>
                 <div className="flex items-baseline gap-space-xs mt-space-sm">

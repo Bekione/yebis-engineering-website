@@ -116,13 +116,13 @@ const PHASES = [
   {
     phase: "03",
     title: "Computer-Aided CNC Machining & Joinery Assembly",
-    desc: "Panel optimization, CNC routing, edge-banding, mortise-and-tenon jointing, and initial carcass assembly under controlled factory conditions.",
-    gate: "GATE: FACTORY DIMENSIONAL TOLERANCE CHECK",
+    desc: "Panel optimization, CNC routing, edge-banding, mortise-and-tenon jointing, and initial carcass assembly under controlled workshop conditions.",
+    gate: "GATE: WORKSHOP DIMENSIONAL TOLERANCE CHECK",
   },
   {
     phase: "04",
     title: "Multi-Coat Spray Finishing & Hardware Pre-Fit",
-    desc: "Dust-free spray booth application of primers, polyurethane topcoats, or penetrating oils, followed by factory pre-fitting of all runners, hinges, and handles.",
+    desc: "Dust-free spray booth application of primers, polyurethane topcoats, or penetrating oils, followed by workshop pre-fitting of all runners, hinges, and handles.",
     gate: "GATE: SURFACE FINISH & SHEEN AUDIT",
   },
   {
@@ -394,11 +394,11 @@ export default function FurnitureCapabilityPage() {
             <div className="flex items-center gap-space-xs">
               <span className="w-2.5 h-2.5 bg-primary"></span>
               <h2 className="font-headline-md text-headline-md text-on-surface uppercase tracking-tight font-bold">
-                5-Phase Millwork Manufacturing Protocol
+                5-Phase Joinery &amp; Millwork Fabrication Protocol
               </h2>
             </div>
             <div className="font-label-sm text-label-sm text-secondary uppercase tracking-widest">
-              FACTORY CONTROLLED // DRY-FIT BEFORE DELIVERY
+              WORKSHOP CONTROLLED // DRY-FIT BEFORE DELIVERY
             </div>
           </div>
 
@@ -458,7 +458,7 @@ export default function FurnitureCapabilityPage() {
               <thead className="bg-surface-container-high text-on-surface font-label-sm text-label-sm uppercase tracking-wider border-b border-outline-variant/40">
                 <tr>
                   <th className="py-3 px-space-md">Joinery Element</th>
-                  <th className="py-3 px-space-md">Manufacturing Baseline</th>
+                  <th className="py-3 px-space-md">Fabrication Baseline</th>
                   <th className="py-3 px-space-md">Verification Protocol</th>
                   <th className="py-3 px-space-md">Standard</th>
                   <th className="py-3 px-space-md text-right">Status</th>

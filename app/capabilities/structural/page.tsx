@@ -71,7 +71,7 @@ const PROCESS = [
   {
     phase: "04",
     title: "Superstructure Erection",
-    desc: "Reinforced concrete frame construction using factory-cut rebar, steel formwork systems, and 5-stage pour protocol with tremie placement and vibration consolidation.",
+    desc: "Reinforced concrete frame construction using precision-cut rebar cages, engineered formwork systems, and 5-stage pour protocol with tremie placement and vibration consolidation.",
   },
   {
     phase: "05",

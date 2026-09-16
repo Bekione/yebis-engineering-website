@@ -115,8 +115,8 @@ const PHASES = [
   },
   {
     phase: "03",
-    title: "Steel Welding, Glazing & Factory Assembly",
-    desc: "Argon-shielded structural steel welding, corner crimping with two-part polyurethane adhesive, and factory setting of insulated glass units.",
+    title: "Steel Welding, Glazing & Workshop Assembly",
+    desc: "Argon-shielded structural steel welding, corner crimping with two-part polyurethane adhesive, and precision workshop setting of insulated glass units.",
     gate: "GATE: 100% CORNER JOINT & SEAL CHECK",
   },
   {
@@ -187,7 +187,7 @@ export default function MetalAluminumCapabilityPage() {
           <div className="flex items-center gap-space-lg">
             <span>STANDARD: ASTM E330 / AWS D1.1</span>
             <span className="text-primary font-medium">
-              STATUS: FACTORY OPERATIONAL
+              STATUS: WORKSHOP OPERATIONAL
             </span>
           </div>
         </div>
@@ -402,7 +402,7 @@ export default function MetalAluminumCapabilityPage() {
               </h2>
             </div>
             <div className="font-label-sm text-label-sm text-secondary uppercase tracking-widest">
-              FACTORY ENGINEERED // CRANE HOISTED PRECISION
+              WORKSHOP FABRICATED // CRANE HOISTED PRECISION
             </div>
           </div>
 

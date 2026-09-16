@@ -72,28 +72,28 @@ export default function WorkPage() {
                 municipal civil infrastructure.
               </p>
             </div>
-            <div className="lg:col-span-4 flex flex-col gap-2.5 bg-surface p-5 border border-outline-variant/40">
-              <div className="flex items-center justify-between text-secondary">
-                <span className="font-label-sm text-label-sm uppercase">
+            <div className="lg:col-span-4 flex flex-col gap-2.5 bg-surface p-5 border border-outline-variant/40 shadow-sm">
+              <div className="flex items-center justify-between text-on-surface-variant">
+                <span className="font-label-sm text-label-sm uppercase font-semibold text-on-surface-variant">
                   Contracting License
                 </span>
-                <span className="font-label-md text-label-md text-on-surface font-semibold">
+                <span className="font-label-md text-label-md text-on-surface font-bold">
                   Grade 1 General Contractor (GC-1)
                 </span>
               </div>
-              <div className="flex items-center justify-between text-secondary">
-                <span className="font-label-sm text-label-sm uppercase">
+              <div className="flex items-center justify-between text-on-surface-variant">
+                <span className="font-label-sm text-label-sm uppercase font-semibold text-on-surface-variant">
                   Regional Radius
                 </span>
                 <span className="font-label-md text-label-md text-on-surface font-semibold">
                   Addis Ababa, Oromia, Amhara, SNNPRS
                 </span>
               </div>
-              <div className="flex items-center justify-between text-secondary">
-                <span className="font-label-sm text-label-sm uppercase">
+              <div className="flex items-center justify-between text-on-surface-variant">
+                <span className="font-label-sm text-label-sm uppercase font-semibold text-on-surface-variant">
                   Delivery Track Record
                 </span>
-                <span className="font-label-md text-label-md text-primary font-semibold">
+                <span className="font-label-md text-label-md text-primary font-bold">
                   {ALL_PROJECTS.length} Documented Contracts
                 </span>
               </div>
@@ -237,34 +237,36 @@ export default function WorkPage() {
               </div>
 
               {/* View Toggle */}
-              <div className="flex items-center gap-1 bg-surface-container p-1 border border-outline-variant/30">
+              <div className="flex items-center gap-1 bg-surface-container-high p-1 border border-outline-variant/50">
                 <button
                   type="button"
                   onClick={() => setViewMode("grid")}
-                  className={`p-1.5 transition-colors ${
+                  className={`flex items-center gap-1.5 px-3 py-1.5 font-label-sm text-label-sm uppercase tracking-wider font-semibold transition-all duration-150 ${
                     viewMode === "grid"
-                      ? "bg-surface text-on-surface shadow-sm"
-                      : "text-secondary hover:text-on-surface"
+                      ? "bg-inverse-surface text-on-primary shadow-sm"
+                      : "text-on-surface hover:text-primary hover:bg-surface/80"
                   }`}
                   title="Grid Showcase View"
                 >
-                  <span className="material-symbols-outlined text-[18px] block">
+                  <span className="material-symbols-outlined text-[16px] block">
                     grid_view
                   </span>
+                  <span className="hidden sm:inline">Grid</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setViewMode("table")}
-                  className={`p-1.5 transition-colors ${
+                  className={`flex items-center gap-1.5 px-3 py-1.5 font-label-sm text-label-sm uppercase tracking-wider font-semibold transition-all duration-150 ${
                     viewMode === "table"
-                      ? "bg-surface text-on-surface shadow-sm"
-                      : "text-secondary hover:text-on-surface"
+                      ? "bg-inverse-surface text-on-primary shadow-sm"
+                      : "text-on-surface hover:text-primary hover:bg-surface/80"
                   }`}
                   title="Official Performance Register Table"
                 >
-                  <span className="material-symbols-outlined text-[18px] block">
+                  <span className="material-symbols-outlined text-[16px] block">
                     table_rows
                   </span>
+                  <span className="hidden sm:inline">Register Table</span>
                 </button>
               </div>
             </div>
@@ -274,20 +276,20 @@ export default function WorkPage() {
 
       {/* Telemetry Operational Strip */}
       <div className="w-full bg-surface-container-high py-2.5 px-6 lg:px-12 border-b border-outline-variant/30">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between text-secondary font-label-sm text-label-sm tracking-wider">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between text-on-surface-variant font-label-sm text-label-sm tracking-wider">
           <div className="flex items-center gap-6">
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-1.5 text-on-surface font-semibold">
               <span className="w-1.5 h-1.5 bg-primary"></span>GC-1 STATUTORY
               REGISTRY
             </span>
-            <span className="hidden md:inline">MOUD-GC1-CERTIFIED</span>
+            <span className="hidden md:inline font-medium">MOUD-GC1-CERTIFIED</span>
             <span className="hidden sm:inline">
               CONTRACT SPECTRUM: TURNKEY GC &amp; TARGETED SUBCONTRACTS
             </span>
           </div>
           <div className="flex items-center gap-4">
             <span>AUDITED BID &amp; TENDER PERFORMANCE</span>
-            <span className="text-primary font-semibold">
+            <span className="text-primary font-bold">
               ETHIOPIAN BUILDING CODE COMPLIANT
             </span>
           </div>
@@ -302,7 +304,7 @@ export default function WorkPage() {
               {filteredProjects.map((project) => (
                 <article
                   key={project.id}
-                  className="project-card flex flex-col bg-surface overflow-hidden border border-outline-variant/40 hover:border-primary transition-all duration-200"
+                  className="project-card flex flex-col bg-surface overflow-hidden border border-outline-variant/40 hover:border-primary transition-all duration-200 shadow-sm hover:shadow-md"
                 >
                   <div className="relative h-64 w-full bg-surface-container-highest overflow-hidden group">
                     <Image
@@ -312,12 +314,13 @@ export default function WorkPage() {
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute top-3 left-3 bg-inverse-surface/90 text-on-primary font-label-sm text-label-sm px-2.5 py-1 tracking-widest uppercase flex items-center gap-1.5">
+                    <div className="absolute top-3 left-3 bg-inverse-surface/90 text-on-primary font-label-sm text-label-sm px-2.5 py-1 tracking-widest uppercase flex items-center gap-1.5 shadow-sm">
                       <span className="w-1.5 h-1.5 bg-primary"></span>
                       {project.id}
                     </div>
-                    <div className="absolute bottom-3 left-3 bg-surface/95 px-2.5 py-1 text-secondary font-label-sm text-label-sm border border-outline-variant/30">
-                      {project.location} · {project.region}
+                    <div className="absolute bottom-3 left-3 right-auto max-w-[calc(100%-24px)] bg-inverse-surface/90 text-white backdrop-blur-md px-2.5 py-1 font-label-sm text-[11px] tracking-wider uppercase border border-white/10 flex items-center gap-1.5 shadow-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0"></span>
+                      <span className="truncate">{project.location} · {project.region}</span>
                     </div>
                   </div>
 

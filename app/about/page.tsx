@@ -283,7 +283,7 @@ export default function AboutPage() {
                 key={m.label}
                 className="p-space-md flex flex-col gap-space-xs"
               >
-                <span className="font-label-sm text-label-sm text-secondary uppercase">
+                <span className="font-label-sm text-label-sm text-on-surface-variant font-semibold uppercase">
                   {m.label}
                 </span>
                 <span className="font-headline-md text-[22px] leading-[30px] lg:text-headline-md font-bold text-on-surface">
