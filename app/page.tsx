@@ -33,7 +33,7 @@ export default function HomePage() {
             <div className="flex items-center gap-space-md text-secondary">
               <span>HQ: BOLE ROAD, ADDIS ABABA</span>
               <span className="text-primary font-medium">
-                14+ VERIFIED PUBLIC &amp; NGO CONTRACTS
+                19+ DELIVERED PROJECTS ACROSS ETHIOPIA
               </span>
             </div>
           </div>
@@ -152,11 +152,11 @@ export default function HomePage() {
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-primary"></span>
-              VERIFIED CLIENT ROSTER // GOVERNMENTAL, NGO &amp; INSTITUTIONAL
+              PROVEN CLIENT ROSTER // GOVERNMENTAL, NGO &amp; INSTITUTIONAL
               CONTRACTS
             </span>
             <span className="font-label-sm text-label-sm text-primary font-semibold uppercase">
-              14 AUDITED PROJECTS IN WORK PERFORMANCE RECORD
+              DOCUMENTED PUBLIC, NGO &amp; COMMERCIAL CONTRACTS
             </span>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 pt-2">
@@ -1008,7 +1008,7 @@ export default function HomePage() {
                       BOQ &amp; Spec Matrix
                     </span>
                     <span className="font-label-sm text-label-sm text-primary">
-                      VERIFIED GC-1
+                      LICENSED GC-1
                     </span>
                   </div>
                   <div className="flex flex-col gap-3 font-label-sm text-label-sm">

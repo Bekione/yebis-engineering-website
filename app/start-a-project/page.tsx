@@ -8,33 +8,33 @@ import { useState } from "react";
 const PROJECT_TYPES = [
   {
     key: "new_construction",
-    label: "New Construction",
-    desc: "Ground-up commercial, institutional, or high-density residential.",
+    label: "New Construction (Turnkey)",
+    desc: "Ground-up commercial building, institutional facility, or residential villa.",
   },
   {
-    key: "building_renovation",
-    label: "Building Renovation",
-    desc: "Structural strengthening, MEP modernization, and interior refit.",
+    key: "structural_skeleton",
+    label: "Structural Skeleton / Frame",
+    desc: "Foundation excavation, reinforced concrete columns, beams, slabs, or steel framing.",
+  },
+  {
+    key: "skeleton_finishing",
+    label: "Finishing Incomplete Skeleton",
+    desc: "Taking over an existing concrete frame to complete all walls, MEP, and interior finishes.",
   },
   {
     key: "interior_fitout",
-    label: "Interior Fit-Out",
-    desc: "Turnkey finishing — gypsum, flooring, millwork, and lighting.",
+    label: "Interior Finishing & Partitions",
+    desc: "Gypsum drywall partitions, plastering, high-grade paint, tiling, and equipment.",
   },
   {
     key: "trade_scope",
-    label: "Specialized Trade Scope",
-    desc: "Single-discipline: electrical, plumbing, aluminum, or joinery.",
-  },
-  {
-    key: "design_build",
-    label: "Design & Build",
-    desc: "Full BIM coordination, engineering, and integrated execution.",
+    label: "Specialized Trade (MEP / Aluminum / Gates)",
+    desc: "Targeted scope: electrical, plumbing, aluminum windows, doors, or compound gates.",
   },
   {
     key: "maintenance",
-    label: "Facilities Maintenance",
-    desc: "Preventative maintenance, lifecycle repairs, and asset care.",
+    label: "Renovation & Maintenance",
+    desc: "Restoring damaged or older homes, leak repairs, structural stabilization, and refits.",
   },
 ];
 

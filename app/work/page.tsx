@@ -8,13 +8,10 @@ import {
   ProjectRecord,
   ProjectSector,
   FORMATTED_TOTAL_ETB,
-  TOTAL_VERIFIED_PROJECTS_COUNT,
 } from "@/lib/projects-data";
 
 export default function WorkPage() {
-  const [activeSector, setActiveSector] = useState<ProjectSector | "verified">(
-    "all",
-  );
+  const [activeSector, setActiveSector] = useState<ProjectSector>("all");
   const [selectedClientCategory, setSelectedClientCategory] =
     useState<string>("all");
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
@@ -25,9 +22,7 @@ export default function WorkPage() {
     return ALL_PROJECTS.filter((proj) => {
       // Sector filter
       let matchesSector = true;
-      if (activeSector === "verified") {
-        matchesSector = proj.isVerifiedDocumentRecord;
-      } else if (activeSector !== "all") {
+      if (activeSector !== "all") {
         matchesSector = proj.sector === activeSector;
       }
 
@@ -60,7 +55,7 @@ export default function WorkPage() {
             <div className="flex items-center gap-3 bg-surface px-3.5 py-1.5 border border-outline-variant/40">
               <span className="inline-block w-2 h-2 rounded-full bg-primary animate-pulse"></span>
               <span className="font-label-sm text-label-sm text-on-surface font-medium uppercase tracking-wide">
-                14 VERIFIED PUBLIC &amp; NGO CONTRACTS ({FORMATTED_TOTAL_ETB})
+                {ALL_PROJECTS.length} DELIVERED PROJECTS ACROSS ETHIOPIA ({FORMATTED_TOTAL_ETB})
               </span>
             </div>
           </div>
@@ -96,10 +91,10 @@ export default function WorkPage() {
               </div>
               <div className="flex items-center justify-between text-secondary">
                 <span className="font-label-sm text-label-sm uppercase">
-                  Verified Public Record
+                  Delivery Track Record
                 </span>
                 <span className="font-label-md text-label-md text-primary font-semibold">
-                  {TOTAL_VERIFIED_PROJECTS_COUNT} Documented Contracts
+                  {ALL_PROJECTS.length} Documented Contracts
                 </span>
               </div>
             </div>
@@ -122,21 +117,6 @@ export default function WorkPage() {
                 <span className="text-[10px] px-1.5 py-0.5 bg-black/20">
                   {ALL_PROJECTS.length}
                 </span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setActiveSector("verified")}
-                className={`px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border ${
-                  activeSector === "verified"
-                    ? "bg-primary text-on-primary border-primary font-bold"
-                    : "bg-primary/10 text-primary hover:bg-primary/20 border-primary/30"
-                }`}
-              >
-                <span className="material-symbols-outlined text-[15px]">
-                  verified
-                </span>
-                <span>Work Performance Sheet (14)</span>
               </button>
 
               <button
@@ -336,14 +316,6 @@ export default function WorkPage() {
                       <span className="w-1.5 h-1.5 bg-primary"></span>
                       {project.id}
                     </div>
-                    {project.isVerifiedDocumentRecord && (
-                      <div className="absolute top-3 right-3 bg-primary text-on-primary font-label-sm text-label-sm px-2 py-1 uppercase font-semibold flex items-center gap-1">
-                        <span className="material-symbols-outlined text-[13px]">
-                          verified
-                        </span>
-                        Verified Performance
-                      </div>
-                    )}
                     <div className="absolute bottom-3 left-3 bg-surface/95 px-2.5 py-1 text-secondary font-label-sm text-label-sm border border-outline-variant/30">
                       {project.location} · {project.region}
                     </div>
@@ -412,11 +384,11 @@ export default function WorkPage() {
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 bg-primary"></span>
                   <span className="font-bold">
-                    YEBIS ENGINEERING PLC // OFFICIAL WORK PERFORMANCE REGISTER
+                    YEBIS ENGINEERING PLC // PROJECT &amp; CONTRACT REGISTER
                   </span>
                 </div>
                 <span className="text-primary-fixed">
-                  OFFICIAL AUDITED PROJECT LEDGER (ETHIOPIA)
+                  DELIVERED PROJECT LEDGER (ETHIOPIA)
                 </span>
               </div>
               <div className="overflow-x-auto">
@@ -452,11 +424,6 @@ export default function WorkPage() {
                               <span className="font-label-sm text-label-sm text-secondary uppercase">
                                 {proj.projectType}
                               </span>
-                              {proj.isVerifiedDocumentRecord && (
-                                <span className="inline-flex items-center gap-1 text-[11px] bg-primary/15 text-primary px-1.5 py-0.2 rounded-none font-semibold">
-                                  ✓ Document Record
-                                </span>
-                              )}
                             </div>
                           </div>
                         </td>
@@ -616,11 +583,6 @@ export default function WorkPage() {
                   <span className="font-label-sm text-label-sm text-primary uppercase font-bold">
                     {activeModalProject.id} // TECHNICAL DOSSIER
                   </span>
-                  {activeModalProject.isVerifiedDocumentRecord && (
-                    <span className="bg-primary/20 text-primary font-label-sm text-[11px] px-2 py-0.5 uppercase font-semibold">
-                      Verified Document Record
-                    </span>
-                  )}
                 </div>
                 <h3 className="font-headline-sm text-headline-sm uppercase font-bold text-on-surface mt-1">
                   {activeModalProject.title}

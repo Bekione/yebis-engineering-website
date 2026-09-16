@@ -21,14 +21,14 @@ export const metadata: Metadata = {
 
 const METRICS = [
   {
-    label: "Verified Tenders",
-    value: "14 Contracts",
-    detail: "Audited public & NGO tenders",
+    label: "Delivered Contracts",
+    value: "19+ Projects",
+    detail: "Government, NGO & private sector",
   },
   {
-    label: "Historical Value",
-    value: "ETB 28.5M+",
-    detail: "Documented project performance",
+    label: "Contract Value",
+    value: "ETB 145M+",
+    detail: "Executed project track record",
   },
   {
     label: "Contractor Class",
@@ -41,42 +41,42 @@ const METRICS = [
     detail: "Addis Ababa, Oromia, Amhara, SNNPRS",
   },
   {
-    label: "Contract Breadth",
-    value: "Turnkey & Scopes",
-    detail: "From G+4 blocks to radiation suites",
+    label: "Contract Scope",
+    value: "Full Lifecycle",
+    detail: "Turnkey, skeleton only & finishing",
   },
   {
     label: "Standards Compliance",
     value: "100%",
-    detail: "EBCS & FIDIC contract rigor",
+    detail: "EBCS & statutory building codes",
   },
 ];
 
 const PHASES = [
   {
     phase: "01",
-    title: "Pre-Construction & Planning",
-    desc: "Geotechnical surveys, BIM coordination, value engineering, and construction methodology planning. Every project begins with rigorous subsurface investigation and clash-free 3D modeling.",
+    title: "Pre-Construction & Feasibility",
+    desc: "Site surveying, architectural review, bill of quantities (BOQ) optimization, and statutory permitting. Ensuring clear project timelines and realistic material budgeting before ground break.",
   },
   {
     phase: "02",
     title: "Civil & Structural Works",
-    desc: "Mass excavation, deep foundation installation, reinforced concrete framing, and superstructure erection. Managed through 5-stage pour protocols and real-time quality gates.",
+    desc: "Excavation, foundation footings, reinforced concrete framing, columns, beams, and slabs. Also offered as standalone structural scaffolding and skeleton-only contract packages.",
   },
   {
     phase: "03",
     title: "MEP & Building Services",
-    desc: "Electrical distribution, plumbing networks, fire protection systems, and HVAC installations. All executed in-house with certified engineers and tested to EBCS compliance.",
+    desc: "Electrical distribution, conduit routing, water supply reticulation, sanitary drainage, and standby generator integration. Rigorously pressure-tested prior to any wall closing.",
   },
   {
     phase: "04",
-    title: "Interior Architecture & Finishing",
-    desc: "Gypsum ceilings, porcelain flooring, wall treatments, and architectural lighting. Delivered to Q4 DIN finish standards with ±1.5mm laser-verified tolerances.",
+    title: "Finishing & Architectural Fit-Out",
+    desc: "Hollow concrete blockwork, gypsum drywall partitions, acoustic ceilings, high-grade paint systems, ceramic/porcelain tiling, custom doors, windows, and perimeter compound gates.",
   },
   {
     phase: "05",
-    title: "Handover & Commissioning",
-    desc: "Systematic commissioning, snag list resolution, as-built documentation, and client training. Projects are handed over with complete technical dossiers and warranty packages.",
+    title: "Handover, Commissioning & Maintenance",
+    desc: "Complete system testing, client walk-throughs, as-built documentation handover, and ongoing facility maintenance support for commercial and residential properties.",
   },
 ];
 
@@ -108,18 +108,18 @@ const LEADERSHIP = [
 ];
 
 const EQUIPMENT = [
-  "Tower Cranes (TC 6024 / TC 7030)",
-  "Concrete Boom Pumps (52M Reach)",
-  "Hydraulic Excavators (CAT 320/330)",
-  "Concrete Batching Plants (60m³/hr)",
-  "Steel Formwork Systems (PERI/DOKA)",
-  "CNC Joinery Workshop Equipment",
-  "Aluminum Fabrication Cutting Lines",
-  "Welding & Metal Fab Workshop",
-  "Scaffolding Systems (Ring-Lock)",
-  "Survey & Total Station Equipment",
-  "Material Testing Lab (In-House)",
-  "Fleet Vehicles & Site Logistics",
+  "Hydraulic Excavators & Earthmoving Fleet",
+  "Mobile Concrete Boom Pumps & Site Mixers",
+  "Heavy-Duty Scaffolding & Formwork Systems",
+  "Rebar Straightening, Cutting & Bending Units",
+  "Precision Aluminum Mitre Saws & Milling Machines",
+  "Custom Woodworking Joinery & CNC Workshop",
+  "MIG, TIG & Shielded Metal Arc Welding Units",
+  "Total Station & Digital Theodolite Instruments",
+  "Hydrostatic MEP Pressure Testing Equipment",
+  "Concrete Slump Testing & Cube Sampling Sets",
+  "Heavy-Duty Core Drilling & Demolition Rigs",
+  "Site Logistics & Heavy Material Transport Fleet",
 ];
 
 export default function AboutPage() {
@@ -152,7 +152,7 @@ export default function AboutPage() {
               SEC_ABT-01 // ORGANIZATIONAL PROFILE ]
             </span>
             <span className="font-label-sm text-label-sm text-on-surface-variant font-medium hidden md:inline">
-              REV: 2024.Q4 // PUBLIC AUDIT
+              REGISTRATION: GRADE 1 (GC-1)
             </span>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
@@ -160,27 +160,27 @@ export default function AboutPage() {
               <div className="inline-flex items-center gap-2 px-2 py-1 bg-surface-container w-fit border border-outline-variant/40 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
                 <span>GC-1 GENERAL CONTRACTOR</span>
                 <span className="text-primary">•</span>
-                <span>STRUCTURAL &amp; TURNKEY INTEGRATION</span>
+                <span>STRUCTURAL, SKELETON &amp; FINISHING</span>
               </div>
               <h1 className="font-headline-xl text-[36px] leading-[44px] lg:text-headline-xl text-on-surface uppercase tracking-tight font-bold">
                 Built Through Discipline. Grounded In Ethiopia.
               </h1>
               <p className="font-body-lg text-body-lg text-primary font-medium leading-relaxed max-w-3xl">
-                From deep foundation civil works to artisanal architectural
-                finishing, Yebis Engineering PLC operates as a fully integrated
-                Ethiopian contractor engineered to eradicate project
-                fragmentation.
+                From full turnkey building construction and structural skeleton
+                scaffolding to taking over incomplete frames, high-end interior
+                finishing, and property renovation—Yebis Engineering PLC delivers
+                single-source construction excellence across Ethiopia.
               </p>
               <p className="font-body-md text-body-md text-on-surface-variant max-w-3xl leading-relaxed">
-                Founded in Addis Ababa, Yebis was established with a singular
-                operational thesis: complex building developments fail at the
-                unmanaged seams between civil contractors, MEP subcontractors,
-                and interior finishing trades. By consolidating structural
-                engineering, certified MEP installations, dedicated aluminum and
-                metal fabrication yards, and bespoke architectural millwork
-                under a single unified engineering governance, we deliver
-                projects on budget, on schedule, and to exact international
-                tolerances.
+                Founded in Addis Ababa, Yebis was established with a clear
+                mission: eliminate the frustration and delays caused by fragmented
+                subcontractors. Whether you are an organization tendering a public
+                project, a commercial developer completing a multi-story building,
+                or a private homeowner building a villa or renovating an existing
+                property—we manage everything under unified engineering governance.
+                Our in-house capabilities span structural civil works, certified
+                electrical &amp; sanitary installations, aluminum windows, doors and
+                gates fabrication, and bespoke interior joinery.
               </p>
               <div className="pt-space-md flex flex-wrap items-center gap-space-md">
                 <Link

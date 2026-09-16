@@ -5,104 +5,104 @@ import { IMG } from "@/lib/site-images";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Engineering Insights & Field Briefings",
+  title: "Field Notes & Construction Guides | Yebis Engineering PLC",
   description:
-    "Technical monographs, field briefings, and engineering intelligence from Yebis Engineering. Geotechnical analysis, concrete mix design for Addis Ababa volcanic clay, and EBCS compliance guides.",
+    "Practical contractor insights, construction guides, and field advice from Yebis Engineering PLC. Best practices for turnkey building, finishing incomplete skeletons, MEP coordination, aluminum fabrication, and building renovation in Ethiopia.",
   alternates: {
     canonical: `${SITE_URL}/insights`,
   },
   openGraph: {
-    title: "Engineering Insights & Field Briefings | Yebis Engineering PLC",
+    title: "Field Notes & Construction Guides | Yebis Engineering PLC",
     description:
-      "Technical monographs, field briefings, and engineering intelligence from Yebis Engineering.",
+      "Practical contractor insights, construction guides, and field advice from Yebis Engineering PLC.",
     url: `${SITE_URL}/insights`,
   },
 };
 
 const FEATURED = {
-  tag: "PRIMARY INVESTIGATION",
-  dispatch: "FIELD DISPATCH 014 // GEOTECHNICAL & DEEP FOUNDATIONS",
+  tag: "CONTRACTOR FIELD ADVISORY",
+  dispatch: "FIELD BRIEFING 01 // SKELETON COMPLETION & FIT-OUT",
   title:
-    "Optimizing Deep Foundation Systems on Addis Ababa's Volcanic Tuff Substrata",
+    "Taking Over and Finishing Incomplete Concrete Skeletons: A Contractor's Guide for Property Owners in Addis Ababa",
   abstract:
-    "A comprehensive field investigation into bored pile performance under variable volcanic soil conditions in the central Addis Ababa plateau. This monograph analyzes bearing capacity degradation factors observed across 12 commercial foundation projects and proposes revised design parameters for tuff-over-clay transition zones at depths between 8–22 meters.",
-  image: IMG.foundation,
+    "Across Addis Ababa and regional hubs, numerous multi-story developments pause construction at the bare reinforced concrete skeleton stage. Transitioning an exposed frame into an occupied commercial or residential asset requires structured structural integrity checks, MEP conduit tracing, water ingress remediation, and sequenced interior trades. This practical briefing outlines Yebis Engineering's proven methodology for completing structural skeletons on schedule and within budget without costly rework.",
+  image: IMG.superstructure,
   specs: [
-    { label: "Investigation Period", value: "18 Months" },
-    { label: "Borehole Samples", value: "248" },
-    { label: "Projects Analyzed", value: "12" },
-    { label: "Depth Range", value: "8-22M" },
+    { label: "Execution Model", value: "Skeleton to Turnkey" },
+    { label: "Core Disciplines", value: "Structural, MEP & Finishing" },
+    { label: "Building Typologies", value: "G+2 to G+10 Commercial/Res." },
+    { label: "Code Standard", value: "Ethiopian Building Code (EBCS)" },
   ],
-  readTime: "18 MIN TECHNICAL READ",
-  date: "2024-Q3",
+  readTime: "8 MIN CONTRACTOR READ",
+  date: "PRACTICAL GUIDE",
 };
 
 const ARTICLES = [
   {
-    id: "FLD-013",
-    category: "CONCRETE TECHNOLOGY",
+    id: "INS-001",
+    category: "CONTRACTING STRATEGY",
     title:
-      "High-Performance Concrete Mix Design for Ethiopian Highland Climate Conditions",
+      "Turnkey Contracting vs. Skeleton-Only Construction: What Ethiopian Developers Need to Know",
     excerpt:
-      "Investigating C40/C50 performance under high-altitude UV exposure, diurnal temperature swings, and volcanic aggregate variability in Addis Ababa construction projects.",
+      "A practical comparison of contracting the structural skeleton only versus committing to full turnkey delivery. How material market fluctuations (cement, rebar) and trade coordination impact total project delivery.",
     image: IMG.concretePour,
-    readTime: "14 MIN",
-    date: "2024-Q2",
+    readTime: "7 MIN",
+    date: "STRATEGY GUIDE",
   },
   {
-    id: "FLD-012",
-    category: "FACADE ENGINEERING",
+    id: "INS-002",
+    category: "ELECTRICAL & PLUMBING (MEP)",
     title:
-      "Thermal Break Aluminum Systems: Performance Testing in East African High-Altitude Environments",
+      "Proper MEP Sequencing: Why Conduits and Pressure Tests Must Precede Plastering and Screeds",
     excerpt:
-      "Comprehensive thermal cycling and wind-load testing data for unitized curtain wall systems installed at 2,300M+ elevation in Addis Ababa commercial towers.",
+      "Preventing broken walls and leaking pipes. Why electrical conduit paths, distribution boxes, and sanitary piping must undergo hydrostatic testing before gypsum partitions and floor screeds are placed.",
+    image: IMG.plumbing,
+    readTime: "6 MIN",
+    date: "TECHNICAL NOTE",
+  },
+  {
+    id: "INS-003",
+    category: "ALUMINUM & METALWORK",
+    title:
+      "Selecting Windows, External Doors & Compound Gates: Powder-Coated Aluminum vs. Hardwood Fabrication",
+    excerpt:
+      "Comparing weather resistance, UV durability, security, and long-term maintenance between high-grade aluminum systems and solid timber for Ethiopian highland conditions.",
     image: IMG.facade,
-    readTime: "12 MIN",
-    date: "2024-Q2",
+    readTime: "6 MIN",
+    date: "MATERIALS GUIDE",
   },
   {
-    id: "FLD-011",
-    category: "MEP SYSTEMS",
+    id: "INS-004",
+    category: "RENOVATION & REPAIR",
     title:
-      "Electrical Resilience Under Volatile Grid Conditions: ATS Design for Ethiopian Commercial Buildings",
+      "Restoring Aging or Damaged Buildings: Remedying Roof Slab Leaks, Wall Cracks, and Dampness",
     excerpt:
-      "Automatic Transfer Switch synchronization protocols and generator sizing methodologies for buildings experiencing 8+ power interruptions per week.",
-    image: IMG.electrical,
-    readTime: "16 MIN",
-    date: "2024-Q1",
-  },
-  {
-    id: "FLD-010",
-    category: "INTERIOR FINISHING",
-    title:
-      "Achieving Q4 Gypsum Finish Standards in Tropical Construction Environments",
-    excerpt:
-      "Moisture management, curing protocols, and jointing techniques for achieving European DIN EN 13914 gypsum surface standards in high-humidity Ethiopian conditions.",
-    image: IMG.cleanroom,
-    readTime: "10 MIN",
-    date: "2024-Q1",
-  },
-  {
-    id: "FLD-009",
-    category: "STRUCTURAL ANALYSIS",
-    title:
-      "Seismic Retrofitting of Existing RC Structures Using Carbon Fiber Reinforcement",
-    excerpt:
-      "Field application data from 6 commercial building retrofits in Addis Ababa, documenting CFRP wrap application techniques and post-strengthening load test results.",
+      "A contractor's diagnostic approach to repairing older villas and commercial properties. Proven techniques for elastomeric slab waterproofing, crack stabilization, and facade rejuvenation.",
     image: IMG.renovation,
-    readTime: "15 MIN",
-    date: "2023-Q4",
+    readTime: "8 MIN",
+    date: "FIELD ADVISORY",
   },
   {
-    id: "FLD-008",
-    category: "JOINERY & MILLWORK",
+    id: "INS-005",
+    category: "STRUCTURAL QUALITY CONTROL",
     title:
-      "Kiln Drying Protocols for Ethiopian Hardwood Species in Architectural Applications",
+      "On-Site Concrete Quality Control: Slump Testing, Cube Crushing, and 28-Day Curing in Ethiopia",
     excerpt:
-      "Moisture content management, dimensional stability testing, and CNC machining tolerances for indigenous timber species used in executive interior joinery.",
-    image: IMG.joinery,
-    readTime: "11 MIN",
-    date: "2023-Q4",
+      "How Yebis verifies C25/C30 concrete mixes on the job site. Enforcing proper water-cement ratios, aggregate grading, and strict water curing protocols to guarantee structural safety.",
+    image: IMG.towers,
+    readTime: "7 MIN",
+    date: "SITE PROTOCOL",
+  },
+  {
+    id: "INS-006",
+    category: "INTERIOR ARCHITECTURE & FINISHING",
+    title:
+      "Interior Partitions & Finishing: Gypsum Drywall vs. Hollow Concrete Block for Modern Spaces",
+    excerpt:
+      "Evaluating dead-load weight, acoustic insulation, flexibility, and installation speed when dividing commercial office spaces, healthcare rooms, and residential apartment interiors.",
+    image: IMG.boardroom,
+    readTime: "6 MIN",
+    date: "FINISHING GUIDE",
   },
 ];
 
@@ -117,52 +117,55 @@ export default function InsightsPage() {
             <div className="flex items-center gap-3">
               <span className="w-2.5 h-2.5 bg-primary"></span>
               <span className="font-label-sm text-label-sm tracking-widest text-on-surface-variant uppercase">
-                SYS_REF: INS_ARCHIVE // SEC_FLD-07 // TECHNICAL INTELLIGENCE
-                &amp; METHODOLOGY
+                FIELD ARCHIVE // CONTRACTOR INTELLIGENCE &amp; PROJECT GUIDES
               </span>
             </div>
             <div className="hidden sm:flex items-center gap-4 font-label-sm text-label-sm text-secondary">
-              <span>PEER_REV: ISO/IEC 17025</span>
+              <span>ETHIOPIAN BUILDING CODE (EBCS)</span>
               <span>•</span>
-              <span>GEO_ZONE: AA_CENTRAL_PLATEAU</span>
+              <span>GRADE 1 CONTRACTOR (GC-1)</span>
             </div>
           </div>
           {/* Main Editorial Header */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
             <div className="lg:col-span-8 flex flex-col gap-4">
               <span className="font-label-md text-label-md tracking-wider text-primary font-bold uppercase">
-                Field Monographs • Series 2024–2025
+                Field Notes &amp; Construction Guides
               </span>
               <h1 className="font-headline-xl text-[36px] leading-[44px] lg:text-headline-xl tracking-tight text-on-surface font-bold uppercase max-w-4xl">
-                From the Field: Engineering Briefings &amp; Technical
-                Monographs.
+                Practical Intelligence for Property Owners &amp; Developers.
               </h1>
               <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
-                In-depth analyses of geotechnical challenges, high-performance
-                concrete mix designs, facade thermal performance, and statutory
-                compliance across the Ethiopian highland built environment.
+                Practical guidance on taking over bare concrete skeletons,
+                coordinating electrical and plumbing rough-ins before
+                finishing, quality control during concrete casting, and
+                renovating existing properties across Ethiopia.
               </p>
             </div>
             {/* Telemetry Data Grid */}
             <div className="lg:col-span-4 bg-surface-container-lowest border border-outline-variant/40 p-5 grid grid-cols-2 gap-4 shadow-sm">
               {[
                 {
-                  label: "Monographs Published",
-                  value: "18",
-                  badge: "DOCS ACTIVE",
-                  highlight: true,
-                },
-                { label: "Research Labs", value: "04", badge: "DISCIPLINES" },
-                {
-                  label: "Peer-Review Index",
-                  value: "99.4%",
-                  badge: "AUDITED",
+                  label: "Contract Modalities",
+                  value: "Turnkey",
+                  badge: "& SKELETON",
                   highlight: true,
                 },
                 {
-                  label: "Code Alignments",
+                  label: "In-House Disciplines",
+                  value: "08",
+                  badge: "DIVISIONS",
+                },
+                {
+                  label: "Building Code",
                   value: "EBCS",
-                  badge: "/ EUROCODE",
+                  badge: "COMPLIANT",
+                  highlight: true,
+                },
+                {
+                  label: "Project Scales",
+                  value: "Villas",
+                  badge: "TO TOWERS",
                 },
               ].map((item) => (
                 <div
@@ -173,7 +176,7 @@ export default function InsightsPage() {
                     {item.label}
                   </span>
                   <div className="flex items-baseline gap-2 mt-1">
-                    <span className="font-headline-md text-[22px] leading-[30px] font-bold text-on-surface">
+                    <span className="font-headline-md text-[20px] leading-[28px] font-bold text-on-surface">
                       {item.value}
                     </span>
                     <span
@@ -202,7 +205,7 @@ export default function InsightsPage() {
               </span>
             </div>
             <span className="font-label-sm text-label-sm text-secondary hidden sm:inline">
-              DATUM ELEVATION: 2,348M // ADDIS ABABA BASIN
+              OPERATIONAL SCOPE // ADDIS ABABA &amp; REGIONS
             </span>
           </div>
 
@@ -220,7 +223,7 @@ export default function InsightsPage() {
                 <div className="flex items-center gap-3">
                   <span className="w-2 h-2 bg-primary"></span>
                   <span className="font-label-sm text-label-sm text-primary-fixed uppercase tracking-wider">
-                    GEOTECHNICAL &amp; DEEP FOUNDATIONS
+                    SKELETON COMPLETION &amp; FIT-OUT STRATEGY
                   </span>
                 </div>
                 <h2 className="font-headline-lg text-[28px] leading-[36px] lg:text-headline-lg text-on-primary uppercase font-bold max-w-2xl">
@@ -247,20 +250,25 @@ export default function InsightsPage() {
               <div className="flex flex-col gap-4">
                 <div className="flex items-center justify-between font-label-sm text-label-sm text-secondary">
                   <span>{FEATURED.readTime}</span>
-                  <span>{FEATURED.date}</span>
+                  <span className="text-primary font-semibold">
+                    {FEATURED.date}
+                  </span>
                 </div>
                 <h3 className="font-headline-sm text-headline-sm text-on-surface uppercase font-bold">
-                  Abstract
+                  Overview &amp; Practical Roadmap
                 </h3>
                 <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
                   {FEATURED.abstract}
                 </p>
               </div>
               <div className="flex items-center gap-space-md pt-space-md border-t border-outline-variant/30">
-                <span className="inline-flex items-center gap-space-xs bg-inverse-surface text-on-primary font-label-lg text-label-lg uppercase px-space-lg py-space-sm cursor-pointer hover:bg-primary transition-colors">
-                  <span className="tracking-wider">Read Full Monograph</span>
+                <Link
+                  href="/start-a-project"
+                  className="inline-flex items-center gap-space-xs bg-inverse-surface text-on-primary font-label-lg text-label-lg uppercase px-space-lg py-space-sm cursor-pointer hover:bg-primary transition-colors"
+                >
+                  <span className="tracking-wider">Inquire Skeleton Finishing</span>
                   <span className="text-primary-fixed">→</span>
-                </span>
+                </Link>
               </div>
             </div>
           </article>
@@ -274,11 +282,11 @@ export default function InsightsPage() {
             <div className="flex items-center gap-space-sm">
               <span className="w-3 h-3 bg-inverse-surface"></span>
               <span className="font-headline-sm text-headline-sm uppercase text-on-surface font-bold">
-                Field Dispatch Archive
+                Contractor Guides &amp; Field Notes
               </span>
             </div>
             <span className="font-label-sm text-label-sm text-secondary uppercase hidden md:inline">
-              CHRONOLOGICAL // PEER-REVIEWED PUBLICATIONS
+              PRACTICAL CONSTRUCTION ADVISORIES // ETHIOPIA
             </span>
           </div>
 
@@ -305,7 +313,9 @@ export default function InsightsPage() {
                 <div className="p-space-lg flex flex-col gap-space-sm flex-1">
                   <div className="flex items-center justify-between font-label-sm text-label-sm text-secondary">
                     <span>{article.id}</span>
-                    <span>{article.date}</span>
+                    <span className="text-primary font-semibold">
+                      {article.date}
+                    </span>
                   </div>
                   <h3 className="font-headline-sm text-[16px] leading-[22px] text-on-surface uppercase font-bold">
                     {article.title}
@@ -315,11 +325,14 @@ export default function InsightsPage() {
                   </p>
                   <div className="flex items-center justify-between pt-space-sm border-t border-outline-variant/20 mt-auto">
                     <span className="font-label-sm text-label-sm text-secondary">
-                      {article.readTime} READ
+                      {article.readTime}
                     </span>
-                    <span className="font-label-sm text-label-sm text-primary font-bold cursor-pointer hover:underline">
-                      READ BRIEFING →
-                    </span>
+                    <Link
+                      href="/start-a-project"
+                      className="font-label-sm text-label-sm text-primary font-bold hover:underline"
+                    >
+                      CONSULT WITH US →
+                    </Link>
                   </div>
                 </div>
               </article>
@@ -333,11 +346,12 @@ export default function InsightsPage() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-space-lg">
           <div className="flex flex-col gap-space-xs">
             <h2 className="font-headline-md text-headline-md text-on-primary uppercase font-bold">
-              Have a technical challenge?
+              Planning a building project or finishing an existing structure?
             </h2>
             <p className="font-body-md text-body-md text-inverse-on-surface">
-              Our engineering bureau can assess your project&apos;s technical
-              requirements and provide detailed methodology proposals.
+              From new construction to skeleton completion, interior finishing,
+              and renovations—our engineers assess your site and deliver
+              transparent, realistic proposals.
             </p>
           </div>
           <Link

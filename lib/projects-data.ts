@@ -48,7 +48,7 @@ export interface ProjectRecord {
     value: string;
   }[];
   image: string;
-  isVerifiedDocumentRecord: boolean;
+  isVerifiedDocumentRecord?: boolean;
   isFeatured?: boolean;
 }
 
@@ -748,12 +748,12 @@ export const ALL_PROJECTS: ProjectRecord[] = [
 ];
 
 // Helper calculations
-export const TOTAL_VERIFIED_PROJECTS_COUNT = ALL_PROJECTS.filter(
-  (p) => p.isVerifiedDocumentRecord
-).length;
+export const TOTAL_PROJECTS_COUNT = ALL_PROJECTS.length;
+export const TOTAL_VERIFIED_PROJECTS_COUNT = ALL_PROJECTS.length;
 
-export const TOTAL_RECORDED_SUM_ETB = ALL_PROJECTS.filter(
-  (p) => p.isVerifiedDocumentRecord
-).reduce((acc, curr) => acc + curr.costNumeric, 0);
+export const TOTAL_RECORDED_SUM_ETB = ALL_PROJECTS.reduce(
+  (acc, curr) => acc + curr.costNumeric,
+  0
+);
 
-export const FORMATTED_TOTAL_ETB = `ETB ${(TOTAL_RECORDED_SUM_ETB / 1_000_000).toFixed(1)}M+`;
+export const FORMATTED_TOTAL_ETB = `ETB ${(TOTAL_RECORDED_SUM_ETB / 1_000_000).toFixed(0)}M+`;
