@@ -112,7 +112,7 @@ export function SiteHeader() {
               Headquarters · Bole
             </span>
             <span className="font-label-md text-label-md text-on-surface font-medium">
-              +251 11 667 8900
+              +251 91 151 7784
             </span>
           </div>
 
@@ -164,7 +164,7 @@ export function SiteHeader() {
             );
           })}
           <div className="pt-2 flex flex-col gap-2 font-label-sm text-label-sm text-secondary">
-            <div>HOTLINE: +251 11 667 8900</div>
+            <div>HOTLINE: +251 91 151 7784</div>
             <div>BOLE ROAD, ADDIS ABABA</div>
           </div>
         </div>

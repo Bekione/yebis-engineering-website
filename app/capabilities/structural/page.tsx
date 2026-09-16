@@ -20,12 +20,36 @@ export const metadata: Metadata = {
 };
 
 const SPECS = [
-  { label: "Max Pile Depth", value: "35M", detail: "Bored cast-in-situ on volcanic substrata" },
-  { label: "Concrete Grade", value: "C40", detail: "High-performance mix design for seismic zones" },
-  { label: "Rebar Capacity", value: "1,200T", detail: "Per-project deformed bar throughput" },
-  { label: "Axial Load Rating", value: "4,500kN", detail: "Single pile verified capacity" },
-  { label: "Pour Protocol", value: "5-Stage", detail: "Tremie, vibration, cure, test, certify" },
-  { label: "Seismic Zone", value: "Zone IV", detail: "EBCS EN 1998 compliance envelope" },
+  {
+    label: "Max Pile Depth",
+    value: "35M",
+    detail: "Bored cast-in-situ on volcanic substrata",
+  },
+  {
+    label: "Concrete Grade",
+    value: "C40",
+    detail: "High-performance mix design for seismic zones",
+  },
+  {
+    label: "Rebar Capacity",
+    value: "1,200T",
+    detail: "Per-project deformed bar throughput",
+  },
+  {
+    label: "Axial Load Rating",
+    value: "4,500kN",
+    detail: "Single pile verified capacity",
+  },
+  {
+    label: "Pour Protocol",
+    value: "5-Stage",
+    detail: "Tremie, vibration, cure, test, certify",
+  },
+  {
+    label: "Seismic Zone",
+    value: "Zone IV",
+    detail: "EBCS EN 1998 compliance envelope",
+  },
 ];
 
 const PROCESS = [
@@ -58,17 +82,22 @@ const PROCESS = [
 
 export default function StructuralCapabilityPage() {
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col pt-2 w-full">
       {/* Technical Datum Rule */}
       <div className="w-full bg-surface-container-low border-b border-outline-variant/30 py-space-xs px-6 lg:px-12">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-y-2 text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
           <div className="flex items-center gap-space-sm">
             <span className="inline-block w-2 h-2 bg-primary"></span>
-            <span>SEC_STR-01 // STRUCTURAL &amp; CIVIL CAPABILITY // DEEP FOUNDATION DIVISION</span>
+            <span>
+              SEC_STR-01 // STRUCTURAL &amp; CIVIL CAPABILITY // DEEP FOUNDATION
+              DIVISION
+            </span>
           </div>
           <div className="flex items-center gap-space-lg">
             <span>GC-1 CERTIFIED</span>
-            <span className="text-primary font-medium">STATUS: FIELD ACTIVE</span>
+            <span className="text-primary font-medium">
+              STATUS: FIELD ACTIVE
+            </span>
           </div>
         </div>
       </div>
@@ -87,10 +116,18 @@ export default function StructuralCapabilityPage() {
                 From Bedrock to Roofline. Engineered Concrete Precision.
               </h1>
               <p className="font-body-lg text-body-lg text-primary font-medium leading-relaxed max-w-3xl">
-                Deep foundation engineering through Addis Ababa&apos;s volcanic basalt substrata, structural frame erection to G+16, and complete civil works execution under single-source Grade 1 responsibility.
+                Deep foundation engineering through Addis Ababa&apos;s volcanic
+                basalt substrata, structural frame erection to G+16, and
+                complete civil works execution under single-source Grade 1
+                responsibility.
               </p>
               <p className="font-body-md text-body-md text-on-surface-variant max-w-3xl leading-relaxed">
-                Our structural division manages the most demanding scope on every project — from controlled rock excavation and bored piling on unpredictable volcanic clay to post-tensioned slab systems on high-rise commercial towers. We maintain an in-house fleet of tower cranes, concrete boom pumps, and steel formwork systems to ensure zero reliance on third-party plant providers.
+                Our structural division manages the most demanding scope on
+                every project — from controlled rock excavation and bored piling
+                on unpredictable volcanic clay to post-tensioned slab systems on
+                high-rise commercial towers. We maintain an in-house fleet of
+                tower cranes, concrete boom pumps, and steel formwork systems to
+                ensure zero reliance on third-party plant providers.
               </p>
               <div className="pt-space-md flex flex-wrap items-center gap-space-md">
                 <Link
@@ -112,8 +149,12 @@ export default function StructuralCapabilityPage() {
 
             {/* Hero Image */}
             <div className="lg:col-span-5 bg-surface-container-low border border-outline-variant/50 p-space-lg flex flex-col gap-space-md relative">
-              <div className="absolute top-2 right-2 text-outline-variant font-label-sm select-none">+</div>
-              <div className="absolute bottom-2 left-2 text-outline-variant font-label-sm select-none">+</div>
+              <div className="absolute top-2 right-2 text-outline-variant font-label-sm select-none">
+                +
+              </div>
+              <div className="absolute bottom-2 left-2 text-outline-variant font-label-sm select-none">
+                +
+              </div>
               <div className="border-b border-outline-variant/30 pb-space-xs flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
                 <span>SPEC_CARD // STR-01</span>
                 <span>CAPACITY: G+16 MAX</span>
@@ -148,12 +189,19 @@ export default function StructuralCapabilityPage() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 border border-outline-variant/40 bg-surface divide-y md:divide-y-0 md:divide-x divide-outline-variant/30">
             {SPECS.map((spec) => (
-              <div key={spec.label} className="p-space-md flex flex-col gap-space-xs">
-                <span className="font-label-sm text-label-sm text-secondary uppercase">{spec.label}</span>
+              <div
+                key={spec.label}
+                className="p-space-md flex flex-col gap-space-xs"
+              >
+                <span className="font-label-sm text-label-sm text-secondary uppercase">
+                  {spec.label}
+                </span>
                 <span className="font-headline-md text-[22px] leading-[30px] lg:text-headline-md font-bold text-on-surface">
                   {spec.value}
                 </span>
-                <span className="font-body-sm text-body-sm text-on-surface-variant">{spec.detail}</span>
+                <span className="font-body-sm text-body-sm text-on-surface-variant">
+                  {spec.detail}
+                </span>
               </div>
             ))}
           </div>
@@ -192,7 +240,9 @@ export default function StructuralCapabilityPage() {
                 <h3 className="font-headline-sm text-headline-sm text-on-surface uppercase font-bold">
                   {p.title}
                 </h3>
-                <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">{p.desc}</p>
+                <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  {p.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -214,8 +264,17 @@ export default function StructuralCapabilityPage() {
               { src: IMG.steelFrame, label: "STRUCTURAL STEEL ERECTION" },
               { src: IMG.superstructure, label: "SUPERSTRUCTURE FRAMING" },
             ].map((img) => (
-              <div key={img.label} className="relative aspect-[4/3] bg-surface-container overflow-hidden border border-outline-variant/40">
-                <Image src={img.src} alt={img.label} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+              <div
+                key={img.label}
+                className="relative aspect-[4/3] bg-surface-container overflow-hidden border border-outline-variant/40"
+              >
+                <Image
+                  src={img.src}
+                  alt={img.label}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
                 <div className="absolute bottom-0 left-0 right-0 bg-inverse-surface/85 px-3 py-1.5 font-label-sm text-label-sm text-inverse-on-surface">
                   {img.label}
                 </div>
@@ -233,7 +292,8 @@ export default function StructuralCapabilityPage() {
               Have a structural scope to discuss?
             </h2>
             <p className="font-body-md text-body-md text-inverse-on-surface">
-              From geotechnical surveys to frame-out, our structural team can assess your project within 48 hours.
+              From geotechnical surveys to frame-out, our structural team can
+              assess your project within 48 hours.
             </p>
           </div>
           <Link

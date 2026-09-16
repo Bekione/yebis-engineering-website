@@ -12,10 +12,14 @@ import {
 } from "@/lib/projects-data";
 
 export default function WorkPage() {
-  const [activeSector, setActiveSector] = useState<ProjectSector | "verified">("all");
-  const [selectedClientCategory, setSelectedClientCategory] = useState<string>("all");
+  const [activeSector, setActiveSector] = useState<ProjectSector | "verified">(
+    "all",
+  );
+  const [selectedClientCategory, setSelectedClientCategory] =
+    useState<string>("all");
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
-  const [activeModalProject, setActiveModalProject] = useState<ProjectRecord | null>(null);
+  const [activeModalProject, setActiveModalProject] =
+    useState<ProjectRecord | null>(null);
 
   const filteredProjects = useMemo(() => {
     return ALL_PROJECTS.filter((proj) => {
@@ -38,7 +42,7 @@ export default function WorkPage() {
   }, [activeSector, selectedClientCategory]);
 
   return (
-    <div className="flex flex-col w-full bg-surface">
+    <div className="flex flex-col pt-2 w-full bg-surface">
       {/* Page Header */}
       <section className="w-full bg-surface-container-low px-6 lg:px-12 pt-10 pb-8 border-b border-outline-variant/30">
         <div className="max-w-7xl mx-auto flex flex-col gap-6">
@@ -67,24 +71,33 @@ export default function WorkPage() {
                 Proven Execution Across Ethiopia.
               </h1>
               <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
-                From turnkey multi-story buildings and public housing to high-tolerance specialized packages—including lead-lined hospital radiology suites, potable water reservoirs, and municipal civil infrastructure.
+                From turnkey multi-story buildings and public housing to
+                high-tolerance specialized packages—including lead-lined
+                hospital radiology suites, potable water reservoirs, and
+                municipal civil infrastructure.
               </p>
             </div>
             <div className="lg:col-span-4 flex flex-col gap-2.5 bg-surface p-5 border border-outline-variant/40">
               <div className="flex items-center justify-between text-secondary">
-                <span className="font-label-sm text-label-sm uppercase">Contracting License</span>
+                <span className="font-label-sm text-label-sm uppercase">
+                  Contracting License
+                </span>
                 <span className="font-label-md text-label-md text-on-surface font-semibold">
                   Grade 1 General Contractor (GC-1)
                 </span>
               </div>
               <div className="flex items-center justify-between text-secondary">
-                <span className="font-label-sm text-label-sm uppercase">Regional Radius</span>
+                <span className="font-label-sm text-label-sm uppercase">
+                  Regional Radius
+                </span>
                 <span className="font-label-md text-label-md text-on-surface font-semibold">
                   Addis Ababa, Oromia, Amhara, SNNPRS
                 </span>
               </div>
               <div className="flex items-center justify-between text-secondary">
-                <span className="font-label-sm text-label-sm uppercase">Verified Public Record</span>
+                <span className="font-label-sm text-label-sm uppercase">
+                  Verified Public Record
+                </span>
                 <span className="font-label-md text-label-md text-primary font-semibold">
                   {TOTAL_VERIFIED_PROJECTS_COUNT} Documented Contracts
                 </span>
@@ -106,7 +119,9 @@ export default function WorkPage() {
                 }`}
               >
                 <span>All Projects</span>
-                <span className="text-[10px] px-1.5 py-0.5 bg-black/20">{ALL_PROJECTS.length}</span>
+                <span className="text-[10px] px-1.5 py-0.5 bg-black/20">
+                  {ALL_PROJECTS.length}
+                </span>
               </button>
 
               <button
@@ -118,7 +133,9 @@ export default function WorkPage() {
                     : "bg-primary/10 text-primary hover:bg-primary/20 border-primary/30"
                 }`}
               >
-                <span className="material-symbols-outlined text-[15px]">verified</span>
+                <span className="material-symbols-outlined text-[15px]">
+                  verified
+                </span>
                 <span>Work Performance Sheet (14)</span>
               </button>
 
@@ -214,17 +231,28 @@ export default function WorkPage() {
                     className="bg-surface text-on-surface font-label-md text-label-md px-3 py-1.5 border border-outline-variant/40 focus:outline-none focus:border-primary"
                   >
                     <option value="all">All Clients &amp; Agencies</option>
-                    <option value="government">Government &amp; Public Agencies (AAHDPO, Customs, Kirkos)</option>
-                    <option value="healthcare">Specialized Public Hospitals (ALERT, St. Peter&apos;s, St. Paul&apos;s)</option>
-                    <option value="ngo">NGO &amp; International (World Vision, Hunger Project, Cancer Care)</option>
-                    <option value="educational">Educational &amp; Institutional (TVET, EOC-DICAC)</option>
+                    <option value="government">
+                      Government &amp; Public Agencies (AAHDPO, Customs, Kirkos)
+                    </option>
+                    <option value="healthcare">
+                      Specialized Public Hospitals (ALERT, St. Peter&apos;s, St.
+                      Paul&apos;s)
+                    </option>
+                    <option value="ngo">
+                      NGO &amp; International (World Vision, Hunger Project,
+                      Cancer Care)
+                    </option>
+                    <option value="educational">
+                      Educational &amp; Institutional (TVET, EOC-DICAC)
+                    </option>
                     <option value="commercial">Commercial Developers</option>
                     <option value="residential">Private Residential</option>
                   </select>
                 </div>
 
                 <span className="font-label-sm text-label-sm bg-primary/10 text-primary px-2.5 py-1 border border-primary/20">
-                  SHOWING {filteredProjects.length} OF {ALL_PROJECTS.length} CONTRACT DOSSIERS
+                  SHOWING {filteredProjects.length} OF {ALL_PROJECTS.length}{" "}
+                  CONTRACT DOSSIERS
                 </span>
               </div>
 
@@ -240,7 +268,9 @@ export default function WorkPage() {
                   }`}
                   title="Grid Showcase View"
                 >
-                  <span className="material-symbols-outlined text-[18px] block">grid_view</span>
+                  <span className="material-symbols-outlined text-[18px] block">
+                    grid_view
+                  </span>
                 </button>
                 <button
                   type="button"
@@ -252,7 +282,9 @@ export default function WorkPage() {
                   }`}
                   title="Official Performance Register Table"
                 >
-                  <span className="material-symbols-outlined text-[18px] block">table_rows</span>
+                  <span className="material-symbols-outlined text-[18px] block">
+                    table_rows
+                  </span>
                 </button>
               </div>
             </div>
@@ -265,14 +297,19 @@ export default function WorkPage() {
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between text-secondary font-label-sm text-label-sm tracking-wider">
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 bg-primary"></span>GC-1 STATUTORY REGISTRY
+              <span className="w-1.5 h-1.5 bg-primary"></span>GC-1 STATUTORY
+              REGISTRY
             </span>
             <span className="hidden md:inline">MOUD-GC1-CERTIFIED</span>
-            <span className="hidden sm:inline">CONTRACT SPECTRUM: TURNKEY GC &amp; TARGETED SUBCONTRACTS</span>
+            <span className="hidden sm:inline">
+              CONTRACT SPECTRUM: TURNKEY GC &amp; TARGETED SUBCONTRACTS
+            </span>
           </div>
           <div className="flex items-center gap-4">
             <span>AUDITED BID &amp; TENDER PERFORMANCE</span>
-            <span className="text-primary font-semibold">ETHIOPIAN BUILDING CODE COMPLIANT</span>
+            <span className="text-primary font-semibold">
+              ETHIOPIAN BUILDING CODE COMPLIANT
+            </span>
           </div>
         </div>
       </div>
@@ -301,7 +338,9 @@ export default function WorkPage() {
                     </div>
                     {project.isVerifiedDocumentRecord && (
                       <div className="absolute top-3 right-3 bg-primary text-on-primary font-label-sm text-label-sm px-2 py-1 uppercase font-semibold flex items-center gap-1">
-                        <span className="material-symbols-outlined text-[13px]">verified</span>
+                        <span className="material-symbols-outlined text-[13px]">
+                          verified
+                        </span>
                         Verified Performance
                       </div>
                     )}
@@ -313,7 +352,9 @@ export default function WorkPage() {
                   <div className="p-6 flex flex-col flex-1 justify-between gap-4">
                     <div className="flex flex-col gap-2.5">
                       <div className="flex items-center justify-between text-secondary font-label-sm text-label-sm uppercase">
-                        <span className="text-primary font-medium">{project.client}</span>
+                        <span className="text-primary font-medium">
+                          {project.client}
+                        </span>
                         <span className="bg-surface-container px-2 py-0.5 text-on-surface font-semibold">
                           {project.completionYear}
                         </span>
@@ -370,7 +411,9 @@ export default function WorkPage() {
               <div className="bg-inverse-surface text-on-primary px-6 py-4 flex flex-wrap items-center justify-between gap-2 font-label-sm text-label-sm uppercase tracking-wider">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 bg-primary"></span>
-                  <span className="font-bold">YEBIS ENGINEERING PLC // OFFICIAL WORK PERFORMANCE REGISTER</span>
+                  <span className="font-bold">
+                    YEBIS ENGINEERING PLC // OFFICIAL WORK PERFORMANCE REGISTER
+                  </span>
                 </div>
                 <span className="text-primary-fixed">
                   OFFICIAL AUDITED PROJECT LEDGER (ETHIOPIA)
@@ -385,19 +428,26 @@ export default function WorkPage() {
                       <th className="py-3.5 px-6">Client / Contracting Body</th>
                       <th className="py-3.5 px-4">Region / Location</th>
                       <th className="py-3.5 px-4">Completion</th>
-                      <th className="py-3.5 px-4 text-right">Contract Cost (ETB)</th>
+                      <th className="py-3.5 px-4 text-right">
+                        Contract Cost (ETB)
+                      </th>
                       <th className="py-3.5 px-6 text-right">Dossier</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-outline-variant/20 font-body-sm text-body-sm text-on-surface">
                     {filteredProjects.map((proj) => (
-                      <tr key={proj.id} className="hover:bg-surface-container-low transition-colors">
+                      <tr
+                        key={proj.id}
+                        className="hover:bg-surface-container-low transition-colors"
+                      >
                         <td className="py-4 px-4 text-center font-label-md text-label-md text-secondary font-bold">
                           {proj.recordNumber}
                         </td>
                         <td className="py-4 px-6">
                           <div className="flex flex-col">
-                            <span className="font-semibold text-on-surface">{proj.title}</span>
+                            <span className="font-semibold text-on-surface">
+                              {proj.title}
+                            </span>
                             <div className="flex items-center gap-2 mt-1">
                               <span className="font-label-sm text-label-sm text-secondary uppercase">
                                 {proj.projectType}
@@ -415,7 +465,9 @@ export default function WorkPage() {
                         </td>
                         <td className="py-4 px-4 text-on-surface-variant font-label-sm text-label-sm">
                           <div>{proj.location}</div>
-                          <div className="text-secondary text-[11px]">{proj.region}</div>
+                          <div className="text-secondary text-[11px]">
+                            {proj.region}
+                          </div>
                         </td>
                         <td className="py-4 px-4 font-label-sm text-label-sm text-secondary">
                           {proj.completion}
@@ -464,7 +516,9 @@ export default function WorkPage() {
               </h2>
             </div>
             <p className="font-body-sm text-body-sm text-on-surface-variant max-w-md">
-              Yebis Engineering operates as both a lead General Contractor (GC-1) managing full architectural complexes and as a specialized contractor executing targeted high-precision scopes.
+              Yebis Engineering operates as both a lead General Contractor
+              (GC-1) managing full architectural complexes and as a specialized
+              contractor executing targeted high-precision scopes.
             </p>
           </div>
 
@@ -472,10 +526,14 @@ export default function WorkPage() {
             <div className="bg-surface p-6 border border-outline-variant/40 flex flex-col justify-between h-48">
               <div className="flex items-center justify-between text-secondary font-label-sm text-label-sm">
                 <span>SECTOR 01</span>
-                <span className="material-symbols-outlined text-primary text-[20px]">medical_services</span>
+                <span className="material-symbols-outlined text-primary text-[20px]">
+                  medical_services
+                </span>
               </div>
               <div>
-                <span className="font-headline-lg text-headline-lg text-on-surface font-bold">5 Contracts</span>
+                <span className="font-headline-lg text-headline-lg text-on-surface font-bold">
+                  5 Contracts
+                </span>
                 <p className="font-label-md text-label-md text-on-surface-variant uppercase mt-1">
                   Healthcare &amp; Radiation Suites
                 </p>
@@ -488,10 +546,14 @@ export default function WorkPage() {
             <div className="bg-surface p-6 border border-outline-variant/40 flex flex-col justify-between h-48">
               <div className="flex items-center justify-between text-secondary font-label-sm text-label-sm">
                 <span>SECTOR 02</span>
-                <span className="material-symbols-outlined text-primary text-[20px]">apartment</span>
+                <span className="material-symbols-outlined text-primary text-[20px]">
+                  apartment
+                </span>
               </div>
               <div>
-                <span className="font-headline-lg text-headline-lg text-on-surface font-bold">4 Blocks</span>
+                <span className="font-headline-lg text-headline-lg text-on-surface font-bold">
+                  4 Blocks
+                </span>
                 <p className="font-label-md text-label-md text-on-surface-variant uppercase mt-1">
                   Public Housing &amp; Condominiums
                 </p>
@@ -504,10 +566,14 @@ export default function WorkPage() {
             <div className="bg-surface p-6 border border-outline-variant/40 flex flex-col justify-between h-48">
               <div className="flex items-center justify-between text-secondary font-label-sm text-label-sm">
                 <span>SECTOR 03</span>
-                <span className="material-symbols-outlined text-primary text-[20px]">water_drop</span>
+                <span className="material-symbols-outlined text-primary text-[20px]">
+                  water_drop
+                </span>
               </div>
               <div>
-                <span className="font-headline-lg text-headline-lg text-on-surface font-bold">150m³ + Wells</span>
+                <span className="font-headline-lg text-headline-lg text-on-surface font-bold">
+                  150m³ + Wells
+                </span>
                 <p className="font-label-md text-label-md text-on-surface-variant uppercase mt-1">
                   Water &amp; Rural Civil Works
                 </p>
@@ -520,10 +586,14 @@ export default function WorkPage() {
             <div className="bg-surface p-6 border border-outline-variant/40 flex flex-col justify-between h-48">
               <div className="flex items-center justify-between text-secondary font-label-sm text-label-sm">
                 <span>SECTOR 04</span>
-                <span className="material-symbols-outlined text-primary text-[20px]">warehouse</span>
+                <span className="material-symbols-outlined text-primary text-[20px]">
+                  warehouse
+                </span>
               </div>
               <div>
-                <span className="font-headline-lg text-headline-lg text-on-surface font-bold">ETB 28.5M+</span>
+                <span className="font-headline-lg text-headline-lg text-on-surface font-bold">
+                  ETB 28.5M+
+                </span>
                 <p className="font-label-md text-label-md text-on-surface-variant uppercase mt-1">
                   Historical Track Record
                 </p>
@@ -568,8 +638,12 @@ export default function WorkPage() {
             {/* Quick Metrics Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 font-label-sm text-label-sm bg-surface-container-low p-4 border border-outline-variant/30">
               <div>
-                <span className="text-secondary block">CLIENT / AUTHORITY:</span>
-                <span className="font-semibold text-on-surface">{activeModalProject.client}</span>
+                <span className="text-secondary block">
+                  CLIENT / AUTHORITY:
+                </span>
+                <span className="font-semibold text-on-surface">
+                  {activeModalProject.client}
+                </span>
               </div>
               <div>
                 <span className="text-secondary block">LOCATION:</span>
@@ -579,15 +653,21 @@ export default function WorkPage() {
               </div>
               <div>
                 <span className="text-secondary block">CONTRACT VALUE:</span>
-                <span className="font-semibold text-primary">{activeModalProject.contractCostETB}</span>
+                <span className="font-semibold text-primary">
+                  {activeModalProject.contractCostETB}
+                </span>
               </div>
               <div>
                 <span className="text-secondary block">SCALE / TYPE:</span>
-                <span className="font-semibold text-on-surface">{activeModalProject.scale}</span>
+                <span className="font-semibold text-on-surface">
+                  {activeModalProject.scale}
+                </span>
               </div>
               <div>
                 <span className="text-secondary block">COMPLETION:</span>
-                <span className="font-semibold text-on-surface">{activeModalProject.completion}</span>
+                <span className="font-semibold text-on-surface">
+                  {activeModalProject.completion}
+                </span>
               </div>
               <div>
                 <span className="text-secondary block">CONTRACT MODE:</span>
@@ -608,38 +688,48 @@ export default function WorkPage() {
             </div>
 
             {/* Scope Breakdown */}
-            {activeModalProject.scopeBreakdown && activeModalProject.scopeBreakdown.length > 0 && (
-              <div className="flex flex-col gap-2">
-                <h4 className="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">
-                  Delivered Works &amp; Subsystems:
-                </h4>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-on-surface font-body-sm text-body-sm">
-                  {activeModalProject.scopeBreakdown.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2 bg-surface-container-low p-2 border border-outline-variant/20">
-                      <span className="text-primary font-bold">✓</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            {activeModalProject.scopeBreakdown &&
+              activeModalProject.scopeBreakdown.length > 0 && (
+                <div className="flex flex-col gap-2">
+                  <h4 className="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">
+                    Delivered Works &amp; Subsystems:
+                  </h4>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-on-surface font-body-sm text-body-sm">
+                    {activeModalProject.scopeBreakdown.map((item, idx) => (
+                      <li
+                        key={idx}
+                        className="flex items-start gap-2 bg-surface-container-low p-2 border border-outline-variant/20"
+                      >
+                        <span className="text-primary font-bold">✓</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
             {/* Technical Specs */}
-            {activeModalProject.technicalSpecs && activeModalProject.technicalSpecs.length > 0 && (
-              <div className="flex flex-col gap-2">
-                <h4 className="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">
-                  Technical Specifications:
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 font-label-sm text-label-sm">
-                  {activeModalProject.technicalSpecs.map((spec, idx) => (
-                    <div key={idx} className="p-2 border border-outline-variant/30 flex justify-between">
-                      <span className="text-secondary">{spec.label}:</span>
-                      <span className="font-semibold text-on-surface">{spec.value}</span>
-                    </div>
-                  ))}
+            {activeModalProject.technicalSpecs &&
+              activeModalProject.technicalSpecs.length > 0 && (
+                <div className="flex flex-col gap-2">
+                  <h4 className="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">
+                    Technical Specifications:
+                  </h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 font-label-sm text-label-sm">
+                    {activeModalProject.technicalSpecs.map((spec, idx) => (
+                      <div
+                        key={idx}
+                        className="p-2 border border-outline-variant/30 flex justify-between"
+                      >
+                        <span className="text-secondary">{spec.label}:</span>
+                        <span className="font-semibold text-on-surface">
+                          {spec.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
             <div className="flex items-center justify-between pt-4 border-t border-outline-variant/30">
               <Link

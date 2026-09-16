@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function KazanchisCaseStudyPage() {
   return (
-    <div className="flex flex-col w-full bg-surface">
+    <div className="flex flex-col pt-2 w-full bg-surface">
       {/* Dossier Header Strip */}
       <section className="w-full bg-surface-container-low border-b border-outline-variant/30">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-3 flex flex-wrap items-center justify-between gap-y-2 font-label-sm text-label-sm text-secondary">
@@ -51,7 +51,10 @@ export default function KazanchisCaseStudyPage() {
       <section className="w-full max-w-7xl mx-auto px-6 lg:px-12 pt-10 pb-8">
         <div className="inline-flex items-center gap-2 mb-4 font-label-sm text-label-sm text-primary tracking-widest uppercase">
           <span className="w-2 h-2 bg-primary"></span>
-          <span>[ PROJECT ARCHIVE // PRJ-ETH-002 // SECTOR: COMMERCIAL // FINANCIAL DISTRICT ]</span>
+          <span>
+            [ PROJECT ARCHIVE // PRJ-ETH-002 // SECTOR: COMMERCIAL // FINANCIAL
+            DISTRICT ]
+          </span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-10">
@@ -60,30 +63,48 @@ export default function KazanchisCaseStudyPage() {
               Commercial Office Building — Kazanchis
             </h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl leading-relaxed">
-              Turnkey structural execution, dual-level subterranean civil containment, high-performance acoustic facade envelope, and integrated MEP distribution for prime grade-A diplomatic and corporate tenancy in Addis Ababa’s high-density financial precinct.
+              Turnkey structural execution, dual-level subterranean civil
+              containment, high-performance acoustic facade envelope, and
+              integrated MEP distribution for prime grade-A diplomatic and
+              corporate tenancy in Addis Ababa’s high-density financial
+              precinct.
             </p>
           </div>
 
           <div className="lg:col-span-4 bg-surface-container p-5 border border-outline-variant/40 flex flex-col gap-3">
             <div className="flex items-center justify-between border-b border-outline-variant/40 pb-2">
-              <span className="font-label-sm text-label-sm uppercase text-secondary">REGISTRY KEY</span>
-              <span className="font-label-sm text-label-sm text-primary font-bold">ETH/AA/2021-09B</span>
+              <span className="font-label-sm text-label-sm uppercase text-secondary">
+                REGISTRY KEY
+              </span>
+              <span className="font-label-sm text-label-sm text-primary font-bold">
+                ETH/AA/2021-09B
+              </span>
             </div>
             <div className="flex items-center justify-between text-body-sm">
               <span className="text-secondary font-label-sm">PERMIT AUTH:</span>
-              <span className="font-medium text-on-surface">Kirkos Sub-City Construction Bureau</span>
+              <span className="font-medium text-on-surface">
+                Kirkos Sub-City Construction Bureau
+              </span>
             </div>
             <div className="flex items-center justify-between text-body-sm">
-              <span className="text-secondary font-label-sm">INSPECTORATE:</span>
-              <span className="font-medium text-on-surface">FDRE Ministry of Urban Dev.</span>
+              <span className="text-secondary font-label-sm">
+                INSPECTORATE:
+              </span>
+              <span className="font-medium text-on-surface">
+                FDRE Ministry of Urban Dev.
+              </span>
             </div>
             <div className="flex items-center justify-between text-body-sm">
               <span className="text-secondary font-label-sm">FIRE SAFETY:</span>
-              <span className="font-medium text-on-surface">NFPA 101 Life Safety Class A</span>
+              <span className="font-medium text-on-surface">
+                NFPA 101 Life Safety Class A
+              </span>
             </div>
             <div className="pt-2 border-t border-outline-variant/30 flex items-center justify-between font-label-sm text-label-sm text-secondary">
               <span>HANDOVER DATUM</span>
-              <span className="text-on-surface font-semibold">Q3 2023 // ZERO DEFECT</span>
+              <span className="text-on-surface font-semibold">
+                Q3 2023 // ZERO DEFECT
+              </span>
             </div>
           </div>
         </div>
@@ -95,7 +116,9 @@ export default function KazanchisCaseStudyPage() {
               <span className="w-2 h-2 bg-primary"></span>
               PARAMETRIC ENGINEERING DOSSIER SPECIFICATIONS
             </span>
-            <span className="font-label-sm text-label-sm text-secondary">SHEET ID: DS-002-A // VER. 3.2</span>
+            <span className="font-label-sm text-label-sm text-secondary">
+              SHEET ID: DS-002-A // VER. 3.2
+            </span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-body-sm">
@@ -103,8 +126,12 @@ export default function KazanchisCaseStudyPage() {
               <span className="font-label-sm text-label-sm text-secondary uppercase tracking-wider">
                 PROJECT IDENTIFIER
               </span>
-              <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">PRJ-ETH-002</span>
-              <span className="text-body-sm text-on-surface-variant">Class A Speculative Corporate Hub</span>
+              <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">
+                PRJ-ETH-002
+              </span>
+              <span className="text-body-sm text-on-surface-variant">
+                Class A Speculative Corporate Hub
+              </span>
             </div>
             <div className="flex flex-col gap-1 border-l-2 border-outline-variant/50 pl-3">
               <span className="font-label-sm text-label-sm text-secondary uppercase tracking-wider">
@@ -113,21 +140,31 @@ export default function KazanchisCaseStudyPage() {
               <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">
                 2B + G + 8 FLOORS
               </span>
-              <span className="text-body-sm text-on-surface-variant">38.4m Above Ground // 8.5m Sub-Grade</span>
+              <span className="text-body-sm text-on-surface-variant">
+                38.4m Above Ground // 8.5m Sub-Grade
+              </span>
             </div>
             <div className="flex flex-col gap-1 border-l-2 border-outline-variant/50 pl-3">
               <span className="font-label-sm text-label-sm text-secondary uppercase tracking-wider">
                 GROSS FLOOR AREA
               </span>
-              <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">12,200 SQM</span>
-              <span className="text-body-sm text-on-surface-variant">Footprint: 1,420 SQM per elevated plate</span>
+              <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">
+                12,200 SQM
+              </span>
+              <span className="text-body-sm text-on-surface-variant">
+                Footprint: 1,420 SQM per elevated plate
+              </span>
             </div>
             <div className="flex flex-col gap-1 border-l-2 border-outline-variant/50 pl-3">
               <span className="font-label-sm text-label-sm text-secondary uppercase tracking-wider">
                 TIMELINE &amp; DURATION
               </span>
-              <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">26 MONTHS</span>
-              <span className="text-body-sm text-on-surface-variant">Commenced 2021 // Commissioned 2023</span>
+              <span className="font-headline-sm text-headline-sm text-on-surface font-semibold">
+                26 MONTHS
+              </span>
+              <span className="text-body-sm text-on-surface-variant">
+                Commenced 2021 // Commissioned 2023
+              </span>
             </div>
           </div>
 
@@ -137,7 +174,9 @@ export default function KazanchisCaseStudyPage() {
                 SITE LOCATION &amp; CONSTRAINTS
               </span>
               <p className="text-on-surface">
-                Kazanchis Commercial Corridor, Kirkos Sub-City, Addis Ababa (Elev: 2,380m). Dense urban perimeter with adjacent active embassy and financial properties.
+                Kazanchis Commercial Corridor, Kirkos Sub-City, Addis Ababa
+                (Elev: 2,380m). Dense urban perimeter with adjacent active
+                embassy and financial properties.
               </p>
             </div>
             <div>
@@ -145,7 +184,9 @@ export default function KazanchisCaseStudyPage() {
                 CONTRACT TYPOLOGY
               </span>
               <p className="text-on-surface">
-                Full Turnkey General Contracting (FIDIC Red Book Modified) encompassing Subterranean Civil, Superstructure, Facade, Substation, HVAC, and Architectural Fit-out.
+                Full Turnkey General Contracting (FIDIC Red Book Modified)
+                encompassing Subterranean Civil, Superstructure, Facade,
+                Substation, HVAC, and Architectural Fit-out.
               </p>
             </div>
             <div>
@@ -153,7 +194,9 @@ export default function KazanchisCaseStudyPage() {
                 SPECIALIZED WORK PACKAGES
               </span>
               <p className="text-on-surface">
-                Self-fabricated thermal-break double glazed curtain wall, 11kV step-down transformer substation, synchronized dual 500kVA backup power, integrated BMS, Class-A acoustic drywall.
+                Self-fabricated thermal-break double glazed curtain wall, 11kV
+                step-down transformer substation, synchronized dual 500kVA
+                backup power, integrated BMS, Class-A acoustic drywall.
               </p>
             </div>
           </div>
@@ -168,7 +211,9 @@ export default function KazanchisCaseStudyPage() {
               <span className="w-2 h-2 bg-primary"></span>
               PHOTOGRAPHIC ELEVATION RECORD // FACADE WEST-SOUTH-WEST
             </span>
-            <span className="tracking-widest">ISO 100 // TILT-SHIFT 24MM // ELEV 2,380M</span>
+            <span className="tracking-widest">
+              ISO 100 // TILT-SHIFT 24MM // ELEV 2,380M
+            </span>
           </div>
 
           <div className="relative w-full h-[540px] md:h-[680px]">
@@ -181,16 +226,23 @@ export default function KazanchisCaseStudyPage() {
             <div className="absolute inset-0 pointer-events-none p-6 flex flex-col justify-between">
               <div className="flex items-start justify-between">
                 <div className="bg-inverse-surface/85 backdrop-blur-sm border border-outline-variant/40 p-3 text-on-primary font-label-sm text-label-sm max-w-xs">
-                  <div className="text-primary font-bold mb-1">■ LEVEL 08 — PARAPET CROWN</div>
+                  <div className="text-primary font-bold mb-1">
+                    ■ LEVEL 08 — PARAPET CROWN
+                  </div>
                   <div>STRUCTURAL HEIGHT: +38.400M</div>
                   <div className="text-on-primary/70">
-                    Acoustic mechanical penthouse housing twin 500kVA synchronized generating plant.
+                    Acoustic mechanical penthouse housing twin 500kVA
+                    synchronized generating plant.
                   </div>
                 </div>
                 <div className="hidden sm:flex flex-col items-end text-right bg-inverse-surface/85 backdrop-blur-sm border border-outline-variant/40 p-3 text-on-primary font-label-sm text-label-sm">
-                  <span className="text-primary font-bold">GRID AXIS: A1 - F8</span>
+                  <span className="text-primary font-bold">
+                    GRID AXIS: A1 - F8
+                  </span>
                   <span>DATUM ELEV: +2,380.00 MSL</span>
-                  <span className="text-on-primary/70">WIND LOAD DESIGN: 1.25 kN/m²</span>
+                  <span className="text-on-primary/70">
+                    WIND LOAD DESIGN: 1.25 kN/m²
+                  </span>
                 </div>
               </div>
 
@@ -200,17 +252,23 @@ export default function KazanchisCaseStudyPage() {
                     <div className="w-2 h-2 bg-primary"></div>
                   </div>
                   <div className="absolute left-16 top-1/2 -translate-y-1/2 hidden md:block bg-inverse-surface/90 border border-primary/50 text-on-primary px-3 py-2 text-label-sm font-label-sm whitespace-nowrap shadow-lg">
-                    <span className="text-primary font-bold">FAÇADE ENVELOPE:</span> LOW-E ARGON-FILLED CURTAIN WALL (U-VAL: 1.35 W/m²K)
+                    <span className="text-primary font-bold">
+                      FAÇADE ENVELOPE:
+                    </span>{" "}
+                    LOW-E ARGON-FILLED CURTAIN WALL (U-VAL: 1.35 W/m²K)
                   </div>
                 </div>
               </div>
 
               <div className="flex items-end justify-between">
                 <div className="bg-inverse-surface/85 backdrop-blur-sm border border-outline-variant/40 p-3 text-on-primary font-label-sm text-label-sm max-w-xs">
-                  <div className="text-primary font-bold mb-1">■ LEVEL 00 TO -02 SUB-GRADE</div>
+                  <div className="text-primary font-bold mb-1">
+                    ■ LEVEL 00 TO -02 SUB-GRADE
+                  </div>
                   <div>FOUNDATION DEPTH: -8.500M</div>
                   <div className="text-on-primary/70">
-                    Cast-in-place post-tensioned cores on 1,400mm reinforced concrete raft.
+                    Cast-in-place post-tensioned cores on 1,400mm reinforced
+                    concrete raft.
                   </div>
                 </div>
                 <div className="bg-inverse-surface/90 border border-outline-variant/40 px-3 py-1.5 text-on-primary font-label-sm text-label-sm">
@@ -219,10 +277,18 @@ export default function KazanchisCaseStudyPage() {
               </div>
             </div>
 
-            <div className="absolute top-4 left-4 text-primary font-label-sm pointer-events-none">+</div>
-            <div className="absolute top-4 right-4 text-primary font-label-sm pointer-events-none">+</div>
-            <div className="absolute bottom-4 left-4 text-primary font-label-sm pointer-events-none">+</div>
-            <div className="absolute bottom-4 right-4 text-primary font-label-sm pointer-events-none">+</div>
+            <div className="absolute top-4 left-4 text-primary font-label-sm pointer-events-none">
+              +
+            </div>
+            <div className="absolute top-4 right-4 text-primary font-label-sm pointer-events-none">
+              +
+            </div>
+            <div className="absolute bottom-4 left-4 text-primary font-label-sm pointer-events-none">
+              +
+            </div>
+            <div className="absolute bottom-4 right-4 text-primary font-label-sm pointer-events-none">
+              +
+            </div>
           </div>
         </div>
       </section>
@@ -232,29 +298,59 @@ export default function KazanchisCaseStudyPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             <div className="flex flex-col gap-1 border-l-2 border-primary pl-4">
-              <span className="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">12,200</span>
-              <span className="font-label-sm text-label-sm text-primary uppercase font-semibold">SQUARE METERS</span>
-              <span className="font-body-sm text-body-sm text-on-surface-variant">Total Built Gross Floor Area</span>
+              <span className="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">
+                12,200
+              </span>
+              <span className="font-label-sm text-label-sm text-primary uppercase font-semibold">
+                SQUARE METERS
+              </span>
+              <span className="font-body-sm text-body-sm text-on-surface-variant">
+                Total Built Gross Floor Area
+              </span>
             </div>
             <div className="flex flex-col gap-1 border-l-2 border-outline-variant pl-4">
-              <span className="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">3,850</span>
-              <span className="font-label-sm text-label-sm text-secondary uppercase font-semibold">CUBIC METERS</span>
-              <span className="font-body-sm text-body-sm text-on-surface-variant">C35/C40 Structural Concrete</span>
+              <span className="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">
+                3,850
+              </span>
+              <span className="font-label-sm text-label-sm text-secondary uppercase font-semibold">
+                CUBIC METERS
+              </span>
+              <span className="font-body-sm text-body-sm text-on-surface-variant">
+                C35/C40 Structural Concrete
+              </span>
             </div>
             <div className="flex flex-col gap-1 border-l-2 border-outline-variant pl-4">
-              <span className="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">420</span>
-              <span className="font-label-sm text-label-sm text-secondary uppercase font-semibold">METRIC TONS</span>
-              <span className="font-body-sm text-body-sm text-on-surface-variant">High-Yield Fe500 Rebar</span>
+              <span className="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">
+                420
+              </span>
+              <span className="font-label-sm text-label-sm text-secondary uppercase font-semibold">
+                METRIC TONS
+              </span>
+              <span className="font-body-sm text-body-sm text-on-surface-variant">
+                High-Yield Fe500 Rebar
+              </span>
             </div>
             <div className="flex flex-col gap-1 border-l-2 border-primary pl-4">
-              <span className="font-headline-lg text-headline-lg text-primary font-bold tracking-tight">0.00</span>
-              <span className="font-label-sm text-label-sm text-primary uppercase font-semibold">LOST TIME INCIDENTS</span>
-              <span className="font-body-sm text-body-sm text-on-surface-variant">Across 620,000 Site Man-Hours</span>
+              <span className="font-headline-lg text-headline-lg text-primary font-bold tracking-tight">
+                0.00
+              </span>
+              <span className="font-label-sm text-label-sm text-primary uppercase font-semibold">
+                LOST TIME INCIDENTS
+              </span>
+              <span className="font-body-sm text-body-sm text-on-surface-variant">
+                Across 620,000 Site Man-Hours
+              </span>
             </div>
             <div className="flex flex-col gap-1 border-l-2 border-outline-variant pl-4 col-span-2 md:col-span-1">
-              <span className="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">100%</span>
-              <span className="font-label-sm text-label-sm text-secondary uppercase font-semibold">CODE ADHERENCE</span>
-              <span className="font-body-sm text-body-sm text-on-surface-variant">EBCS-1 &amp; EBCS-2 Mandate</span>
+              <span className="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">
+                100%
+              </span>
+              <span className="font-label-sm text-label-sm text-secondary uppercase font-semibold">
+                CODE ADHERENCE
+              </span>
+              <span className="font-body-sm text-body-sm text-on-surface-variant">
+                EBCS-1 &amp; EBCS-2 Mandate
+              </span>
             </div>
           </div>
         </div>
@@ -267,7 +363,9 @@ export default function KazanchisCaseStudyPage() {
             SECTION 02 // TECHNICAL NARRATIVE &amp; METHODOLOGY
           </span>
           <div className="h-px bg-outline-variant/40 flex-1"></div>
-          <span className="font-label-sm text-label-sm text-secondary">STRUCTURAL ARCHITECTURE MEMORANDUM</span>
+          <span className="font-label-sm text-label-sm text-secondary">
+            STRUCTURAL ARCHITECTURE MEMORANDUM
+          </span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
@@ -285,14 +383,27 @@ export default function KazanchisCaseStudyPage() {
                 01. The Client Challenge &amp; Subterranean Constraints
               </h2>
               <p className="font-body-md text-body-md text-on-surface leading-relaxed">
-                The development site occupies a highly constrained 1,850 SQM urban plot inside the dense Kazanchis commercial corridor, flanked immediately by an active 7-story diplomatic compound to the west and high-volume vehicular traffic along the arterial roadway to the south. Geotechnical investigations revealed a high perched water table at -3.20m and decomposed volcanic basalt formations.
+                The development site occupies a highly constrained 1,850 SQM
+                urban plot inside the dense Kazanchis commercial corridor,
+                flanked immediately by an active 7-story diplomatic compound to
+                the west and high-volume vehicular traffic along the arterial
+                roadway to the south. Geotechnical investigations revealed a
+                high perched water table at -3.20m and decomposed volcanic
+                basalt formations.
               </p>
               <div className="bg-surface-container-low p-5 border border-outline-variant/40 flex flex-col gap-2">
                 <span className="font-label-sm text-label-sm text-primary uppercase font-bold">
                   CRITICAL ENGINEERING PROTOCOL APPLIED
                 </span>
                 <p className="font-body-sm text-body-sm text-on-surface-variant">
-                  To mitigate lateral displacement and protect neighboring building foundations, Yebis Engineering engineered a contiguous bored pile retaining wall (600mm diameter, 14m embedment depth) coupled with double-row pre-stressed soil anchors grouted at 15-degree declining trajectories. Acoustic and vibration monitoring sensors maintained real-time telemetry, guaranteeing vibration velocity remained below the strict 2.5 mm/s urban threshold during daylight hours.
+                  To mitigate lateral displacement and protect neighboring
+                  building foundations, Yebis Engineering engineered a
+                  contiguous bored pile retaining wall (600mm diameter, 14m
+                  embedment depth) coupled with double-row pre-stressed soil
+                  anchors grouted at 15-degree declining trajectories. Acoustic
+                  and vibration monitoring sensors maintained real-time
+                  telemetry, guaranteeing vibration velocity remained below the
+                  strict 2.5 mm/s urban threshold during daylight hours.
                 </p>
               </div>
             </article>
@@ -310,21 +421,37 @@ export default function KazanchisCaseStudyPage() {
                 02. The Yebis Integrated BIM &amp; Pre-Fabrication Approach
               </h2>
               <p className="font-body-md text-body-md text-on-surface leading-relaxed">
-                Managing complex floor slab services without compromising finished ceiling heights required rigorous 3D spatial coordination. Yebis deployed full LOD-400 BIM modeling spanning structural concrete, ductwork, fire sprinklers, and electrical busways.
+                Managing complex floor slab services without compromising
+                finished ceiling heights required rigorous 3D spatial
+                coordination. Yebis deployed full LOD-400 BIM modeling spanning
+                structural concrete, ductwork, fire sprinklers, and electrical
+                busways.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 bg-surface-container border border-outline-variant/30">
-                  <span className="font-label-sm text-label-sm text-secondary block mb-1">CLASH RESOLUTION MATRIX</span>
-                  <span className="font-headline-sm text-headline-sm text-primary font-bold">48 Conflicts</span>
+                  <span className="font-label-sm text-label-sm text-secondary block mb-1">
+                    CLASH RESOLUTION MATRIX
+                  </span>
+                  <span className="font-headline-sm text-headline-sm text-primary font-bold">
+                    48 Conflicts
+                  </span>
                   <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-                    Identified and redesigned in the 3D model prior to rebar placement, resulting in zero on-site concrete core penetrations or retrofitted diamond coring.
+                    Identified and redesigned in the 3D model prior to rebar
+                    placement, resulting in zero on-site concrete core
+                    penetrations or retrofitted diamond coring.
                   </p>
                 </div>
                 <div className="p-4 bg-surface-container border border-outline-variant/30">
-                  <span className="font-label-sm text-label-sm text-secondary block mb-1">LOCAL FABRICATION DEPOT</span>
-                  <span className="font-headline-sm text-headline-sm text-on-surface font-bold">100% In-House</span>
+                  <span className="font-label-sm text-label-sm text-secondary block mb-1">
+                    LOCAL FABRICATION DEPOT
+                  </span>
+                  <span className="font-headline-sm text-headline-sm text-on-surface font-bold">
+                    100% In-House
+                  </span>
                   <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-                    All unitized curtain wall cassettes and architectural steel canopy struts were precision-milled and pre-assembled at Yebis’s industrial workshop in Addis Ababa.
+                    All unitized curtain wall cassettes and architectural steel
+                    canopy struts were precision-milled and pre-assembled at
+                    Yebis’s industrial workshop in Addis Ababa.
                   </p>
                 </div>
               </div>
@@ -343,10 +470,20 @@ export default function KazanchisCaseStudyPage() {
                 03. Civil Execution: Continuous Mass Concrete Pour
               </h2>
               <p className="font-body-md text-body-md text-on-surface leading-relaxed">
-                The foundation comprises a 1,400mm thick reinforced concrete mat resting directly on consolidated basalt and anchored pile heads. Executing this massive footing demanded a synchronized continuous 72-hour batching and placing operation totaling 1,980 m³ of low-heat hydration C35 mix.
+                The foundation comprises a 1,400mm thick reinforced concrete mat
+                resting directly on consolidated basalt and anchored pile heads.
+                Executing this massive footing demanded a synchronized
+                continuous 72-hour batching and placing operation totaling 1,980
+                m³ of low-heat hydration C35 mix.
               </p>
               <p className="font-body-md text-body-md text-on-surface leading-relaxed">
-                Dual concrete boom pumps operated on alternating schedules while internal temperature monitoring thermocouples logged core temperatures at 1-hour intervals to prevent thermal cracking. The vertical core walls were erected using high-precision modular steel formwork systems, achieving a laser-verified plumbness deviation under ±1.5mm across the full 38.4-meter building envelope.
+                Dual concrete boom pumps operated on alternating schedules while
+                internal temperature monitoring thermocouples logged core
+                temperatures at 1-hour intervals to prevent thermal cracking.
+                The vertical core walls were erected using high-precision
+                modular steel formwork systems, achieving a laser-verified
+                plumbness deviation under ±1.5mm across the full 38.4-meter
+                building envelope.
               </p>
             </article>
 
@@ -363,10 +500,19 @@ export default function KazanchisCaseStudyPage() {
                 04. High-Performance MEP &amp; Specialized Interior Craft
               </h2>
               <p className="font-body-md text-body-md text-on-surface leading-relaxed">
-                Beyond the concrete skeleton, Yebis delivered complete building service integration. The subterranean mechanical room accommodates a dedicated 11kV step-down transformer substation, synchronized dual 500kVA sound-attenuated diesel gensets with automated transfer switches (ATS), and a triplex variable-speed domestic water booster skid.
+                Beyond the concrete skeleton, Yebis delivered complete building
+                service integration. The subterranean mechanical room
+                accommodates a dedicated 11kV step-down transformer substation,
+                synchronized dual 500kVA sound-attenuated diesel gensets with
+                automated transfer switches (ATS), and a triplex variable-speed
+                domestic water booster skid.
               </p>
               <p className="font-body-md text-body-md text-on-surface leading-relaxed">
-                Finishing packages included seamless terrazzo flooring in the multi-level atrium, acoustic slatted American walnut wall cladding engineered for speech intelligibility, and suspended sound-absorptive ceiling baffles (NRC 0.85) accommodating perimeter linear diffuser supply grills.
+                Finishing packages included seamless terrazzo flooring in the
+                multi-level atrium, acoustic slatted American walnut wall
+                cladding engineered for speech intelligibility, and suspended
+                sound-absorptive ceiling baffles (NRC 0.85) accommodating
+                perimeter linear diffuser supply grills.
               </p>
             </article>
           </div>
@@ -375,7 +521,9 @@ export default function KazanchisCaseStudyPage() {
           <div className="lg:col-span-4 flex flex-col gap-6">
             <div className="bg-surface-container-low border border-outline-variant/40 p-6 flex flex-col gap-4">
               <div className="border-b border-outline-variant/40 pb-3">
-                <span className="font-label-sm text-label-sm text-secondary uppercase block">FIELD AUDIT</span>
+                <span className="font-label-sm text-label-sm text-secondary uppercase block">
+                  FIELD AUDIT
+                </span>
                 <h3 className="font-headline-sm text-headline-sm text-on-surface font-semibold uppercase">
                   Project Milestones
                 </h3>
@@ -384,45 +532,60 @@ export default function KazanchisCaseStudyPage() {
                 <li className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-primary mt-2 shrink-0"></div>
                   <div>
-                    <span className="font-label-sm text-label-sm text-secondary block">Q1 2021 // M-01</span>
+                    <span className="font-label-sm text-label-sm text-secondary block">
+                      Q1 2021 // M-01
+                    </span>
                     <span className="font-medium text-on-surface">
-                      Subterranean excavation, 8.5m deep contiguous shoring wall &amp; 112 soil tie-backs completed.
+                      Subterranean excavation, 8.5m deep contiguous shoring wall
+                      &amp; 112 soil tie-backs completed.
                     </span>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-primary mt-2 shrink-0"></div>
                   <div>
-                    <span className="font-label-sm text-label-sm text-secondary block">Q3 2021 // M-02</span>
+                    <span className="font-label-sm text-label-sm text-secondary block">
+                      Q3 2021 // M-02
+                    </span>
                     <span className="font-medium text-on-surface">
-                      1,400mm mass raft concrete pour (1,980 m³) certified crack-free by independent lab.
+                      1,400mm mass raft concrete pour (1,980 m³) certified
+                      crack-free by independent lab.
                     </span>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-primary mt-2 shrink-0"></div>
                   <div>
-                    <span className="font-label-sm text-label-sm text-secondary block">Q2 2022 // M-03</span>
+                    <span className="font-label-sm text-label-sm text-secondary block">
+                      Q2 2022 // M-03
+                    </span>
                     <span className="font-medium text-on-surface">
-                      Structural topping out at Level 08; core plumb tolerance verified at ±1.2mm.
+                      Structural topping out at Level 08; core plumb tolerance
+                      verified at ±1.2mm.
                     </span>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-primary mt-2 shrink-0"></div>
                   <div>
-                    <span className="font-label-sm text-label-sm text-secondary block">Q4 2022 // M-04</span>
+                    <span className="font-label-sm text-label-sm text-secondary block">
+                      Q4 2022 // M-04
+                    </span>
                     <span className="font-medium text-on-surface">
-                      4,200 SQM double-glazed aluminum curtain wall installation &amp; water-penetration testing.
+                      4,200 SQM double-glazed aluminum curtain wall installation
+                      &amp; water-penetration testing.
                     </span>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="w-2 h-2 bg-primary mt-2 shrink-0"></div>
                   <div>
-                    <span className="font-label-sm text-label-sm text-secondary block">Q3 2023 // M-05</span>
+                    <span className="font-label-sm text-label-sm text-secondary block">
+                      Q3 2023 // M-05
+                    </span>
                     <span className="font-medium text-on-surface">
-                      Final testing, integrated MEP load commissioning, and statutory building handover.
+                      Final testing, integrated MEP load commissioning, and
+                      statutory building handover.
                     </span>
                   </div>
                 </li>
@@ -431,7 +594,9 @@ export default function KazanchisCaseStudyPage() {
 
             <div className="bg-surface-container-lowest border border-outline-variant/40 p-6 flex flex-col gap-4">
               <div className="border-b border-outline-variant/40 pb-3">
-                <span className="font-label-sm text-label-sm text-secondary uppercase block">MATERIAL QUALITY</span>
+                <span className="font-label-sm text-label-sm text-secondary uppercase block">
+                  MATERIAL QUALITY
+                </span>
                 <h3 className="font-headline-sm text-headline-sm text-on-surface font-semibold uppercase">
                   Batch Test Verifications
                 </h3>
@@ -439,30 +604,43 @@ export default function KazanchisCaseStudyPage() {
               <div className="flex flex-col gap-3 font-label-sm text-label-sm">
                 <div className="flex justify-between border-b border-outline-variant/20 pb-2">
                   <span className="text-secondary">CONCRETE C35 28-DAY:</span>
-                  <span className="text-on-surface font-bold">41.8 MPa (TARGET 35)</span>
+                  <span className="text-on-surface font-bold">
+                    41.8 MPa (TARGET 35)
+                  </span>
                 </div>
                 <div className="flex justify-between border-b border-outline-variant/20 pb-2">
                   <span className="text-secondary">CONCRETE C40 28-DAY:</span>
-                  <span className="text-on-surface font-bold">46.5 MPa (TARGET 40)</span>
+                  <span className="text-on-surface font-bold">
+                    46.5 MPa (TARGET 40)
+                  </span>
                 </div>
                 <div className="flex justify-between border-b border-outline-variant/20 pb-2">
                   <span className="text-secondary">REBAR YIELD STRESS:</span>
-                  <span className="text-on-surface font-bold">535 MPa (FE 500)</span>
+                  <span className="text-on-surface font-bold">
+                    535 MPa (FE 500)
+                  </span>
                 </div>
                 <div className="flex justify-between border-b border-outline-variant/20 pb-2">
-                  <span className="text-secondary">CURTAIN WALL DEFLECTION:</span>
-                  <span className="text-on-surface font-bold">L/240 @ 1.5 kPa</span>
+                  <span className="text-secondary">
+                    CURTAIN WALL DEFLECTION:
+                  </span>
+                  <span className="text-on-surface font-bold">
+                    L/240 @ 1.5 kPa
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-secondary">SUBSTATION INSULATION:</span>
-                  <span className="text-on-surface font-bold">&gt; 100 MΩ @ 2.5kV</span>
+                  <span className="text-on-surface font-bold">
+                    &gt; 100 MΩ @ 2.5kV
+                  </span>
                 </div>
               </div>
               <div className="bg-surface-container-high p-3 mt-2 text-body-sm text-on-surface-variant">
                 <span className="font-label-sm text-label-sm text-on-surface font-semibold block mb-0.5">
                   LABORATORY AUTHORITY:
                 </span>
-                National Metrology Institute of Ethiopia &amp; Addis Ababa University Civil Engineering Materials Lab.
+                National Metrology Institute of Ethiopia &amp; Addis Ababa
+                University Civil Engineering Materials Lab.
               </div>
             </div>
           </div>
@@ -490,7 +668,9 @@ export default function KazanchisCaseStudyPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-surface-container-lowest border border-outline-variant/40 flex flex-col">
               <div className="w-full bg-surface-container px-4 py-2 border-b border-outline-variant/30 flex items-center justify-between font-label-sm text-label-sm">
-                <span className="text-on-surface font-semibold">FIG. 01 // SUBTERRANEAN CIVIL &amp; CONTIGUOUS PILING</span>
+                <span className="text-on-surface font-semibold">
+                  FIG. 01 // SUBTERRANEAN CIVIL &amp; CONTIGUOUS PILING
+                </span>
                 <span className="text-secondary">ELEV -8.50M</span>
               </div>
               <div className="relative w-full h-80 overflow-hidden bg-surface-container">
@@ -508,14 +688,18 @@ export default function KazanchisCaseStudyPage() {
                   FOUNDATION MAT POUR
                 </span>
                 <p className="font-body-sm text-body-sm text-on-surface-variant">
-                  Continuous casting of bottom raft foundation using self-compacting high-durability C35/40 concrete mix with twin concrete boom pumps.
+                  Continuous casting of bottom raft foundation using
+                  self-compacting high-durability C35/40 concrete mix with twin
+                  concrete boom pumps.
                 </p>
               </div>
             </div>
 
             <div className="bg-surface-container-lowest border border-outline-variant/40 flex flex-col">
               <div className="w-full bg-surface-container px-4 py-2 border-b border-outline-variant/30 flex items-center justify-between font-label-sm text-label-sm">
-                <span className="text-on-surface font-semibold">FIG. 02 // FAÇADE ENVELOPE ASSEMBLY</span>
+                <span className="text-on-surface font-semibold">
+                  FIG. 02 // FAÇADE ENVELOPE ASSEMBLY
+                </span>
                 <span className="text-secondary">LEVEL 04 TO 08</span>
               </div>
               <div className="relative w-full h-80 overflow-hidden bg-surface-container">
@@ -533,14 +717,18 @@ export default function KazanchisCaseStudyPage() {
                   THERMAL-BREAK CURTAIN WALL
                 </span>
                 <p className="font-body-sm text-body-sm text-on-surface-variant">
-                  Double-glazed acoustic cassettes with 16mm argon cavity and low-emissivity coating providing high solar attenuation and 42dB road noise reduction.
+                  Double-glazed acoustic cassettes with 16mm argon cavity and
+                  low-emissivity coating providing high solar attenuation and
+                  42dB road noise reduction.
                 </p>
               </div>
             </div>
 
             <div className="bg-surface-container-lowest border border-outline-variant/40 flex flex-col">
               <div className="w-full bg-surface-container px-4 py-2 border-b border-outline-variant/30 flex items-center justify-between font-label-sm text-label-sm">
-                <span className="text-on-surface font-semibold">FIG. 03 // CORPORATE LOBBY &amp; CUSTOM MILLWORK</span>
+                <span className="text-on-surface font-semibold">
+                  FIG. 03 // CORPORATE LOBBY &amp; CUSTOM MILLWORK
+                </span>
                 <span className="text-secondary">GROUND FLOOR LEVEL 00</span>
               </div>
               <div className="relative w-full h-80 overflow-hidden bg-surface-container">
@@ -558,14 +746,18 @@ export default function KazanchisCaseStudyPage() {
                   TURNKEY ATRIUM EXECUTION
                 </span>
                 <p className="font-body-sm text-body-sm text-on-surface-variant">
-                  Acoustic timber baffles and artisan cast-terrazzo finishes built to international diplomatic mission specifications by Yebis finishing specialists.
+                  Acoustic timber baffles and artisan cast-terrazzo finishes
+                  built to international diplomatic mission specifications by
+                  Yebis finishing specialists.
                 </p>
               </div>
             </div>
 
             <div className="bg-surface-container-lowest border border-outline-variant/40 flex flex-col">
               <div className="w-full bg-surface-container px-4 py-2 border-b border-outline-variant/30 flex items-center justify-between font-label-sm text-label-sm">
-                <span className="text-on-surface font-semibold">FIG. 04 // CENTRAL MEP DISTRIBUTION INFRASTRUCTURE</span>
+                <span className="text-on-surface font-semibold">
+                  FIG. 04 // CENTRAL MEP DISTRIBUTION INFRASTRUCTURE
+                </span>
                 <span className="text-secondary">BASEMENT LEVEL -02</span>
               </div>
               <div className="relative w-full h-80 overflow-hidden bg-surface-container">
@@ -583,7 +775,9 @@ export default function KazanchisCaseStudyPage() {
                   PLANT ROOM COMMISSIONING
                 </span>
                 <p className="font-body-sm text-body-sm text-on-surface-variant">
-                  Triple-redundancy water pressurization skids, FM-200 clean agent server room fire suppression, and integrated supervisory building control systems.
+                  Triple-redundancy water pressurization skids, FM-200 clean
+                  agent server room fire suppression, and integrated supervisory
+                  building control systems.
                 </p>
               </div>
             </div>

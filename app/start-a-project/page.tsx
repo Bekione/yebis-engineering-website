@@ -6,12 +6,36 @@ import Link from "next/link";
 import { useState } from "react";
 
 const PROJECT_TYPES = [
-  { key: "new_construction", label: "New Construction", desc: "Ground-up commercial, institutional, or high-density residential." },
-  { key: "building_renovation", label: "Building Renovation", desc: "Structural strengthening, MEP modernization, and interior refit." },
-  { key: "interior_fitout", label: "Interior Fit-Out", desc: "Turnkey finishing — gypsum, flooring, millwork, and lighting." },
-  { key: "trade_scope", label: "Specialized Trade Scope", desc: "Single-discipline: electrical, plumbing, aluminum, or joinery." },
-  { key: "design_build", label: "Design & Build", desc: "Full BIM coordination, engineering, and integrated execution." },
-  { key: "maintenance", label: "Facilities Maintenance", desc: "Preventative maintenance, lifecycle repairs, and asset care." },
+  {
+    key: "new_construction",
+    label: "New Construction",
+    desc: "Ground-up commercial, institutional, or high-density residential.",
+  },
+  {
+    key: "building_renovation",
+    label: "Building Renovation",
+    desc: "Structural strengthening, MEP modernization, and interior refit.",
+  },
+  {
+    key: "interior_fitout",
+    label: "Interior Fit-Out",
+    desc: "Turnkey finishing — gypsum, flooring, millwork, and lighting.",
+  },
+  {
+    key: "trade_scope",
+    label: "Specialized Trade Scope",
+    desc: "Single-discipline: electrical, plumbing, aluminum, or joinery.",
+  },
+  {
+    key: "design_build",
+    label: "Design & Build",
+    desc: "Full BIM coordination, engineering, and integrated execution.",
+  },
+  {
+    key: "maintenance",
+    label: "Facilities Maintenance",
+    desc: "Preventative maintenance, lifecycle repairs, and asset care.",
+  },
 ];
 
 const DISCIPLINES = [
@@ -26,10 +50,26 @@ const DISCIPLINES = [
 ];
 
 const SCALES = [
-  { key: "small", label: "< 500 M²", desc: "Small-scale residential or commercial" },
-  { key: "medium", label: "500 – 2,000 M²", desc: "Mid-range mixed-use or institutional" },
-  { key: "large", label: "2,000 – 10,000 M²", desc: "Large commercial or campus" },
-  { key: "mega", label: "10,000+ M²", desc: "High-rise or multi-tower development" },
+  {
+    key: "small",
+    label: "< 500 M²",
+    desc: "Small-scale residential or commercial",
+  },
+  {
+    key: "medium",
+    label: "500 – 2,000 M²",
+    desc: "Mid-range mixed-use or institutional",
+  },
+  {
+    key: "large",
+    label: "2,000 – 10,000 M²",
+    desc: "Large commercial or campus",
+  },
+  {
+    key: "mega",
+    label: "10,000+ M²",
+    desc: "High-rise or multi-tower development",
+  },
 ];
 
 const TIMELINES = [
@@ -49,7 +89,7 @@ export default function StartProjectPage() {
 
   function toggleDiscipline(d: string) {
     setSelectedDisciplines((prev) =>
-      prev.includes(d) ? prev.filter((x) => x !== d) : [...prev, d]
+      prev.includes(d) ? prev.filter((x) => x !== d) : [...prev, d],
     );
   }
 
@@ -60,7 +100,7 @@ export default function StartProjectPage() {
   }
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col pt-2 w-full">
       {/* Top Telemetry Bar */}
       <section className="w-full bg-surface-container-high">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-space-xs flex flex-wrap items-center justify-between gap-space-sm font-label-sm text-label-sm text-secondary">
@@ -69,7 +109,9 @@ export default function StartProjectPage() {
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
               TENDER DESK: OPEN
             </span>
-            <span className="text-on-surface-variant">GC-1 ACCREDITED / ETHIOPIAN MINISTRY OF URBAN DEV.</span>
+            <span className="text-on-surface-variant">
+              GC-1 ACCREDITED / ETHIOPIAN MINISTRY OF URBAN DEV.
+            </span>
           </div>
           <div className="flex items-center gap-space-lg font-label-sm">
             <span>REF_PROTOCOL: PRJ-INTAKE-V4.2</span>
@@ -88,19 +130,25 @@ export default function StartProjectPage() {
                 <span className="font-label-md text-label-md tracking-wider uppercase text-primary font-semibold">
                   PROJECT INTAKE &amp; TENDER CONSULTATION
                 </span>
-                <span className="text-secondary font-label-sm text-label-sm">// SEC_01·SPECS</span>
+                <span className="text-secondary font-label-sm text-label-sm">
+                  // SEC_01·SPECS
+                </span>
               </div>
               <h1 className="font-headline-xl text-[36px] leading-[44px] lg:text-headline-xl text-on-surface tracking-tight uppercase font-bold">
                 Tell us what you are building.
               </h1>
               <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
-                Whether you need a complete general contractor for a multi-story development or a specialist team for a defined trade scope, our engineering team is ready to evaluate your project.
+                Whether you need a complete general contractor for a multi-story
+                development or a specialist team for a defined trade scope, our
+                engineering team is ready to evaluate your project.
               </p>
             </div>
             <div className="lg:col-span-4 flex flex-col gap-space-sm bg-surface-container-low p-space-md shadow-sm">
               <div className="flex items-center justify-between font-label-sm text-label-sm text-secondary">
                 <span>INTAKE CAPACITY</span>
-                <span className="text-primary font-medium">Q2/Q3 COMMENCEMENT</span>
+                <span className="text-primary font-medium">
+                  Q2/Q3 COMMENCEMENT
+                </span>
               </div>
               <div className="w-full bg-surface-container-highest h-1.5 overflow-hidden">
                 <div className="bg-primary h-full w-3/4"></div>
@@ -119,15 +167,20 @@ export default function StartProjectPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           {submitted ? (
             <div className="bg-surface-container-lowest p-space-xl shadow-md max-w-3xl mx-auto flex flex-col items-center text-center gap-space-lg">
-              <span className="material-symbols-outlined text-primary text-[48px]">verified</span>
+              <span className="material-symbols-outlined text-primary text-[48px]">
+                verified
+              </span>
               <h2 className="font-headline-md text-headline-md text-on-surface uppercase font-bold">
                 Project Brief Registered
               </h2>
               <p className="font-body-md text-body-md text-on-surface-variant max-w-xl">
-                Our senior engineering bureau has logged your submission. A Principal Estimator will initiate drawing/BOQ assessment within 48 business hours.
+                Our senior engineering bureau has logged your submission. A
+                Principal Estimator will initiate drawing/BOQ assessment within
+                48 business hours.
               </p>
               <span className="font-label-sm text-label-sm text-primary font-medium">
-                REF: YB-PRJ-{new Date().getFullYear()}-{Math.floor(Math.random() * 9000 + 1000)}
+                REF: YB-PRJ-{new Date().getFullYear()}-
+                {Math.floor(Math.random() * 9000 + 1000)}
               </span>
               <span className="font-label-sm text-label-sm text-secondary">
                 CONFIRMATION DISPATCHED TO SUBMITTING EMAIL
@@ -153,17 +206,24 @@ export default function StartProjectPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
               {/* Form Column */}
               <div className="lg:col-span-8 flex flex-col gap-space-xl">
-                <form className="flex flex-col gap-space-lg" onSubmit={handleSubmit}>
+                <form
+                  className="flex flex-col gap-space-lg"
+                  onSubmit={handleSubmit}
+                >
                   {/* Field 1: Project Type */}
                   <div className="bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
                     <div className="flex items-center justify-between pb-space-xs">
                       <div className="flex items-center gap-space-xs">
-                        <span className="font-label-sm text-label-sm bg-inverse-surface text-on-primary px-space-xs py-0.5">01</span>
+                        <span className="font-label-sm text-label-sm bg-inverse-surface text-on-primary px-space-xs py-0.5">
+                          01
+                        </span>
                         <label className="font-label-lg text-label-lg uppercase tracking-wider text-on-surface font-semibold">
                           Project Classification
                         </label>
                       </div>
-                      <span className="font-label-sm text-label-sm text-secondary">SELECT SINGLE DISCIPLINE</span>
+                      <span className="font-label-sm text-label-sm text-secondary">
+                        SELECT SINGLE DISCIPLINE
+                      </span>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-space-sm">
                       {PROJECT_TYPES.map((pt) => (
@@ -185,16 +245,23 @@ export default function StartProjectPage() {
                           />
                           <div className="flex items-center justify-between pb-space-xs">
                             <span className="font-label-sm text-label-sm text-secondary group-hover:text-primary">
-                              TYPE_{PROJECT_TYPES.indexOf(pt) + 1 < 10 ? `0${PROJECT_TYPES.indexOf(pt) + 1}` : PROJECT_TYPES.indexOf(pt) + 1}
+                              TYPE_
+                              {PROJECT_TYPES.indexOf(pt) + 1 < 10
+                                ? `0${PROJECT_TYPES.indexOf(pt) + 1}`
+                                : PROJECT_TYPES.indexOf(pt) + 1}
                             </span>
-                            <span className={`w-3.5 h-3.5 inline-flex items-center justify-center ${selectedType === pt.key ? "bg-primary" : "bg-surface-container-highest"}`}>
+                            <span
+                              className={`w-3.5 h-3.5 inline-flex items-center justify-center ${selectedType === pt.key ? "bg-primary" : "bg-surface-container-highest"}`}
+                            >
                               <span className="w-1.5 h-1.5 bg-on-primary"></span>
                             </span>
                           </div>
                           <span className="font-headline-sm text-[16px] leading-[22px] text-on-surface font-bold uppercase mt-space-xs">
                             {pt.label}
                           </span>
-                          <span className="font-body-sm text-body-sm text-on-surface-variant mt-1">{pt.desc}</span>
+                          <span className="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                            {pt.desc}
+                          </span>
                         </label>
                       ))}
                     </div>
@@ -204,12 +271,16 @@ export default function StartProjectPage() {
                   <div className="bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
                     <div className="flex items-center justify-between pb-space-xs">
                       <div className="flex items-center gap-space-xs">
-                        <span className="font-label-sm text-label-sm bg-inverse-surface text-on-primary px-space-xs py-0.5">02</span>
+                        <span className="font-label-sm text-label-sm bg-inverse-surface text-on-primary px-space-xs py-0.5">
+                          02
+                        </span>
                         <label className="font-label-lg text-label-lg uppercase tracking-wider text-on-surface font-semibold">
                           Required Disciplines
                         </label>
                       </div>
-                      <span className="font-label-sm text-label-sm text-secondary">SELECT ALL THAT APPLY</span>
+                      <span className="font-label-sm text-label-sm text-secondary">
+                        SELECT ALL THAT APPLY
+                      </span>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-xs">
                       {DISCIPLINES.map((d) => (
@@ -221,11 +292,17 @@ export default function StartProjectPage() {
                               : "bg-surface-container-low text-on-surface-variant hover:bg-surface-container"
                           }`}
                         >
-                          <span className={`w-4 h-4 border inline-flex items-center justify-center shrink-0 ${
-                            selectedDisciplines.includes(d) ? "bg-primary border-primary" : "bg-surface-container-highest border-outline-variant"
-                          }`}>
+                          <span
+                            className={`w-4 h-4 border inline-flex items-center justify-center shrink-0 ${
+                              selectedDisciplines.includes(d)
+                                ? "bg-primary border-primary"
+                                : "bg-surface-container-highest border-outline-variant"
+                            }`}
+                          >
                             {selectedDisciplines.includes(d) && (
-                              <span className="text-on-primary text-[10px] font-bold">✓</span>
+                              <span className="text-on-primary text-[10px] font-bold">
+                                ✓
+                              </span>
                             )}
                           </span>
                           <input
@@ -234,7 +311,9 @@ export default function StartProjectPage() {
                             onChange={() => toggleDiscipline(d)}
                             className="sr-only"
                           />
-                          <span className="font-label-md text-label-md uppercase tracking-wider">{d}</span>
+                          <span className="font-label-md text-label-md uppercase tracking-wider">
+                            {d}
+                          </span>
                         </label>
                       ))}
                     </div>
@@ -244,12 +323,16 @@ export default function StartProjectPage() {
                   <div className="bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
                     <div className="flex items-center justify-between pb-space-xs">
                       <div className="flex items-center gap-space-xs">
-                        <span className="font-label-sm text-label-sm bg-inverse-surface text-on-primary px-space-xs py-0.5">03</span>
+                        <span className="font-label-sm text-label-sm bg-inverse-surface text-on-primary px-space-xs py-0.5">
+                          03
+                        </span>
                         <label className="font-label-lg text-label-lg uppercase tracking-wider text-on-surface font-semibold">
                           Project Scale
                         </label>
                       </div>
-                      <span className="font-label-sm text-label-sm text-secondary">GROSS FLOOR AREA</span>
+                      <span className="font-label-sm text-label-sm text-secondary">
+                        GROSS FLOOR AREA
+                      </span>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm">
                       {SCALES.map((s) => (
@@ -269,8 +352,12 @@ export default function StartProjectPage() {
                             onChange={() => setSelectedScale(s.key)}
                             className="sr-only"
                           />
-                          <span className="font-headline-sm text-[16px] leading-[22px] text-on-surface font-bold">{s.label}</span>
-                          <span className="font-body-sm text-body-sm text-on-surface-variant mt-1">{s.desc}</span>
+                          <span className="font-headline-sm text-[16px] leading-[22px] text-on-surface font-bold">
+                            {s.label}
+                          </span>
+                          <span className="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                            {s.desc}
+                          </span>
                         </label>
                       ))}
                     </div>
@@ -279,14 +366,18 @@ export default function StartProjectPage() {
                   {/* Field 4: Contact & Details */}
                   <div className="bg-surface-container-lowest p-space-lg shadow-sm flex flex-col gap-space-md">
                     <div className="flex items-center gap-space-xs pb-space-xs">
-                      <span className="font-label-sm text-label-sm bg-inverse-surface text-on-primary px-space-xs py-0.5">04</span>
+                      <span className="font-label-sm text-label-sm bg-inverse-surface text-on-primary px-space-xs py-0.5">
+                        04
+                      </span>
                       <label className="font-label-lg text-label-lg uppercase tracking-wider text-on-surface font-semibold">
                         Contact &amp; Project Details
                       </label>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
                       <div className="flex flex-col gap-space-xs">
-                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Full Name *</label>
+                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
+                          Full Name *
+                        </label>
                         <input
                           type="text"
                           required
@@ -295,7 +386,9 @@ export default function StartProjectPage() {
                         />
                       </div>
                       <div className="flex flex-col gap-space-xs">
-                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Organization *</label>
+                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
+                          Organization *
+                        </label>
                         <input
                           type="text"
                           required
@@ -306,7 +399,9 @@ export default function StartProjectPage() {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
                       <div className="flex flex-col gap-space-xs">
-                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Email *</label>
+                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
+                          Email *
+                        </label>
                         <input
                           type="email"
                           required
@@ -315,7 +410,9 @@ export default function StartProjectPage() {
                         />
                       </div>
                       <div className="flex flex-col gap-space-xs">
-                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Phone</label>
+                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
+                          Phone
+                        </label>
                         <input
                           type="tel"
                           className="bg-surface-container-low border border-outline-variant/40 px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors"
@@ -329,7 +426,9 @@ export default function StartProjectPage() {
                       </label>
                       <select className="bg-surface-container-low border border-outline-variant/40 px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors">
                         {TIMELINES.map((t) => (
-                          <option key={t} value={t}>{t}</option>
+                          <option key={t} value={t}>
+                            {t}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -366,18 +465,38 @@ export default function StartProjectPage() {
                     </span>
                   </div>
                   {[
-                    { step: "01", title: "Brief Received", desc: "Your project scope is logged and assigned a reference number." },
-                    { step: "02", title: "Technical Review", desc: "A Principal Estimator reviews requirements against our capability matrix." },
-                    { step: "03", title: "Initial Assessment", desc: "Within 48hrs, you receive a preliminary scope evaluation and methodology outline." },
-                    { step: "04", title: "Formal Proposal", desc: "Detailed BOQ, timeline, and commercial terms presented for consideration." },
+                    {
+                      step: "01",
+                      title: "Brief Received",
+                      desc: "Your project scope is logged and assigned a reference number.",
+                    },
+                    {
+                      step: "02",
+                      title: "Technical Review",
+                      desc: "A Principal Estimator reviews requirements against our capability matrix.",
+                    },
+                    {
+                      step: "03",
+                      title: "Initial Assessment",
+                      desc: "Within 48hrs, you receive a preliminary scope evaluation and methodology outline.",
+                    },
+                    {
+                      step: "04",
+                      title: "Formal Proposal",
+                      desc: "Detailed BOQ, timeline, and commercial terms presented for consideration.",
+                    },
                   ].map((s) => (
                     <div key={s.step} className="flex gap-space-sm">
                       <span className="font-label-sm text-label-sm bg-surface-container text-primary px-space-xs py-0.5 h-fit">
                         {s.step}
                       </span>
                       <div className="flex flex-col gap-0.5">
-                        <span className="font-label-md text-label-md text-on-surface font-semibold uppercase">{s.title}</span>
-                        <span className="font-body-sm text-body-sm text-on-surface-variant">{s.desc}</span>
+                        <span className="font-label-md text-label-md text-on-surface font-semibold uppercase">
+                          {s.title}
+                        </span>
+                        <span className="font-body-sm text-body-sm text-on-surface-variant">
+                          {s.desc}
+                        </span>
                       </div>
                     </div>
                   ))}
@@ -393,16 +512,28 @@ export default function StartProjectPage() {
                   </div>
                   <div className="flex flex-col gap-space-sm">
                     <div className="flex flex-col gap-space-xs">
-                      <span className="font-label-sm text-label-sm text-secondary uppercase">TENDER DESK</span>
-                      <span className="font-label-lg text-label-lg text-on-surface font-semibold">+251 11 667 8900</span>
+                      <span className="font-label-sm text-label-sm text-secondary uppercase">
+                        TENDER DESK
+                      </span>
+                      <span className="font-label-lg text-label-lg text-on-surface font-semibold">
+                        +251 91 151 7784
+                      </span>
                     </div>
                     <div className="flex flex-col gap-space-xs">
-                      <span className="font-label-sm text-label-sm text-secondary uppercase">URGENT SITE LINE</span>
-                      <span className="font-label-lg text-label-lg text-on-surface font-semibold">+251 91 122 3344</span>
+                      <span className="font-label-sm text-label-sm text-secondary uppercase">
+                        URGENT SITE LINE
+                      </span>
+                      <span className="font-label-lg text-label-lg text-on-surface font-semibold">
+                        +251 91 151 7784
+                      </span>
                     </div>
                     <div className="flex flex-col gap-space-xs">
-                      <span className="font-label-sm text-label-sm text-secondary uppercase">EMAIL</span>
-                      <span className="font-label-lg text-label-lg text-on-surface font-semibold">inquiries@yebisengineering.com</span>
+                      <span className="font-label-sm text-label-sm text-secondary uppercase">
+                        EMAIL
+                      </span>
+                      <span className="font-label-lg text-label-lg text-on-surface font-semibold">
+                        inquiries@yebisengineering.com
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -427,11 +558,21 @@ export default function StartProjectPage() {
                     Grade 1 (GC-1) Certified
                   </span>
                   <span className="font-body-sm text-body-sm text-inverse-on-surface">
-                    Licensed by the Federal Ministry of Urban Development &amp; Infrastructure. Authorized for unlimited project scale and tender participation.
+                    Licensed by the Federal Ministry of Urban Development &amp;
+                    Infrastructure. Authorized for unlimited project scale and
+                    tender participation.
                   </span>
                   <div className="flex flex-wrap gap-space-sm pt-space-xs">
-                    {["MOTI/GC-01/ET", "FIDIC COMPLIANT", "EBCS CODE", "CBE TIER-1"].map((badge) => (
-                      <span key={badge} className="font-label-sm text-label-sm text-primary-fixed border border-primary-fixed/30 px-2 py-0.5 uppercase">
+                    {[
+                      "MOTI/GC-01/ET",
+                      "FIDIC COMPLIANT",
+                      "EBCS CODE",
+                      "CBE TIER-1",
+                    ].map((badge) => (
+                      <span
+                        key={badge}
+                        className="font-label-sm text-label-sm text-primary-fixed border border-primary-fixed/30 px-2 py-0.5 uppercase"
+                      >
                         {badge}
                       </span>
                     ))}

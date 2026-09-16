@@ -14,10 +14,22 @@ const CATEGORIES = [
 ];
 
 const FIELD_STATIONS = [
-  { name: "Bole District Site Office", phone: "+251 91 234 5678", status: "ACTIVE" },
+  {
+    name: "Bole District Site Office",
+    phone: "+251 91 234 5678",
+    status: "ACTIVE",
+  },
   { name: "CMC Area Operations", phone: "+251 91 345 6789", status: "ACTIVE" },
-  { name: "Kazanchis Development Zone", phone: "+251 91 456 7890", status: "ACTIVE" },
-  { name: "Megenagna Regional Hub", phone: "+251 91 567 8901", status: "STANDBY" },
+  {
+    name: "Kazanchis Development Zone",
+    phone: "+251 91 456 7890",
+    status: "ACTIVE",
+  },
+  {
+    name: "Megenagna Regional Hub",
+    phone: "+251 91 567 8901",
+    status: "STANDBY",
+  },
 ];
 
 export default function ContactPage() {
@@ -31,19 +43,23 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col pt-2 w-full">
       {/* Datum Bar */}
       <div className="w-full bg-surface-container-low px-6 lg:px-12 py-space-sm">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-space-xs font-label-sm text-label-sm text-secondary">
           <div className="flex items-center gap-space-sm">
             <span className="inline-block w-2 h-2 bg-primary"></span>
             <span className="tracking-wider uppercase font-semibold text-on-surface">
-              HEADQUARTERS &amp; REGIONAL LOGISTICS // COMMERCIAL TENDERS &amp; FIELD DISPATCH
+              HEADQUARTERS &amp; REGIONAL LOGISTICS // COMMERCIAL TENDERS &amp;
+              FIELD DISPATCH
             </span>
           </div>
           <div className="flex items-center gap-space-lg">
             <span className="text-on-surface-variant font-medium">
-              DESK HOURS: <span className="text-primary font-semibold">MON–SAT 08:00 – 18:00 EAT</span>
+              DESK HOURS:{" "}
+              <span className="text-primary font-semibold">
+                MON–SAT 08:00 – 18:00 EAT
+              </span>
             </span>
             <span>ADDIS ABABA (UTC+3)</span>
           </div>
@@ -57,13 +73,17 @@ export default function ContactPage() {
             <span className="text-primary font-label-sm text-label-sm uppercase tracking-widest font-semibold">
               [ DIRECT COMMUNICATION &amp; TENDER INTAKE ]
             </span>
-            <span className="text-secondary font-label-sm text-label-sm">/ BOLE SUB-CITY, ADDIS ABABA</span>
+            <span className="text-secondary font-label-sm text-label-sm">
+              / BOLE SUB-CITY, ADDIS ABABA
+            </span>
           </div>
           <h1 className="font-headline-xl text-[36px] leading-[44px] lg:text-headline-xl text-on-surface uppercase tracking-tight font-bold">
             Headquarters &amp; Regional Field Operations.
           </h1>
           <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
-            Connect directly with our corporate executive office, commercial tender desk, procurement division, or project site engineers across Ethiopia.
+            Connect directly with our corporate executive office, commercial
+            tender desk, procurement division, or project site engineers across
+            Ethiopia.
           </p>
         </div>
 
@@ -71,38 +91,72 @@ export default function ContactPage() {
         <div className="mt-space-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
           <div className="bg-surface-container-lowest p-space-md flex flex-col gap-space-xs shadow-sm">
             <div className="flex items-center justify-between">
-              <span className="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Tender Desk Hotlines</span>
-              <span className="material-symbols-outlined text-primary text-[18px]">support_agent</span>
+              <span className="font-label-sm text-label-sm text-secondary uppercase tracking-wider">
+                Tender Desk Hotlines
+              </span>
+              <span className="material-symbols-outlined text-primary text-[18px]">
+                support_agent
+              </span>
             </div>
-            <span className="font-label-lg text-label-lg font-semibold text-on-surface">+251 11 667 8900</span>
-            <span className="font-label-sm text-label-sm text-on-surface-variant">+251 91 122 3344 (Urgent/Site)</span>
+            <span className="font-label-lg text-label-lg font-semibold text-on-surface">
+              +251 91 151 7784
+            </span>
+            <span className="font-label-sm text-label-sm text-on-surface-variant">
+              +251 91 151 7784 (Urgent/Site)
+            </span>
           </div>
           <div className="bg-surface-container-lowest p-space-md flex flex-col gap-space-xs shadow-sm">
             <div className="flex items-center justify-between">
-              <span className="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Official Registries</span>
-              <span className="material-symbols-outlined text-primary text-[18px]">verified</span>
+              <span className="font-label-sm text-label-sm text-secondary uppercase tracking-wider">
+                Official Registries
+              </span>
+              <span className="material-symbols-outlined text-primary text-[18px]">
+                verified
+              </span>
             </div>
-            <span className="font-label-lg text-label-lg font-semibold text-on-surface">MOTI/GC-01/ET/9924</span>
-            <span className="font-label-sm text-label-sm text-on-surface-variant">TIN: 0048992110 · VAT REG</span>
+            <span className="font-label-lg text-label-lg font-semibold text-on-surface">
+              MOTI/GC-01/ET/9924
+            </span>
+            <span className="font-label-sm text-label-sm text-on-surface-variant">
+              TIN: 0048992110 · VAT REG
+            </span>
           </div>
           <div className="bg-surface-container-lowest p-space-md flex flex-col gap-space-xs shadow-sm">
             <div className="flex items-center justify-between">
-              <span className="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Tender Turnaround</span>
-              <span className="material-symbols-outlined text-primary text-[18px]">timer</span>
+              <span className="font-label-sm text-label-sm text-secondary uppercase tracking-wider">
+                Tender Turnaround
+              </span>
+              <span className="material-symbols-outlined text-primary text-[18px]">
+                timer
+              </span>
             </div>
             <div className="flex items-baseline gap-space-xs">
-              <span className="font-headline-sm text-headline-sm font-bold text-primary">≤ 48</span>
-              <span className="font-label-sm text-label-sm text-on-surface uppercase">Business Hours</span>
+              <span className="font-headline-sm text-headline-sm font-bold text-primary">
+                ≤ 48
+              </span>
+              <span className="font-label-sm text-label-sm text-on-surface uppercase">
+                Business Hours
+              </span>
             </div>
-            <span className="font-label-sm text-label-sm text-on-surface-variant">Formal RFP / BOQ Dossier SLA</span>
+            <span className="font-label-sm text-label-sm text-on-surface-variant">
+              Formal RFP / BOQ Dossier SLA
+            </span>
           </div>
           <div className="bg-surface-container-lowest p-space-md flex flex-col gap-space-xs shadow-sm">
             <div className="flex items-center justify-between">
-              <span className="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Operating Protocol</span>
-              <span className="material-symbols-outlined text-primary text-[18px]">schedule</span>
+              <span className="font-label-sm text-label-sm text-secondary uppercase tracking-wider">
+                Operating Protocol
+              </span>
+              <span className="material-symbols-outlined text-primary text-[18px]">
+                schedule
+              </span>
             </div>
-            <span className="font-label-lg text-label-lg font-semibold text-on-surface">M-F 08:00 – 17:30 EAT</span>
-            <span className="font-label-sm text-label-sm text-on-surface-variant">Sat 08:30 – 12:30 EAT</span>
+            <span className="font-label-lg text-label-lg font-semibold text-on-surface">
+              M-F 08:00 – 17:30 EAT
+            </span>
+            <span className="font-label-sm text-label-sm text-on-surface-variant">
+              Sat 08:30 – 12:30 EAT
+            </span>
           </div>
         </div>
       </section>
@@ -114,15 +168,20 @@ export default function ContactPage() {
           <div className="lg:col-span-7 bg-surface-container-lowest p-space-lg md:p-space-xl shadow-md">
             {submitted ? (
               <div className="flex flex-col gap-space-md items-center text-center py-space-xl">
-                <span className="material-symbols-outlined text-primary text-[48px]">verified</span>
+                <span className="material-symbols-outlined text-primary text-[48px]">
+                  verified
+                </span>
                 <h2 className="font-headline-md text-headline-md text-on-surface uppercase font-bold">
                   Transmission Received
                 </h2>
                 <p className="font-body-md text-body-md text-on-surface-variant max-w-md">
-                  Your inquiry has been routed to the appropriate department. A designated engineer or commercial estimator will respond within 48 business hours.
+                  Your inquiry has been routed to the appropriate department. A
+                  designated engineer or commercial estimator will respond
+                  within 48 business hours.
                 </p>
                 <span className="font-label-sm text-label-sm text-primary font-medium">
-                  REF: YB-CONT-{new Date().getFullYear()}-{Math.floor(Math.random() * 9000 + 1000)}
+                  REF: YB-CONT-{new Date().getFullYear()}-
+                  {Math.floor(Math.random() * 9000 + 1000)}
                 </span>
               </div>
             ) : (
@@ -135,11 +194,16 @@ export default function ContactPage() {
                     Direct Departmental Transmission
                   </h2>
                   <p className="font-body-sm text-body-sm text-on-surface-variant">
-                    Official communications are routed directly to accredited engineers, commercial estimators, or the executive secretarial board.
+                    Official communications are routed directly to accredited
+                    engineers, commercial estimators, or the executive
+                    secretarial board.
                   </p>
                 </div>
 
-                <form className="flex flex-col gap-space-md mt-space-sm" onSubmit={handleSubmit}>
+                <form
+                  className="flex flex-col gap-space-md mt-space-sm"
+                  onSubmit={handleSubmit}
+                >
                   {/* Category Selector */}
                   <div className="flex flex-col gap-space-xs">
                     <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
@@ -158,7 +222,9 @@ export default function ContactPage() {
                           }`}
                         >
                           <span>{cat.label}</span>
-                          <span className={`w-2 h-2 ${selectedCategory === cat.key ? "bg-primary" : "bg-transparent"}`}></span>
+                          <span
+                            className={`w-2 h-2 ${selectedCategory === cat.key ? "bg-primary" : "bg-transparent"}`}
+                          ></span>
                         </button>
                       ))}
                     </div>
@@ -248,7 +314,9 @@ export default function ContactPage() {
                 <span className="font-label-sm text-label-sm text-primary uppercase tracking-wider font-semibold">
                   HEADQUARTERS // BOLE DISTRICT
                 </span>
-                <span className="font-label-sm text-label-sm text-secondary">09°01&apos;N 38°45&apos;E</span>
+                <span className="font-label-sm text-label-sm text-secondary">
+                  09°01&apos;N 38°45&apos;E
+                </span>
               </div>
               <div className="relative w-full aspect-[16/10] bg-surface-container overflow-hidden border border-outline-variant/40">
                 <Image
@@ -261,15 +329,17 @@ export default function ContactPage() {
               </div>
               <address className="not-italic font-body-sm text-body-sm text-on-surface-variant flex flex-col gap-space-xs">
                 <p>
-                  Bole Sub-City, Woreda 03<br />
-                  Cameroon Street, Yebis Tower<br />
+                  Bole Sub-City, Woreda 03
+                  <br />
+                  Cameroon Street, Yebis Tower
+                  <br />
                   Addis Ababa, Ethiopia
                 </p>
                 <p className="font-label-sm text-label-sm text-on-surface pt-space-xs">
                   inquiries@yebisengineering.com
                 </p>
                 <p className="font-label-sm text-label-sm text-on-surface">
-                  +251 11 667 8900 / +251 91 122 3344
+                  +251 91 151 7784
                 </p>
               </address>
             </div>
@@ -284,12 +354,21 @@ export default function ContactPage() {
               </div>
               <div className="flex flex-col divide-y divide-outline-variant/20">
                 {FIELD_STATIONS.map((station) => (
-                  <div key={station.name} className="flex items-center justify-between py-space-sm">
+                  <div
+                    key={station.name}
+                    className="flex items-center justify-between py-space-sm"
+                  >
                     <div className="flex flex-col gap-0.5">
-                      <span className="font-label-md text-label-md text-on-surface font-medium">{station.name}</span>
-                      <span className="font-label-sm text-label-sm text-on-surface-variant">{station.phone}</span>
+                      <span className="font-label-md text-label-md text-on-surface font-medium">
+                        {station.name}
+                      </span>
+                      <span className="font-label-sm text-label-sm text-on-surface-variant">
+                        {station.phone}
+                      </span>
                     </div>
-                    <span className={`font-label-sm text-label-sm uppercase tracking-wider ${station.status === "ACTIVE" ? "text-primary font-medium" : "text-secondary"}`}>
+                    <span
+                      className={`font-label-sm text-label-sm uppercase tracking-wider ${station.status === "ACTIVE" ? "text-primary font-medium" : "text-secondary"}`}
+                    >
                       {station.status}
                     </span>
                   </div>

@@ -22,7 +22,8 @@ export const metadata: Metadata = {
 const FEATURED = {
   tag: "PRIMARY INVESTIGATION",
   dispatch: "FIELD DISPATCH 014 // GEOTECHNICAL & DEEP FOUNDATIONS",
-  title: "Optimizing Deep Foundation Systems on Addis Ababa's Volcanic Tuff Substrata",
+  title:
+    "Optimizing Deep Foundation Systems on Addis Ababa's Volcanic Tuff Substrata",
   abstract:
     "A comprehensive field investigation into bored pile performance under variable volcanic soil conditions in the central Addis Ababa plateau. This monograph analyzes bearing capacity degradation factors observed across 12 commercial foundation projects and proposes revised design parameters for tuff-over-clay transition zones at depths between 8–22 meters.",
   image: IMG.foundation,
@@ -40,8 +41,10 @@ const ARTICLES = [
   {
     id: "FLD-013",
     category: "CONCRETE TECHNOLOGY",
-    title: "High-Performance Concrete Mix Design for Ethiopian Highland Climate Conditions",
-    excerpt: "Investigating C40/C50 performance under high-altitude UV exposure, diurnal temperature swings, and volcanic aggregate variability in Addis Ababa construction projects.",
+    title:
+      "High-Performance Concrete Mix Design for Ethiopian Highland Climate Conditions",
+    excerpt:
+      "Investigating C40/C50 performance under high-altitude UV exposure, diurnal temperature swings, and volcanic aggregate variability in Addis Ababa construction projects.",
     image: IMG.concretePour,
     readTime: "14 MIN",
     date: "2024-Q2",
@@ -49,8 +52,10 @@ const ARTICLES = [
   {
     id: "FLD-012",
     category: "FACADE ENGINEERING",
-    title: "Thermal Break Aluminum Systems: Performance Testing in East African High-Altitude Environments",
-    excerpt: "Comprehensive thermal cycling and wind-load testing data for unitized curtain wall systems installed at 2,300M+ elevation in Addis Ababa commercial towers.",
+    title:
+      "Thermal Break Aluminum Systems: Performance Testing in East African High-Altitude Environments",
+    excerpt:
+      "Comprehensive thermal cycling and wind-load testing data for unitized curtain wall systems installed at 2,300M+ elevation in Addis Ababa commercial towers.",
     image: IMG.facade,
     readTime: "12 MIN",
     date: "2024-Q2",
@@ -58,8 +63,10 @@ const ARTICLES = [
   {
     id: "FLD-011",
     category: "MEP SYSTEMS",
-    title: "Electrical Resilience Under Volatile Grid Conditions: ATS Design for Ethiopian Commercial Buildings",
-    excerpt: "Automatic Transfer Switch synchronization protocols and generator sizing methodologies for buildings experiencing 8+ power interruptions per week.",
+    title:
+      "Electrical Resilience Under Volatile Grid Conditions: ATS Design for Ethiopian Commercial Buildings",
+    excerpt:
+      "Automatic Transfer Switch synchronization protocols and generator sizing methodologies for buildings experiencing 8+ power interruptions per week.",
     image: IMG.electrical,
     readTime: "16 MIN",
     date: "2024-Q1",
@@ -67,8 +74,10 @@ const ARTICLES = [
   {
     id: "FLD-010",
     category: "INTERIOR FINISHING",
-    title: "Achieving Q4 Gypsum Finish Standards in Tropical Construction Environments",
-    excerpt: "Moisture management, curing protocols, and jointing techniques for achieving European DIN EN 13914 gypsum surface standards in high-humidity Ethiopian conditions.",
+    title:
+      "Achieving Q4 Gypsum Finish Standards in Tropical Construction Environments",
+    excerpt:
+      "Moisture management, curing protocols, and jointing techniques for achieving European DIN EN 13914 gypsum surface standards in high-humidity Ethiopian conditions.",
     image: IMG.cleanroom,
     readTime: "10 MIN",
     date: "2024-Q1",
@@ -76,8 +85,10 @@ const ARTICLES = [
   {
     id: "FLD-009",
     category: "STRUCTURAL ANALYSIS",
-    title: "Seismic Retrofitting of Existing RC Structures Using Carbon Fiber Reinforcement",
-    excerpt: "Field application data from 6 commercial building retrofits in Addis Ababa, documenting CFRP wrap application techniques and post-strengthening load test results.",
+    title:
+      "Seismic Retrofitting of Existing RC Structures Using Carbon Fiber Reinforcement",
+    excerpt:
+      "Field application data from 6 commercial building retrofits in Addis Ababa, documenting CFRP wrap application techniques and post-strengthening load test results.",
     image: IMG.renovation,
     readTime: "15 MIN",
     date: "2023-Q4",
@@ -85,8 +96,10 @@ const ARTICLES = [
   {
     id: "FLD-008",
     category: "JOINERY & MILLWORK",
-    title: "Kiln Drying Protocols for Ethiopian Hardwood Species in Architectural Applications",
-    excerpt: "Moisture content management, dimensional stability testing, and CNC machining tolerances for indigenous timber species used in executive interior joinery.",
+    title:
+      "Kiln Drying Protocols for Ethiopian Hardwood Species in Architectural Applications",
+    excerpt:
+      "Moisture content management, dimensional stability testing, and CNC machining tolerances for indigenous timber species used in executive interior joinery.",
     image: IMG.joinery,
     readTime: "11 MIN",
     date: "2023-Q4",
@@ -95,7 +108,7 @@ const ARTICLES = [
 
 export default function InsightsPage() {
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col pt-2 w-full">
       {/* SECTION 1: HEADER & SYSTEM TELEMETRY */}
       <section className="w-full bg-surface-container-low border-b border-outline-variant/30 px-6 lg:px-12 py-10 lg:py-16">
         <div className="max-w-7xl mx-auto flex flex-col gap-8">
@@ -104,7 +117,8 @@ export default function InsightsPage() {
             <div className="flex items-center gap-3">
               <span className="w-2.5 h-2.5 bg-primary"></span>
               <span className="font-label-sm text-label-sm tracking-widest text-on-surface-variant uppercase">
-                SYS_REF: INS_ARCHIVE // SEC_FLD-07 // TECHNICAL INTELLIGENCE &amp; METHODOLOGY
+                SYS_REF: INS_ARCHIVE // SEC_FLD-07 // TECHNICAL INTELLIGENCE
+                &amp; METHODOLOGY
               </span>
             </div>
             <div className="hidden sm:flex items-center gap-4 font-label-sm text-label-sm text-secondary">
@@ -120,25 +134,51 @@ export default function InsightsPage() {
                 Field Monographs • Series 2024–2025
               </span>
               <h1 className="font-headline-xl text-[36px] leading-[44px] lg:text-headline-xl tracking-tight text-on-surface font-bold uppercase max-w-4xl">
-                From the Field: Engineering Briefings &amp; Technical Monographs.
+                From the Field: Engineering Briefings &amp; Technical
+                Monographs.
               </h1>
               <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
-                In-depth analyses of geotechnical challenges, high-performance concrete mix designs, facade thermal performance, and statutory compliance across the Ethiopian highland built environment.
+                In-depth analyses of geotechnical challenges, high-performance
+                concrete mix designs, facade thermal performance, and statutory
+                compliance across the Ethiopian highland built environment.
               </p>
             </div>
             {/* Telemetry Data Grid */}
             <div className="lg:col-span-4 bg-surface-container-lowest border border-outline-variant/40 p-5 grid grid-cols-2 gap-4 shadow-sm">
               {[
-                { label: "Monographs Published", value: "18", badge: "DOCS ACTIVE", highlight: true },
+                {
+                  label: "Monographs Published",
+                  value: "18",
+                  badge: "DOCS ACTIVE",
+                  highlight: true,
+                },
                 { label: "Research Labs", value: "04", badge: "DISCIPLINES" },
-                { label: "Peer-Review Index", value: "99.4%", badge: "AUDITED", highlight: true },
-                { label: "Code Alignments", value: "EBCS", badge: "/ EUROCODE" },
+                {
+                  label: "Peer-Review Index",
+                  value: "99.4%",
+                  badge: "AUDITED",
+                  highlight: true,
+                },
+                {
+                  label: "Code Alignments",
+                  value: "EBCS",
+                  badge: "/ EUROCODE",
+                },
               ].map((item) => (
-                <div key={item.label} className="flex flex-col border-b border-outline-variant/20 pb-3 last:border-0 last:pt-1">
-                  <span className="font-label-sm text-label-sm text-secondary uppercase">{item.label}</span>
+                <div
+                  key={item.label}
+                  className="flex flex-col border-b border-outline-variant/20 pb-3 last:border-0 last:pt-1"
+                >
+                  <span className="font-label-sm text-label-sm text-secondary uppercase">
+                    {item.label}
+                  </span>
                   <div className="flex items-baseline gap-2 mt-1">
-                    <span className="font-headline-md text-[22px] leading-[30px] font-bold text-on-surface">{item.value}</span>
-                    <span className={`font-label-sm text-label-sm ${item.highlight ? "text-primary font-medium" : "text-secondary"}`}>
+                    <span className="font-headline-md text-[22px] leading-[30px] font-bold text-on-surface">
+                      {item.value}
+                    </span>
+                    <span
+                      className={`font-label-sm text-label-sm ${item.highlight ? "text-primary font-medium" : "text-secondary"}`}
+                    >
                       {item.badge}
                     </span>
                   </div>
@@ -189,9 +229,16 @@ export default function InsightsPage() {
               </div>
               <div className="relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {FEATURED.specs.map((s) => (
-                  <div key={s.label} className="bg-inverse-surface/70 backdrop-blur-sm p-3 flex flex-col gap-1">
-                    <span className="font-label-sm text-label-sm text-primary-fixed uppercase">{s.label}</span>
-                    <span className="font-headline-sm text-headline-sm text-on-primary font-bold">{s.value}</span>
+                  <div
+                    key={s.label}
+                    className="bg-inverse-surface/70 backdrop-blur-sm p-3 flex flex-col gap-1"
+                  >
+                    <span className="font-label-sm text-label-sm text-primary-fixed uppercase">
+                      {s.label}
+                    </span>
+                    <span className="font-headline-sm text-headline-sm text-on-primary font-bold">
+                      {s.value}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -202,7 +249,9 @@ export default function InsightsPage() {
                   <span>{FEATURED.readTime}</span>
                   <span>{FEATURED.date}</span>
                 </div>
-                <h3 className="font-headline-sm text-headline-sm text-on-surface uppercase font-bold">Abstract</h3>
+                <h3 className="font-headline-sm text-headline-sm text-on-surface uppercase font-bold">
+                  Abstract
+                </h3>
                 <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
                   {FEATURED.abstract}
                 </p>
@@ -261,9 +310,13 @@ export default function InsightsPage() {
                   <h3 className="font-headline-sm text-[16px] leading-[22px] text-on-surface uppercase font-bold">
                     {article.title}
                   </h3>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant flex-1">{article.excerpt}</p>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant flex-1">
+                    {article.excerpt}
+                  </p>
                   <div className="flex items-center justify-between pt-space-sm border-t border-outline-variant/20 mt-auto">
-                    <span className="font-label-sm text-label-sm text-secondary">{article.readTime} READ</span>
+                    <span className="font-label-sm text-label-sm text-secondary">
+                      {article.readTime} READ
+                    </span>
                     <span className="font-label-sm text-label-sm text-primary font-bold cursor-pointer hover:underline">
                       READ BRIEFING →
                     </span>
@@ -283,7 +336,8 @@ export default function InsightsPage() {
               Have a technical challenge?
             </h2>
             <p className="font-body-md text-body-md text-inverse-on-surface">
-              Our engineering bureau can assess your project&apos;s technical requirements and provide detailed methodology proposals.
+              Our engineering bureau can assess your project&apos;s technical
+              requirements and provide detailed methodology proposals.
             </p>
           </div>
           <Link

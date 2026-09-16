@@ -20,12 +20,36 @@ export const metadata: Metadata = {
 };
 
 const METRICS = [
-  { label: "Verified Tenders", value: "14 Contracts", detail: "Audited public & NGO tenders" },
-  { label: "Historical Value", value: "ETB 28.5M+", detail: "Documented project performance" },
-  { label: "Contractor Class", value: "Grade 1 (GC-1)", detail: "Ministry of Urban Development" },
-  { label: "Regional Footprint", value: "4 Regions", detail: "Addis Ababa, Oromia, Amhara, SNNPRS" },
-  { label: "Contract Breadth", value: "Turnkey & Scopes", detail: "From G+4 blocks to radiation suites" },
-  { label: "Standards Compliance", value: "100%", detail: "EBCS & FIDIC contract rigor" },
+  {
+    label: "Verified Tenders",
+    value: "14 Contracts",
+    detail: "Audited public & NGO tenders",
+  },
+  {
+    label: "Historical Value",
+    value: "ETB 28.5M+",
+    detail: "Documented project performance",
+  },
+  {
+    label: "Contractor Class",
+    value: "Grade 1 (GC-1)",
+    detail: "Ministry of Urban Development",
+  },
+  {
+    label: "Regional Footprint",
+    value: "4 Regions",
+    detail: "Addis Ababa, Oromia, Amhara, SNNPRS",
+  },
+  {
+    label: "Contract Breadth",
+    value: "Turnkey & Scopes",
+    detail: "From G+4 blocks to radiation suites",
+  },
+  {
+    label: "Standards Compliance",
+    value: "100%",
+    detail: "EBCS & FIDIC contract rigor",
+  },
 ];
 
 const PHASES = [
@@ -100,17 +124,21 @@ const EQUIPMENT = [
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col pt-2 w-full">
       {/* Top Technical Datum Rule */}
       <div className="w-full bg-surface-container-low border-b border-outline-variant/30 py-space-xs px-6 lg:px-12">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-y-2 text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
           <div className="flex items-center gap-space-sm">
             <span className="inline-block w-2 h-2 bg-primary"></span>
-            <span>ETHIOPIA // GRADE 1 GENERAL CONTRACTOR (GC-1) // ADDIS ABABA</span>
+            <span>
+              ETHIOPIA // GRADE 1 GENERAL CONTRACTOR (GC-1) // ADDIS ABABA
+            </span>
           </div>
           <div className="flex items-center gap-space-lg">
             <span>MINISTRY REG: MOTI/GC-01/ET</span>
-            <span className="text-primary font-medium">STATUS: PRE-QUALIFIED TENDER READY</span>
+            <span className="text-primary font-medium">
+              STATUS: PRE-QUALIFIED TENDER READY
+            </span>
           </div>
         </div>
       </div>
@@ -120,9 +148,12 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-space-xl pb-space-xl">
           <div className="flex items-center justify-between border-b border-outline-variant/30 pb-space-sm mb-space-lg">
             <span className="font-label-sm text-label-sm uppercase tracking-widest text-primary font-medium flex items-center gap-space-xs">
-              <span className="text-on-surface">■</span> [ CORPORATE DOSSIER // SEC_ABT-01 // ORGANIZATIONAL PROFILE ]
+              <span className="text-on-surface">■</span> [ CORPORATE DOSSIER //
+              SEC_ABT-01 // ORGANIZATIONAL PROFILE ]
             </span>
-            <span className="font-label-sm text-label-sm text-on-surface-variant font-medium hidden md:inline">REV: 2024.Q4 // PUBLIC AUDIT</span>
+            <span className="font-label-sm text-label-sm text-on-surface-variant font-medium hidden md:inline">
+              REV: 2024.Q4 // PUBLIC AUDIT
+            </span>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
             <div className="lg:col-span-8 flex flex-col gap-space-md">
@@ -135,10 +166,21 @@ export default function AboutPage() {
                 Built Through Discipline. Grounded In Ethiopia.
               </h1>
               <p className="font-body-lg text-body-lg text-primary font-medium leading-relaxed max-w-3xl">
-                From deep foundation civil works to artisanal architectural finishing, Yebis Engineering PLC operates as a fully integrated Ethiopian contractor engineered to eradicate project fragmentation.
+                From deep foundation civil works to artisanal architectural
+                finishing, Yebis Engineering PLC operates as a fully integrated
+                Ethiopian contractor engineered to eradicate project
+                fragmentation.
               </p>
               <p className="font-body-md text-body-md text-on-surface-variant max-w-3xl leading-relaxed">
-                Founded in Addis Ababa, Yebis was established with a singular operational thesis: complex building developments fail at the unmanaged seams between civil contractors, MEP subcontractors, and interior finishing trades. By consolidating structural engineering, certified MEP installations, dedicated aluminum and metal fabrication yards, and bespoke architectural millwork under a single unified engineering governance, we deliver projects on budget, on schedule, and to exact international tolerances.
+                Founded in Addis Ababa, Yebis was established with a singular
+                operational thesis: complex building developments fail at the
+                unmanaged seams between civil contractors, MEP subcontractors,
+                and interior finishing trades. By consolidating structural
+                engineering, certified MEP installations, dedicated aluminum and
+                metal fabrication yards, and bespoke architectural millwork
+                under a single unified engineering governance, we deliver
+                projects on budget, on schedule, and to exact international
+                tolerances.
               </p>
               <div className="pt-space-md flex flex-wrap items-center gap-space-md">
                 <Link
@@ -160,8 +202,12 @@ export default function AboutPage() {
 
             {/* Spec Card */}
             <div className="lg:col-span-4 bg-surface-container-low border border-outline-variant/50 p-space-lg flex flex-col gap-space-md relative">
-              <div className="absolute top-2 right-2 text-outline-variant font-label-sm select-none">+</div>
-              <div className="absolute bottom-2 left-2 text-outline-variant font-label-sm select-none">+</div>
+              <div className="absolute top-2 right-2 text-outline-variant font-label-sm select-none">
+                +
+              </div>
+              <div className="absolute bottom-2 left-2 text-outline-variant font-label-sm select-none">
+                +
+              </div>
               <div className="border-b border-outline-variant/30 pb-space-xs flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
                 <div className="flex items-center gap-2">
                   <span className="flex h-6 w-6 items-center justify-center bg-inverse-surface p-0.5 shrink-0">
@@ -173,9 +219,13 @@ export default function AboutPage() {
                       className="object-contain"
                     />
                   </span>
-                  <span className="font-bold text-on-surface">YEBIS ENGINEERING PLC</span>
+                  <span className="font-bold text-on-surface">
+                    YEBIS ENGINEERING PLC
+                  </span>
                 </div>
-                <span className="text-primary font-semibold">GRADE 1 (GC-1)</span>
+                <span className="text-primary font-semibold">
+                  GRADE 1 (GC-1)
+                </span>
               </div>
               <div className="relative w-full aspect-[4/3] bg-surface-container overflow-hidden border border-outline-variant/40">
                 <Image
@@ -198,9 +248,18 @@ export default function AboutPage() {
                   ["Bonding Authorization", "CBE Verified Tier-1"],
                   ["Quality Compliance", "ISO 9001:2015 Registered"],
                 ].map(([label, value, highlight]) => (
-                  <div key={label as string} className="flex justify-between items-center text-label-sm font-label-sm border-b border-outline-variant/20 py-1 last:border-0">
-                    <span className="text-on-surface-variant uppercase">{label}</span>
-                    <span className={`font-medium ${highlight ? "text-primary" : "text-on-surface"}`}>{value}</span>
+                  <div
+                    key={label as string}
+                    className="flex justify-between items-center text-label-sm font-label-sm border-b border-outline-variant/20 py-1 last:border-0"
+                  >
+                    <span className="text-on-surface-variant uppercase">
+                      {label}
+                    </span>
+                    <span
+                      className={`font-medium ${highlight ? "text-primary" : "text-on-surface"}`}
+                    >
+                      {value}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -220,12 +279,19 @@ export default function AboutPage() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 border border-outline-variant/40 bg-surface divide-y md:divide-y-0 md:divide-x divide-outline-variant/30">
             {METRICS.map((m) => (
-              <div key={m.label} className="p-space-md flex flex-col gap-space-xs">
-                <span className="font-label-sm text-label-sm text-secondary uppercase">{m.label}</span>
+              <div
+                key={m.label}
+                className="p-space-md flex flex-col gap-space-xs"
+              >
+                <span className="font-label-sm text-label-sm text-secondary uppercase">
+                  {m.label}
+                </span>
                 <span className="font-headline-md text-[22px] leading-[30px] lg:text-headline-md font-bold text-on-surface">
                   {m.value}
                 </span>
-                <span className="font-body-sm text-body-sm text-on-surface-variant">{m.detail}</span>
+                <span className="font-body-sm text-body-sm text-on-surface-variant">
+                  {m.detail}
+                </span>
               </div>
             ))}
           </div>
@@ -264,7 +330,9 @@ export default function AboutPage() {
                 <h3 className="font-headline-sm text-headline-sm text-on-surface uppercase font-bold">
                   {p.title}
                 </h3>
-                <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">{p.desc}</p>
+                <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  {p.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -287,7 +355,10 @@ export default function AboutPage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
             {LEADERSHIP.map((person) => (
-              <div key={person.name} className="bg-surface-container-lowest border border-outline-variant/40 flex flex-col overflow-hidden">
+              <div
+                key={person.name}
+                className="bg-surface-container-lowest border border-outline-variant/40 flex flex-col overflow-hidden"
+              >
                 <div className="relative w-full aspect-[3/4] bg-surface-container overflow-hidden">
                   <Image
                     src={person.image}
@@ -301,8 +372,12 @@ export default function AboutPage() {
                   <h4 className="font-headline-sm text-[16px] leading-[22px] text-on-surface font-bold uppercase">
                     {person.name}
                   </h4>
-                  <span className="font-label-sm text-label-sm text-primary uppercase tracking-wider">{person.role}</span>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant mt-space-xs">{person.bio}</p>
+                  <span className="font-label-sm text-label-sm text-primary uppercase tracking-wider">
+                    {person.role}
+                  </span>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant mt-space-xs">
+                    {person.bio}
+                  </p>
                 </div>
               </div>
             ))}
@@ -321,9 +396,14 @@ export default function AboutPage() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-space-sm">
             {EQUIPMENT.map((item) => (
-              <div key={item} className="flex items-center gap-space-sm bg-surface-container-low p-space-sm border border-outline-variant/30">
+              <div
+                key={item}
+                className="flex items-center gap-space-sm bg-surface-container-low p-space-sm border border-outline-variant/30"
+              >
                 <span className="w-1.5 h-1.5 bg-primary shrink-0"></span>
-                <span className="font-label-md text-label-md text-on-surface-variant">{item}</span>
+                <span className="font-label-md text-label-md text-on-surface-variant">
+                  {item}
+                </span>
               </div>
             ))}
           </div>
@@ -338,7 +418,8 @@ export default function AboutPage() {
               Build with confidence.
             </h2>
             <p className="font-body-md text-body-md text-inverse-on-surface">
-              15+ years of Ethiopian construction expertise. Grade 1 certified. ISO 9001:2015 compliant.
+              15+ years of Ethiopian construction expertise. Grade 1 certified.
+              ISO 9001:2015 compliant.
             </p>
           </div>
           <Link
