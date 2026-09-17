@@ -4,14 +4,14 @@ import { IMG } from "@/lib/site-images";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Commercial Office Building — Kazanchis",
+  title: "Commercial Office Building - Kazanchis",
   description:
     "Case study of a prime-grade commercial office development in Kazanchis, Addis Ababa: deep basements, structural frame, facade envelope and integrated MEP.",
   alternates: {
     canonical: `${SITE_URL}/work/commercial-office-kazanchis`,
   },
   openGraph: {
-    title: "Commercial Office Building — Kazanchis | Yebis Engineering PLC",
+    title: "Commercial Office Building - Kazanchis | Yebis Engineering",
     description:
       "Case study of a prime-grade commercial office development in Kazanchis, Addis Ababa: deep basements, structural frame, facade envelope and integrated MEP.",
     url: `${SITE_URL}/work/commercial-office-kazanchis`,
@@ -38,7 +38,7 @@ export default function KazanchisCaseStudyPage() {
           </div>
           <div className="flex items-center gap-3">
             <span className="px-2 py-0.5 bg-surface border border-outline-variant/50 text-on-surface font-label-sm">
-              GC-1 GRADE 1 CONTRACTOR
+              GC-3 GRADE 3 CONTRACTOR
             </span>
             <span className="px-2 py-0.5 bg-primary/10 text-primary border border-primary/30 font-label-sm">
               STATUS: COMMISSIONED &amp; OCCUPIED
@@ -60,7 +60,7 @@ export default function KazanchisCaseStudyPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-10">
           <div className="lg:col-span-8 flex flex-col gap-4">
             <h1 className="font-headline-xl text-headline-xl text-on-surface font-bold tracking-tight uppercase leading-none">
-              Commercial Office Building — Kazanchis
+              Commercial Office Building - Kazanchis
             </h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl leading-relaxed">
               Turnkey structural execution, dual-level subterranean civil
@@ -227,7 +227,7 @@ export default function KazanchisCaseStudyPage() {
               <div className="flex items-start justify-between">
                 <div className="bg-inverse-surface/85 backdrop-blur-sm border border-outline-variant/40 p-3 text-on-primary font-label-sm text-label-sm max-w-xs">
                   <div className="text-primary font-bold mb-1">
-                    ■ LEVEL 08 — PARAPET CROWN
+                    ■ LEVEL 08 - PARAPET CROWN
                   </div>
                   <div>STRUCTURAL HEIGHT: +38.400M</div>
                   <div className="text-on-primary/70">

@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Start a Project — Tender Intake",
+  title: "Start a Project - Tender Intake",
   description:
-    "Submit project specifications, architectural drawings, or tender documents to Yebis Engineering PLC for pre-construction assessment and proposal generation.",
+    "Submit project specifications, architectural drawings, or tender documents to Yebis Engineering for pre-construction assessment and proposal generation.",
   alternates: {
     canonical: `${SITE_URL}/start-a-project`,
   },
   openGraph: {
-    title: "Start a Project — Tender Intake | Yebis Engineering PLC",
+    title: "Start a Project - Tender Intake | Yebis Engineering",
     description:
-      "Submit project specifications, architectural drawings, or tender documents to Yebis Engineering PLC.",
+      "Submit project specifications, architectural drawings, or tender documents to Yebis Engineering.",
     url: `${SITE_URL}/start-a-project`,
   },
 };

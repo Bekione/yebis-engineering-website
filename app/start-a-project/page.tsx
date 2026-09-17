@@ -4,6 +4,7 @@ import type { FormEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import CustomSelect from "@/components/ui/select";
 
 const PROJECT_TYPES = [
   {
@@ -110,12 +111,15 @@ export default function StartProjectPage() {
               TENDER DESK: OPEN
             </span>
             <span className="text-on-surface-variant">
-              GC-1 ACCREDITED / ETHIOPIAN MINISTRY OF URBAN DEV.
+              GC-3 GENERAL CONTRACTOR · TRADE REG: BL/AA/1/0001088/2004 · TIN:
+              0001985917
             </span>
           </div>
           <div className="flex items-center gap-space-lg font-label-sm">
-            <span>REF_PROTOCOL: PRJ-INTAKE-V4.2</span>
-            <span className="hidden sm:inline">CYCLE TIME: ≤48 HRS ASSESS</span>
+            <span>INTAKE STATUS: OPEN FOR INQUIRIES</span>
+            <span className="hidden sm:inline">
+              ENGINEERING REVIEW: ≤48 HOURS
+            </span>
           </div>
         </div>
       </section>
@@ -145,17 +149,19 @@ export default function StartProjectPage() {
             </div>
             <div className="lg:col-span-4 flex flex-col gap-space-sm bg-surface-container-low p-space-md shadow-sm">
               <div className="flex items-center justify-between font-label-sm text-label-sm text-secondary">
-                <span>INTAKE CAPACITY</span>
+                <span>CONTRACT READINESS</span>
                 <span className="text-primary font-medium">
-                  Q2/Q3 COMMENCEMENT
+                  IMMEDIATE MOBILIZATION
                 </span>
               </div>
               <div className="w-full bg-surface-container-highest h-1.5 overflow-hidden">
-                <div className="bg-primary h-full w-3/4"></div>
+                <div className="bg-primary h-full w-full"></div>
               </div>
               <div className="flex justify-between font-label-sm text-label-sm text-on-surface-variant pt-space-xs">
-                <span>CURRENT WORKLOAD RATIO: 76%</span>
-                <span>SLOTS REMAINING: 04</span>
+                <span>COMMENCEMENT: READY</span>
+                <span className="text-primary font-semibold">
+                  ACCEPTING NEW PROJECTS
+                </span>
               </div>
             </div>
           </div>
@@ -424,13 +430,11 @@ export default function StartProjectPage() {
                       <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
                         Preferred Timeline
                       </label>
-                      <select className="bg-surface-container-low border border-outline-variant/40 px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors">
-                        {TIMELINES.map((t) => (
-                          <option key={t} value={t}>
-                            {t}
-                          </option>
-                        ))}
-                      </select>
+                      <CustomSelect
+                        options={TIMELINES}
+                        defaultValue={TIMELINES[0]}
+                        name="timeline"
+                      />
                     </div>
                     <div className="flex flex-col gap-space-xs">
                       <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
@@ -438,7 +442,7 @@ export default function StartProjectPage() {
                       </label>
                       <textarea
                         rows={4}
-                        className="bg-surface-container-low border border-outline-variant/40 px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors resize-vertical"
+                        className="bg-surface-container-low border border-outline-variant/40 px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors max-h-[220px] resize-y"
                         placeholder="Site location, number of floors, approximate budget, special requirements..."
                       />
                     </div>
@@ -532,7 +536,7 @@ export default function StartProjectPage() {
                         EMAIL
                       </span>
                       <span className="font-label-lg text-label-lg text-on-surface font-semibold">
-                        inquiries@yebisengineering.com
+                        inquiries@yebisengineering.pro.et
                       </span>
                     </div>
                   </div>
@@ -551,11 +555,11 @@ export default function StartProjectPage() {
                       />
                     </span>
                     <span className="font-label-sm text-label-sm text-primary-fixed uppercase tracking-wider font-semibold">
-                      ACCREDITED GC-1 CONTRACTOR
+                      ACCREDITED GC-3 CONTRACTOR
                     </span>
                   </div>
                   <span className="font-headline-sm text-headline-sm text-on-primary uppercase font-bold">
-                    Grade 1 (GC-1) Certified
+                    GRADE 3 (GC-3) Certified
                   </span>
                   <span className="font-body-sm text-body-sm text-inverse-on-surface">
                     Licensed by the Federal Ministry of Urban Development &amp;
@@ -564,7 +568,7 @@ export default function StartProjectPage() {
                   </span>
                   <div className="flex flex-wrap gap-space-sm pt-space-xs">
                     {[
-                      "MOTI/GC-01/ET",
+                      "REG: BL/AA/1/0001088/2004",
                       "FIDIC COMPLIANT",
                       "EBCS CODE",
                       "CBE TIER-1",

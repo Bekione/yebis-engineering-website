@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/capabilities/plumbing-sanitary`,
   },
   openGraph: {
-    title: "Plumbing, Drainage & Sanitary Systems | Yebis Engineering PLC",
+    title: "Plumbing, Drainage & Sanitary Systems | Yebis Engineering",
     description:
       "Precision building plumbing networks, acoustic drainage, and sanitary systems across Addis Ababa and Ethiopia.",
     url: `${SITE_URL}/capabilities/plumbing-sanitary`,

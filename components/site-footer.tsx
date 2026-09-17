@@ -12,7 +12,7 @@ export function SiteFooter() {
               <span className="flex h-10 w-10 items-center justify-center bg-inverse-surface border border-outline-variant/60 p-1.5 shrink-0">
                 <Image
                   src="/assets/logo-light.png"
-                  alt="Yebis Engineering PLC Logo"
+                  alt="Yebis Engineering Logo"
                   width={30}
                   height={30}
                   className="object-contain"
@@ -20,10 +20,10 @@ export function SiteFooter() {
               </span>
               <div className="flex flex-col">
                 <span className="font-headline-sm text-headline-sm tracking-tight text-on-surface uppercase font-bold leading-tight">
-                  Yebis Engineering PLC
+                  Yebis Engineering
                 </span>
                 <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest">
-                  Grade 1 General Contractor
+                  GRADE 3 General Contractor
                 </span>
               </div>
             </div>
@@ -35,12 +35,10 @@ export function SiteFooter() {
             <div className="flex flex-col gap-space-xs pt-space-sm font-label-sm text-label-sm text-secondary">
               <span className="flex items-center gap-space-xs">
                 <span className="w-1.5 h-1.5 bg-primary"></span>
-                LICENSE: GRADE 1 GENERAL CONTRACTOR (GC-1)
+                LICENSE: GRADE 3 GENERAL CONTRACTOR (GC-3)
               </span>
-              <span>MINISTRY OF URBAN DEVELOPMENT &amp; CONSTRUCTION</span>
-              <span>
-                COMMERCIAL REG: FEDERAL DEMOCRATIC REPUBLIC OF ETHIOPIA
-              </span>
+              <span>TRADE REG: BL/AA/1/0001088/2004</span>
+              <span>TIN: 0001985917</span>
             </div>
           </div>
 
@@ -53,15 +51,15 @@ export function SiteFooter() {
               <li>
                 <Link
                   className="hover:text-on-surface transition-colors"
-                  href="/work"
+                  href="/work?sector=housing"
                 >
-                  Residential Projects
+                  Residential &amp; Housing
                 </Link>
               </li>
               <li>
                 <Link
                   className="hover:text-on-surface transition-colors"
-                  href="/work"
+                  href="/work?sector=commercial"
                 >
                   Commercial Towers
                 </Link>
@@ -69,9 +67,17 @@ export function SiteFooter() {
               <li>
                 <Link
                   className="hover:text-on-surface transition-colors"
-                  href="/work"
+                  href="/work?sector=healthcare"
                 >
-                  Institutional Hubs
+                  Healthcare &amp; Medical Hubs
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="hover:text-on-surface transition-colors"
+                  href="/work?sector=civil"
+                >
+                  Civil &amp; Water Infrastructure
                 </Link>
               </li>
               <li>
@@ -85,17 +91,9 @@ export function SiteFooter() {
               <li>
                 <Link
                   className="hover:text-on-surface transition-colors"
-                  href="/work"
+                  href="/work?sector=specialized"
                 >
-                  Metal &amp; Aluminum Works
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="hover:text-on-surface transition-colors"
-                  href="/work"
-                >
-                  Structural Renovation
+                  Specialized Subcontracts
                 </Link>
               </li>
             </ul>
@@ -112,7 +110,7 @@ export function SiteFooter() {
                   className="hover:text-on-surface transition-colors"
                   href="/capabilities/structural"
                 >
-                  Structural &amp; Civil (GC-1)
+                  Structural &amp; Civil (GC-3)
                 </Link>
               </li>
               <li>
@@ -188,7 +186,7 @@ export function SiteFooter() {
                 Addis Ababa, Ethiopia
               </p>
               <p className="font-label-sm text-label-sm text-on-surface pt-space-xs">
-                inquiries@yebisengineering.com
+                inquiries@yebisengineering.pro.et
               </p>
               <p className="font-label-sm text-label-sm text-on-surface">
                 +251 91 151 7784
@@ -204,17 +202,20 @@ export function SiteFooter() {
         <div className="pt-space-md flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md font-label-sm text-label-sm text-secondary">
           <div className="flex flex-wrap items-center gap-x-space-md gap-y-space-xs">
             <span>
-              © {new Date().getFullYear()} YEBIS ENGINEERING PLC. ALL RIGHTS
+              © {new Date().getFullYear()} YEBIS ENGINEERING. ALL RIGHTS
               RESERVED.
             </span>
             <span className="hidden md:inline">|</span>
-            <span>GRADE 1 ETHIOPIAN CONTRACTOR CERTIFICATION</span>
+            <span>GRADE 3 ETHIOPIAN CONTRACTOR CERTIFICATION</span>
             <span className="hidden md:inline">|</span>
             <span>ISO 9001:2015 QUALITY COMPLIANT</span>
           </div>
-          <div className="flex items-center gap-space-md">
-            <span>BOLE // ADDIS ABABA</span>
-            <span>SEC_GLOBAL // DOC_2024</span>
+          <div className="flex items-center gap-space-md shrink-0 whitespace-nowrap">
+            <span className="whitespace-nowrap">BOLE // ADDIS ABABA</span>
+            <span className="text-secondary/40">•</span>
+            <span className="text-primary font-medium whitespace-nowrap">
+              NATIONWIDE CONTRACTING
+            </span>
           </div>
         </div>
       </div>

@@ -12,8 +12,7 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/capabilities/interior-finishing`,
   },
   openGraph: {
-    title:
-      "Interior Finishing & Architectural Millwork | Yebis Engineering PLC",
+    title: "Interior Finishing & Architectural Millwork | Yebis Engineering",
     description:
       "Precision interior finishing, acoustic gypsum ceilings, calibrated terrazzo, and bespoke surface treatments across Ethiopia.",
     url: `${SITE_URL}/capabilities/interior-finishing`,
@@ -133,14 +132,14 @@ export default function InteriorFinishingPage() {
                 Where Engineering Meets Artistry. Every Surface Perfected.
               </h1>
               <p className="font-body-lg text-body-lg text-primary font-medium leading-relaxed max-w-3xl">
-                Flawless interior surfaces engineered with Swiss tolerance —
+                Flawless interior surfaces engineered with Swiss tolerance -
                 from acoustic multi-tier gypsum ceilings to heavy-traffic epoxy
                 coatings and calibrated large-format porcelain installations.
               </p>
               <p className="font-body-md text-body-md text-on-surface-variant max-w-3xl leading-relaxed">
                 Our interior finishing division delivers the final experience
                 that occupants live with every day. We refuse to compromise on
-                tolerances — every surface undergoes laser-datum verification,
+                tolerances - every surface undergoes laser-datum verification,
                 every ceiling line is checked to ±1.5mm, and every floor tile is
                 mechanically calibrated before installation.
               </p>
@@ -286,7 +285,7 @@ export default function InteriorFinishingPage() {
               Need turnkey interior finishing?
             </h2>
             <p className="font-body-md text-body-md text-inverse-on-surface">
-              From raw concrete to occupancy-ready — our finishing team delivers
+              From raw concrete to occupancy-ready - our finishing team delivers
               Q4 standard surfaces within your project timeline.
             </p>
           </div>

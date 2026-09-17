@@ -3,6 +3,7 @@ import { Space_Grotesk, Inter, JetBrains_Mono, Geist } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import SmoothScroll from "@/components/SmoothScroll";
 import { cn } from "@/lib/utils";
 import {
   SITE_URL,
@@ -36,7 +37,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    default: `${SITE_NAME} - ${SITE_TAGLINE}`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -46,9 +47,9 @@ export const metadata: Metadata = {
   publisher: SITE_NAME,
   keywords: [
     "Yebis Engineering",
-    "Yebis Engineering PLC",
+    "Yebis Engineering",
     "Ethiopian contractor",
-    "Grade 1 General Contractor Ethiopia",
+    "GRADE 3 General Contractor Ethiopia",
     "construction company Addis Ababa",
     "structural engineering Ethiopia",
     "building contractor Ethiopia",
@@ -63,7 +64,7 @@ export const metadata: Metadata = {
     canonical: "./",
   },
   openGraph: {
-    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    title: `${SITE_NAME} - ${SITE_TAGLINE}`,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
     siteName: SITE_NAME,
@@ -81,7 +82,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    title: `${SITE_NAME} - ${SITE_TAGLINE}`,
     description: SITE_DESCRIPTION,
     images: [OG_IMAGE.url],
   },
@@ -101,7 +102,9 @@ export const metadata: Metadata = {
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
     ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
   manifest: "/site.webmanifest",
 };
@@ -127,7 +130,7 @@ export default function RootLayout({
         inter.variable,
         jetbrainsMono.variable,
         "font-sans",
-        geist.variable
+        geist.variable,
       )}
     >
       <head>
@@ -148,10 +151,16 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-surface text-on-surface">
-        <SiteHeader />
-        <main className="w-full pt-20 lg:pt-[104px] flex-1">{children}</main>
-        <SiteFooter />
+      <body className="min-h-full flex flex-col bg-stripe-pattern text-on-surface">
+        <SmoothScroll>
+          <div className="flex flex-col min-h-screen w-full max-w-7xl mx-auto bg-surface border-x border-outline-variant/40 shadow-sm relative">
+            <SiteHeader />
+            <main className="w-full pt-20 lg:pt-[104px] flex-1 flex flex-col">
+              {children}
+            </main>
+            <SiteFooter />
+          </div>
+        </SmoothScroll>
       </body>
     </html>
   );

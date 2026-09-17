@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/capabilities/electrical-mep`,
   },
   openGraph: {
-    title: "Electrical & Building Systems (MEP) | Yebis Engineering PLC",
+    title: "Electrical & Building Systems (MEP) | Yebis Engineering",
     description:
       "Engineered electrical systems, backup power synchronization, and building automation across Addis Ababa and Ethiopia.",
     url: `${SITE_URL}/capabilities/electrical-mep`,
@@ -526,7 +526,7 @@ export default function ElectricalCapabilityPage() {
                 <span className="text-outline-variant">|</span>
                 <span>PHONE: +251 91 151 7784</span>
                 <span className="text-outline-variant">|</span>
-                <span>STATUS: GRADE 1 CERTIFIED</span>
+                <span>STATUS: GRADE 3 CERTIFIED</span>
               </div>
             </div>
             <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-space-sm justify-center">

@@ -5,16 +5,16 @@ import { IMG } from "@/lib/site-images";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Field Notes & Construction Guides | Yebis Engineering PLC",
+  title: "Field Notes & Construction Guides | Yebis Engineering",
   description:
-    "Practical contractor insights, construction guides, and field advice from Yebis Engineering PLC. Best practices for turnkey building, finishing incomplete skeletons, MEP coordination, aluminum fabrication, and building renovation in Ethiopia.",
+    "Practical contractor insights, construction guides, and field advice from Yebis Engineering. Best practices for turnkey building, finishing incomplete skeletons, MEP coordination, aluminum fabrication, and building renovation in Ethiopia.",
   alternates: {
     canonical: `${SITE_URL}/insights`,
   },
   openGraph: {
-    title: "Field Notes & Construction Guides | Yebis Engineering PLC",
+    title: "Field Notes & Construction Guides | Yebis Engineering",
     description:
-      "Practical contractor insights, construction guides, and field advice from Yebis Engineering PLC.",
+      "Practical contractor insights, construction guides, and field advice from Yebis Engineering.",
     url: `${SITE_URL}/insights`,
   },
 };
@@ -39,6 +39,7 @@ const FEATURED = {
 
 const ARTICLES = [
   {
+    slug: "turnkey-contracting-vs-skeleton-only",
     id: "INS-001",
     category: "CONTRACTING STRATEGY",
     title:
@@ -50,6 +51,7 @@ const ARTICLES = [
     date: "STRATEGY GUIDE",
   },
   {
+    slug: "proper-mep-sequencing-conduits-pressure-tests",
     id: "INS-002",
     category: "ELECTRICAL & PLUMBING (MEP)",
     title:
@@ -61,6 +63,7 @@ const ARTICLES = [
     date: "TECHNICAL NOTE",
   },
   {
+    slug: "selecting-windows-doors-compound-gates",
     id: "INS-003",
     category: "ALUMINUM & METALWORK",
     title:
@@ -72,6 +75,7 @@ const ARTICLES = [
     date: "MATERIALS GUIDE",
   },
   {
+    slug: "restoring-aging-damaged-buildings",
     id: "INS-004",
     category: "RENOVATION & REPAIR",
     title:
@@ -83,6 +87,7 @@ const ARTICLES = [
     date: "FIELD ADVISORY",
   },
   {
+    slug: "on-site-concrete-quality-control",
     id: "INS-005",
     category: "STRUCTURAL QUALITY CONTROL",
     title:
@@ -94,6 +99,7 @@ const ARTICLES = [
     date: "SITE PROTOCOL",
   },
   {
+    slug: "interior-partitions-finishing-gypsum-vs-hcb",
     id: "INS-006",
     category: "INTERIOR ARCHITECTURE & FINISHING",
     title:
@@ -123,7 +129,7 @@ export default function InsightsPage() {
             <div className="hidden sm:flex items-center gap-4 font-label-sm text-label-sm text-secondary">
               <span>ETHIOPIAN BUILDING CODE (EBCS)</span>
               <span>•</span>
-              <span>GRADE 1 CONTRACTOR (GC-1)</span>
+              <span>GRADE 3 CONTRACTOR (GC-3)</span>
             </div>
           </div>
           {/* Main Editorial Header */}
@@ -137,9 +143,9 @@ export default function InsightsPage() {
               </h1>
               <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
                 Practical guidance on taking over bare concrete skeletons,
-                coordinating electrical and plumbing rough-ins before
-                finishing, quality control during concrete casting, and
-                renovating existing properties across Ethiopia.
+                coordinating electrical and plumbing rough-ins before finishing,
+                quality control during concrete casting, and renovating existing
+                properties across Ethiopia.
               </p>
             </div>
             {/* Telemetry Data Grid */}
@@ -261,13 +267,19 @@ export default function InsightsPage() {
                   {FEATURED.abstract}
                 </p>
               </div>
-              <div className="flex items-center gap-space-md pt-space-md border-t border-outline-variant/30">
+              <div className="flex flex-wrap items-center gap-space-md pt-space-md border-t border-outline-variant/30">
+                <Link
+                  href="/insights/taking-over-incomplete-concrete-skeletons"
+                  className="inline-flex items-center gap-space-xs bg-primary hover:bg-primary/90 text-on-primary font-label-lg text-label-lg uppercase px-space-lg py-space-sm cursor-pointer transition-colors"
+                >
+                  <span className="tracking-wider">Read Full Field Guide</span>
+                  <span>→</span>
+                </Link>
                 <Link
                   href="/start-a-project"
-                  className="inline-flex items-center gap-space-xs bg-inverse-surface text-on-primary font-label-lg text-label-lg uppercase px-space-lg py-space-sm cursor-pointer hover:bg-primary transition-colors"
+                  className="inline-flex items-center gap-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg uppercase px-space-lg py-space-sm cursor-pointer border border-outline-variant/40 transition-colors"
                 >
-                  <span className="tracking-wider">Inquire Skeleton Finishing</span>
-                  <span className="text-primary-fixed">→</span>
+                  <span className="tracking-wider">Inquire Scope</span>
                 </Link>
               </div>
             </div>
@@ -296,7 +308,10 @@ export default function InsightsPage() {
                 key={article.id}
                 className="bg-surface-container-lowest border border-outline-variant/40 flex flex-col overflow-hidden shadow-sm hover:shadow-md transition-shadow group"
               >
-                <div className="relative w-full aspect-[16/10] bg-surface-container overflow-hidden">
+                <Link
+                  href={`/insights/${article.slug}`}
+                  className="relative w-full aspect-[16/10] bg-surface-container overflow-hidden block"
+                >
                   <Image
                     src={article.image}
                     alt={article.title}
@@ -309,7 +324,7 @@ export default function InsightsPage() {
                       {article.category}
                     </span>
                   </div>
-                </div>
+                </Link>
                 <div className="p-space-lg flex flex-col gap-space-sm flex-1">
                   <div className="flex items-center justify-between font-label-sm text-label-sm text-secondary">
                     <span>{article.id}</span>
@@ -317,9 +332,11 @@ export default function InsightsPage() {
                       {article.date}
                     </span>
                   </div>
-                  <h3 className="font-headline-sm text-[16px] leading-[22px] text-on-surface uppercase font-bold">
-                    {article.title}
-                  </h3>
+                  <Link href={`/insights/${article.slug}`}>
+                    <h3 className="font-headline-sm text-[16px] leading-[22px] text-on-surface uppercase font-bold group-hover:text-primary transition-colors">
+                      {article.title}
+                    </h3>
+                  </Link>
                   <p className="font-body-sm text-body-sm text-on-surface-variant flex-1">
                     {article.excerpt}
                   </p>
@@ -328,10 +345,11 @@ export default function InsightsPage() {
                       {article.readTime}
                     </span>
                     <Link
-                      href="/start-a-project"
-                      className="font-label-sm text-label-sm text-primary font-bold hover:underline"
+                      href={`/insights/${article.slug}`}
+                      className="font-label-sm text-label-sm text-primary font-bold hover:underline inline-flex items-center gap-1"
                     >
-                      CONSULT WITH US →
+                      <span>READ ARTICLE</span>
+                      <span>→</span>
                     </Link>
                   </div>
                 </div>
@@ -350,7 +368,7 @@ export default function InsightsPage() {
             </h2>
             <p className="font-body-md text-body-md text-inverse-on-surface">
               From new construction to skeleton completion, interior finishing,
-              and renovations—our engineers assess your site and deliver
+              and renovations-our engineers assess your site and deliver
               transparent, realistic proposals.
             </p>
           </div>

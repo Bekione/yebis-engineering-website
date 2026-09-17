@@ -1,5 +1,5 @@
 /**
- * Centralized SEO configuration for Yebis Engineering PLC.
+ * Centralized SEO configuration for Yebis Engineering.
  *
  * All metadata helpers reference these constants so changes
  * propagate site-wide from a single source of truth.
@@ -8,18 +8,18 @@
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://yebisengineering.pro.et";
 
-export const SITE_NAME = "Yebis Engineering PLC";
+export const SITE_NAME = "Yebis Engineering";
 
 export const SITE_TAGLINE = "From Structure to Finish";
 
 export const SITE_DESCRIPTION =
-  "Grade 1 Ethiopian general contractor delivering structural construction, MEP systems, interior finishing, joinery, and metalworks for residential, commercial, and institutional projects across Addis Ababa and Ethiopia.";
+  "GRADE 3 Ethiopian general contractor delivering structural construction, MEP systems, interior finishing, joinery, and metalworks for residential, commercial, and institutional projects across Addis Ababa and Ethiopia.";
 
 export const OG_IMAGE = {
   url: "/og-yebis.png",
   width: 1200,
   height: 630,
-  alt: "Yebis Engineering PLC — From Structure to Finish. Grade 1 Ethiopian General Contractor.",
+  alt: "Yebis Engineering - From Structure to Finish. GRADE 3 Ethiopian General Contractor.",
   type: "image/png",
 } as const;
 
@@ -45,6 +45,9 @@ export function getOrganizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "GeneralContractor",
     name: SITE_NAME,
+    legalName: "Yebis Engineering (Yeshitila Tedla & Brook Yeshitila General Partnership)",
+    alternateName: "Yeshitila Tedla Building Contractor",
+    taxID: "0001985917",
     url: SITE_URL,
     logo: `${SITE_URL}/assets/logo-dark.png`,
     image: `${SITE_URL}/og-yebis.png`,

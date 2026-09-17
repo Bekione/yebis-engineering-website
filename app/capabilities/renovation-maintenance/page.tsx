@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/capabilities/renovation-maintenance`,
   },
   openGraph: {
-    title: "Renovation, Remodeling & Asset Maintenance | Yebis Engineering PLC",
+    title: "Renovation, Remodeling & Asset Maintenance | Yebis Engineering",
     description:
       "Structural rehabilitation, carbon fiber strengthening, and adaptive reuse for commercial and institutional buildings across Ethiopia.",
     url: `${SITE_URL}/capabilities/renovation-maintenance`,
@@ -220,7 +220,7 @@ export default function RenovationCapabilityPage() {
                 We execute complex structural alterations within occupied
                 commercial towers, institutional hospitals, and residential
                 properties without disrupting ongoing operations or compromising
-                load-bearing integrity. Single-source Grade 1 accountability
+                load-bearing integrity. Single-source GRADE 3 accountability
                 guarantees clean coordination between structural reinforcement,
                 mechanical re-coring, and architectural finishes across Addis
                 Ababa.
@@ -532,7 +532,7 @@ export default function RenovationCapabilityPage() {
                 <span className="text-outline-variant">|</span>
                 <span>PHONE: +251 91 151 7784</span>
                 <span className="text-outline-variant">|</span>
-                <span>STATUS: GRADE 1 CERTIFIED</span>
+                <span>STATUS: GRADE 3 CERTIFIED</span>
               </div>
             </div>
             <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-space-sm justify-center">

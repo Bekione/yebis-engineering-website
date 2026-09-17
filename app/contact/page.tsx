@@ -15,20 +15,28 @@ const CATEGORIES = [
 
 const FIELD_STATIONS = [
   {
-    name: "Bole District Site Office",
-    phone: "+251 91 234 5678",
-    status: "ACTIVE",
-  },
-  { name: "CMC Area Operations", phone: "+251 91 345 6789", status: "ACTIVE" },
-  {
-    name: "Kazanchis Development Zone",
-    phone: "+251 91 456 7890",
-    status: "ACTIVE",
+    name: "Bole Sub-City (HQ & Workshops)",
+    detail: "Corporate Bureau & Fabrication Workshops",
+    phone: "+251 91 151 7784",
+    status: "HEADQUARTERS",
   },
   {
-    name: "Megenagna Regional Hub",
-    phone: "+251 91 567 8901",
-    status: "STANDBY",
+    name: "Kazanchis & Kirkos Zone",
+    detail: "Commercial Structural Frames & Fit-Outs",
+    phone: "HQ Dispatch",
+    status: "ACTIVE ZONES",
+  },
+  {
+    name: "CMC & Summit Corridor",
+    detail: "Residential Compounds & Infill Builds",
+    phone: "HQ Dispatch",
+    status: "ACTIVE ZONES",
+  },
+  {
+    name: "Regional Project Desks",
+    detail: "Civil Infrastructure & Public Works",
+    phone: "HQ Dispatch",
+    status: "MOBILIZED",
   },
 ];
 
@@ -115,10 +123,10 @@ export default function ContactPage() {
               </span>
             </div>
             <span className="font-label-lg text-label-lg font-semibold text-on-surface">
-              MOTI/GC-01/ET/9924
+              BL/AA/1/0001088/2004
             </span>
             <span className="font-label-sm text-label-sm text-on-surface-variant">
-              TIN: 0048992110 · VAT REG
+              TIN: 0001985917 · VAT REG
             </span>
           </div>
           <div className="bg-surface-container-lowest p-space-md flex flex-col gap-space-xs shadow-sm">
@@ -289,7 +297,7 @@ export default function ContactPage() {
                     <textarea
                       required
                       rows={5}
-                      className="bg-surface-container-low border border-outline-variant/40 px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors resize-vertical"
+                      className="bg-surface-container-low border border-outline-variant/40 px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors max-h-[220px] resize-y"
                       placeholder="Describe your project scope, required disciplines, and timeline..."
                     />
                   </div>
@@ -336,7 +344,7 @@ export default function ContactPage() {
                   Addis Ababa, Ethiopia
                 </p>
                 <p className="font-label-sm text-label-sm text-on-surface pt-space-xs">
-                  inquiries@yebisengineering.com
+                  inquiries@yebisengineering.pro.et
                 </p>
                 <p className="font-label-sm text-label-sm text-on-surface">
                   +251 91 151 7784
@@ -349,7 +357,7 @@ export default function ContactPage() {
               <div className="flex items-center gap-space-sm border-b border-outline-variant/30 pb-space-xs">
                 <span className="w-2 h-2 bg-primary"></span>
                 <span className="font-label-sm text-label-sm text-on-surface uppercase tracking-wider font-semibold">
-                  FIELD STATION DIRECTORY
+                  ACTIVE OPERATIONAL &amp; PROJECT ZONES
                 </span>
               </div>
               <div className="flex flex-col divide-y divide-outline-variant/20">
@@ -363,11 +371,15 @@ export default function ContactPage() {
                         {station.name}
                       </span>
                       <span className="font-label-sm text-label-sm text-on-surface-variant">
-                        {station.phone}
+                        {station.detail} · {station.phone}
                       </span>
                     </div>
                     <span
-                      className={`font-label-sm text-label-sm uppercase tracking-wider ${station.status === "ACTIVE" ? "text-primary font-medium" : "text-secondary"}`}
+                      className={`font-label-sm text-label-sm uppercase tracking-wider shrink-0 pl-2 ${
+                        station.status === "HEADQUARTERS"
+                          ? "text-primary font-bold"
+                          : "text-secondary font-medium"
+                      }`}
                     >
                       {station.status}
                     </span>

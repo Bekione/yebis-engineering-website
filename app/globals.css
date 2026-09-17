@@ -287,3 +287,79 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+
+/* Sleek Architectural Custom Scrollbar for Chromium, Edge & Safari */
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+}
+
+::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border-radius: 0px !important;
+}
+
+::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border-radius: 0px !important;
+  -webkit-border-radius: 0px !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+::-webkit-scrollbar-thumb:hover,
+*::-webkit-scrollbar-thumb:hover {
+  background: #8d4b00 !important;
+}
+
+::-webkit-scrollbar-corner,
+*::-webkit-scrollbar-corner {
+  background: transparent !important;
+}
+
+/* Firefox-only scrollbar */
+@supports (-moz-appearance: none) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+  }
+}
+
+/* Repeating diagonal stripe background (Tailwind CSS style) */
+.bg-stripe-pattern {
+  background-color: #f3f1ed;
+  background-image: repeating-linear-gradient(
+    315deg,
+    rgba(136, 115, 100, 0.18) 0px,
+    rgba(136, 115, 100, 0.18) 1px,
+    transparent 1px,
+    transparent 10px
+  );
+  background-attachment: fixed;
+}
+
+/* Base safety rule for textareas */
+textarea {
+  max-height: 240px;
+}
+
+/* Lenis smooth scrolling helpers */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}

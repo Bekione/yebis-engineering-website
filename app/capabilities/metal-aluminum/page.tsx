@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/capabilities/metal-aluminum`,
   },
   openGraph: {
-    title: "Metal Fabrication & Aluminum Systems | Yebis Engineering PLC",
+    title: "Metal Fabrication & Aluminum Systems | Yebis Engineering",
     description:
       "Engineered building facades, curtain walls, and structural metalwork across Addis Ababa and Ethiopia.",
     url: `${SITE_URL}/capabilities/metal-aluminum`,
@@ -300,7 +300,7 @@ export default function MetalAluminumCapabilityPage() {
           <div className="flex items-center gap-space-xs font-label-sm text-label-sm uppercase text-on-surface-variant tracking-wider">
             <span className="w-2 h-2 bg-primary"></span>
             <span>
-              METALLURGICAL &amp; ENVELOPE PERFORMANCE SPECIFICATIONS // GC-1
+              METALLURGICAL &amp; ENVELOPE PERFORMANCE SPECIFICATIONS // GC-3
               AUDITED
             </span>
           </div>

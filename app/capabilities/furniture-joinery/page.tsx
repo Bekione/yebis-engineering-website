@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/capabilities/furniture-joinery`,
   },
   openGraph: {
-    title: "Furniture & Bespoke Architectural Joinery | Yebis Engineering PLC",
+    title: "Furniture & Bespoke Architectural Joinery | Yebis Engineering",
     description:
       "Bespoke architectural millwork, executive furniture, and precision timber joinery across Addis Ababa and Ethiopia.",
     url: `${SITE_URL}/capabilities/furniture-joinery`,
@@ -145,7 +145,7 @@ const COMPLIANCE_ROWS = [
     element: "CNC Panel Dimension & Reveal Tolerance",
     baseline: "±0.2mm Gap Uniformity Across Reveals",
     protocol: "Optical Vernier Caliper & Feeler Gauge",
-    standard: "AWI Quality Standards Grade 1",
+    standard: "AWI Quality Standards GRADE 3",
     status: "VERIFIED PRECISION",
   },
   {
@@ -339,7 +339,7 @@ export default function FurnitureCapabilityPage() {
               </h2>
             </div>
             <div className="font-label-sm text-label-sm text-secondary uppercase">
-              STANDARDS: AWI GRADE 1 // DIN 68360 // EN 15338
+              STANDARDS: AWI GRADE 3 // DIN 68360 // EN 15338
             </div>
           </div>
 
@@ -449,7 +449,7 @@ export default function FurnitureCapabilityPage() {
               </h2>
             </div>
             <div className="font-label-sm text-label-sm text-secondary uppercase">
-              AWI GRADE 1 // DIN 68360 // EN 15338 // ISO 4586
+              AWI GRADE 3 // DIN 68360 // EN 15338 // ISO 4586
             </div>
           </div>
 

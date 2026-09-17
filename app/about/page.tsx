@@ -3,54 +3,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { IMG } from "@/lib/site-images";
 import { SITE_URL } from "@/lib/seo";
+import { AboutMetrics } from "@/components/AboutMetrics";
 
 export const metadata: Metadata = {
   title: "About Us & Corporate Credentials",
   description:
-    "Ethiopian-grounded, Grade 1 certified general contractor. Corporate dossier, 5-phase execution model, leadership, equipment fleet, and organizational credentials.",
+    "Ethiopian-grounded, GRADE 3 certified general contractor. Corporate dossier, 5-phase execution model, leadership, equipment fleet, and organizational credentials.",
   alternates: {
     canonical: `${SITE_URL}/about`,
   },
   openGraph: {
-    title: "About Us & Corporate Credentials | Yebis Engineering PLC",
+    title: "About Us & Corporate Credentials | Yebis Engineering",
     description:
-      "Ethiopian-grounded, Grade 1 certified general contractor. Corporate dossier, 5-phase execution model, and credentials.",
+      "Ethiopian-grounded, GRADE 3 certified general contractor. Corporate dossier, 5-phase execution model, and credentials.",
     url: `${SITE_URL}/about`,
   },
 };
-
-const METRICS = [
-  {
-    label: "Delivered Contracts",
-    value: "19+ Projects",
-    detail: "Government, NGO & private sector",
-  },
-  {
-    label: "Contract Value",
-    value: "ETB 145M+",
-    detail: "Executed project track record",
-  },
-  {
-    label: "Contractor Class",
-    value: "Grade 1 (GC-1)",
-    detail: "Ministry of Urban Development",
-  },
-  {
-    label: "Regional Footprint",
-    value: "4 Regions",
-    detail: "Addis Ababa, Oromia, Amhara, SNNPRS",
-  },
-  {
-    label: "Contract Scope",
-    value: "Full Lifecycle",
-    detail: "Turnkey, skeleton only & finishing",
-  },
-  {
-    label: "Standards Compliance",
-    value: "100%",
-    detail: "EBCS & statutory building codes",
-  },
-];
 
 const PHASES = [
   {
@@ -82,10 +50,10 @@ const PHASES = [
 
 const LEADERSHIP = [
   {
-    name: "Yonas Tesfaye",
+    name: "Yeshitila Tedla Hlinaab",
     role: "Managing Director & Founder",
     image: IMG.portraitMd,
-    bio: "25+ years in Ethiopian construction. Founded Yebis Engineering to consolidate fragmented trade scopes under unified engineering governance.",
+    bio: "Over 25 years of master construction experience across Ethiopia. Originally established the firm as 'Yeshitila Tedla Building Contractor' before leading its strategic transition 5 years ago into Yebis Engineering (GC-3), uniting civil engineering, MEP, and specialized finishing.",
   },
   {
     name: "Dawit Alemayehu",
@@ -97,7 +65,7 @@ const LEADERSHIP = [
     name: "Sara Kebede",
     role: "Director of Interior Architecture",
     image: IMG.portraitInteriors,
-    bio: "Expert in high-end commercial finishing — from acoustic engineering to bespoke material specification for hospitality and corporate environments.",
+    bio: "Expert in high-end commercial finishing - from acoustic engineering to bespoke material specification for hospitality and corporate environments.",
   },
   {
     name: "Mulugeta Hailu",
@@ -108,18 +76,18 @@ const LEADERSHIP = [
 ];
 
 const EQUIPMENT = [
-  "Hydraulic Excavators & Earthmoving Fleet",
-  "Mobile Concrete Boom Pumps & Site Mixers",
-  "Heavy-Duty Scaffolding & Formwork Systems",
+  "Tower Cranes & Material Hoisting Systems",
+  "Concrete Site Mixers & Vibrating Compactors",
+  "Heavy-Duty Modular Scaffolding & Formwork Systems",
   "Rebar Straightening, Cutting & Bending Units",
-  "Precision Aluminum Mitre Saws & Milling Machines",
-  "Custom Woodworking Joinery & CNC Workshop",
-  "MIG, TIG & Shielded Metal Arc Welding Units",
-  "Total Station & Digital Theodolite Instruments",
-  "Hydrostatic MEP Pressure Testing Equipment",
-  "Concrete Slump Testing & Cube Sampling Sets",
-  "Heavy-Duty Core Drilling & Demolition Rigs",
-  "Site Logistics & Heavy Material Transport Fleet",
+  "Precision Aluminum Mitre Saws & Profile Milling",
+  "Custom Woodworking Joinery Workshop Machinery",
+  "Heavy Dump Trucks (Tippers) & Site Logistics Fleet",
+  "Industrial Diesel Backup Generators (Continuous)",
+  "Digital Total Station & Laser Level Surveying Sets",
+  "Submersible De-watering Pumps & Water Tankers",
+  "Concrete Slump Testing & Cube Sampling Quality Sets",
+  "MIG, TIG & Shielded Metal Arc Welding Plants",
 ];
 
 export default function AboutPage() {
@@ -131,11 +99,11 @@ export default function AboutPage() {
           <div className="flex items-center gap-space-sm">
             <span className="inline-block w-2 h-2 bg-primary"></span>
             <span>
-              ETHIOPIA // GRADE 1 GENERAL CONTRACTOR (GC-1) // ADDIS ABABA
+              ETHIOPIA // GRADE 3 GENERAL CONTRACTOR (GC-3) // ADDIS ABABA
             </span>
           </div>
           <div className="flex items-center gap-space-lg">
-            <span>MINISTRY REG: MOTI/GC-01/ET</span>
+            <span>TRADE REG: BL/AA/1/0001088/2004 | TIN: 0001985917</span>
             <span className="text-primary font-medium">
               STATUS: PRE-QUALIFIED TENDER READY
             </span>
@@ -152,13 +120,13 @@ export default function AboutPage() {
               SEC_ABT-01 // ORGANIZATIONAL PROFILE ]
             </span>
             <span className="font-label-sm text-label-sm text-on-surface-variant font-medium hidden md:inline">
-              REGISTRATION: GRADE 1 (GC-1)
+              REGISTRATION: GRADE 3 (GC-3)
             </span>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
             <div className="lg:col-span-8 flex flex-col gap-space-md">
               <div className="inline-flex items-center gap-2 px-2 py-1 bg-surface-container w-fit border border-outline-variant/40 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                <span>GC-1 GENERAL CONTRACTOR</span>
+                <span>GC-3 GENERAL CONTRACTOR</span>
                 <span className="text-primary">•</span>
                 <span>STRUCTURAL, SKELETON &amp; FINISHING</span>
               </div>
@@ -168,19 +136,28 @@ export default function AboutPage() {
               <p className="font-body-lg text-body-lg text-primary font-medium leading-relaxed max-w-3xl">
                 From full turnkey building construction and structural skeleton
                 scaffolding to taking over incomplete frames, high-end interior
-                finishing, and property renovation—Yebis Engineering PLC delivers
+                finishing, and property renovation-Yebis Engineering delivers
                 single-source construction excellence across Ethiopia.
               </p>
               <p className="font-body-md text-body-md text-on-surface-variant max-w-3xl leading-relaxed">
-                Founded in Addis Ababa, Yebis was established with a clear
-                mission: eliminate the frustration and delays caused by fragmented
-                subcontractors. Whether you are an organization tendering a public
-                project, a commercial developer completing a multi-story building,
-                or a private homeowner building a villa or renovating an existing
-                property—we manage everything under unified engineering governance.
-                Our in-house capabilities span structural civil works, certified
-                electrical &amp; sanitary installations, aluminum windows, doors and
-                gates fabrication, and bespoke interior joinery.
+                Originally founded in Addis Ababa under the registered trade name{" "}
+                <strong className="text-on-surface font-semibold">
+                  &quot;Yeshitila Tedla Building Contractor&quot;
+                </strong>
+                , our company built its foundational reputation on demanding reinforced concrete
+                superstructures, healthcare facilities, and public housing blocks. Approximately five years ago,
+                the enterprise underwent a strategic corporate reorganization and rebranding-advancing to{" "}
+                <strong className="text-primary font-semibold">
+                  Yebis Engineering (Grade 3 General Contractor / GC-3)
+                </strong>
+                . This corporate evolution consolidated multi-disciplinary capabilities-structural civil execution,
+                certified MEP engineering, aluminum and metal fabrication, and bespoke interior joinery-under a single
+                accountable engineering management umbrella.
+              </p>
+              <p className="font-body-md text-body-md text-on-surface-variant max-w-3xl leading-relaxed">
+                Whether you are an institutional body tendering a public project, a commercial developer completing
+                a multi-story office or apartment building, or an owner completing a private residential development-we
+                guarantee zero-gap delivery, transparent cost tracking, and rigorous quality compliance across Ethiopia.
               </p>
               <div className="pt-space-md flex flex-wrap items-center gap-space-md">
                 <Link
@@ -220,11 +197,11 @@ export default function AboutPage() {
                     />
                   </span>
                   <span className="font-bold text-on-surface">
-                    YEBIS ENGINEERING PLC
+                    YEBIS ENGINEERING
                   </span>
                 </div>
                 <span className="text-primary font-semibold">
-                  GRADE 1 (GC-1)
+                  GRADE 3 (GC-3)
                 </span>
               </div>
               <div className="relative w-full aspect-[4/3] bg-surface-container overflow-hidden border border-outline-variant/40">
@@ -237,14 +214,16 @@ export default function AboutPage() {
                   priority
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-inverse-surface/90 text-inverse-on-surface px-3 py-1 text-label-sm font-label-sm flex justify-between items-center">
-                  <span>CORE DRILLING &amp; POURED CAST // BOLE</span>
+                  <span>SUPERSTRUCTURE CASTING // BOLE</span>
                   <span className="text-primary-fixed">ELEV. 2,355M</span>
                 </div>
               </div>
               <div className="space-y-space-xs pt-space-xs">
                 {[
                   ["Licensure Authority", "Federal MoUDI"],
-                  ["Contractor Grade", "GRADE 1 (GC-1)", true],
+                  ["Contractor Grade", "GRADE 3 (GC-3)", true],
+                  ["Historical Origin", "Yeshitila Tedla Building Cont."],
+                  ["Corporate Update", "Evolved to GC-3 (~5 Yrs Ago)"],
                   ["Bonding Authorization", "CBE Verified Tier-1"],
                   ["Quality Compliance", "ISO 9001:2015 Registered"],
                 ].map(([label, value, highlight]) => (
@@ -277,24 +256,7 @@ export default function AboutPage() {
               ENTERPRISE AUDIT DATA // OPERATIONAL BENCHMARKS
             </span>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 border border-outline-variant/40 bg-surface divide-y md:divide-y-0 md:divide-x divide-outline-variant/30">
-            {METRICS.map((m) => (
-              <div
-                key={m.label}
-                className="p-space-md flex flex-col gap-space-xs"
-              >
-                <span className="font-label-sm text-label-sm text-on-surface-variant font-semibold uppercase">
-                  {m.label}
-                </span>
-                <span className="font-headline-md text-[22px] leading-[30px] lg:text-headline-md font-bold text-on-surface">
-                  {m.value}
-                </span>
-                <span className="font-body-sm text-body-sm text-on-surface-variant">
-                  {m.detail}
-                </span>
-              </div>
-            ))}
-          </div>
+          <AboutMetrics />
         </div>
       </section>
 
@@ -418,7 +380,7 @@ export default function AboutPage() {
               Build with confidence.
             </h2>
             <p className="font-body-md text-body-md text-inverse-on-surface">
-              15+ years of Ethiopian construction expertise. Grade 1 certified.
+              15+ years of Ethiopian construction expertise. GRADE 3 certified.
               ISO 9001:2015 compliant.
             </p>
           </div>

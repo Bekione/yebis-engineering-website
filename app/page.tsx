@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { IMG } from "@/lib/site-images";
+import CountUp from "@/components/CountUp";
+import ClientRosterCarousel from "@/components/ClientRosterCarousel";
+import CustomSelect from "@/components/ui/select";
 
 export default function HomePage() {
   const [submitted, setSubmitted] = useState(false);
@@ -22,7 +26,7 @@ export default function HomePage() {
             <div className="flex items-center gap-space-sm">
               <span className="inline-block w-2 h-2 bg-primary"></span>
               <span className="tracking-widest uppercase font-semibold text-on-surface">
-                GRADE 1 GENERAL CONTRACTOR (GC-1)
+                GRADE 3 GENERAL CONTRACTOR (GC-3)
               </span>
               <span className="hidden sm:inline text-secondary">|</span>
               <span className="hidden sm:inline uppercase">
@@ -40,7 +44,7 @@ export default function HomePage() {
 
           {/* Hero Typography & CTAs */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-4">
-            <div className="lg:col-span-8 flex flex-col gap-space-md">
+            <div className="lg:col-span-7 flex flex-col gap-space-md">
               <div className="inline-flex items-center gap-space-xs font-label-md text-label-md text-primary tracking-widest uppercase">
                 <span>[ GENERAL CONTRACTOR &amp; SPECIALIZED EXECUTION ]</span>
               </div>
@@ -56,10 +60,10 @@ export default function HomePage() {
                 NGOs, and private developers.
               </p>
             </div>
-            <div className="lg:col-span-4 flex flex-col gap-space-md lg:items-end">
+            <div className="lg:col-span-5 flex flex-col gap-space-md lg:items-end">
               <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
                 <Link
-                  className="inline-flex items-center justify-center gap-space-sm bg-inverse-surface hover:bg-primary text-on-primary font-label-lg text-label-lg uppercase px-space-lg py-space-md transition-colors duration-150"
+                  className="inline-flex items-center justify-center gap-space-sm bg-inverse-surface hover:bg-primary text-on-primary font-label-lg text-label-lg uppercase whitespace-nowrap shrink-0 px-5 py-3 sm:px-6 sm:py-3.5 transition-colors duration-150"
                   href="/work"
                 >
                   <span>Explore our work</span>
@@ -68,7 +72,7 @@ export default function HomePage() {
                   </span>
                 </Link>
                 <Link
-                  className="inline-flex items-center justify-center gap-space-sm bg-surface-container hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg uppercase px-space-lg py-space-md transition-colors duration-150 border border-outline-variant/40"
+                  className="inline-flex items-center justify-center gap-space-sm bg-surface-container hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg uppercase whitespace-nowrap shrink-0 px-5 py-3 sm:px-6 sm:py-3.5 transition-colors duration-150 border border-outline-variant/40"
                   href="/start-a-project"
                 >
                   <span>Start a project</span>
@@ -159,55 +163,8 @@ export default function HomePage() {
               DOCUMENTED PUBLIC, NGO &amp; COMMERCIAL CONTRACTS
             </span>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 pt-2">
-            <div className="bg-surface-container-low p-3.5 border border-outline-variant/30 flex flex-col justify-center">
-              <span className="font-label-sm text-label-sm text-on-surface font-bold">
-                AAHDPO
-              </span>
-              <span className="text-[11px] text-secondary">
-                Addis Ababa Housing Dev
-              </span>
-            </div>
-            <div className="bg-surface-container-low p-3.5 border border-outline-variant/30 flex flex-col justify-center">
-              <span className="font-label-sm text-label-sm text-on-surface font-bold">
-                ALERT Hospital
-              </span>
-              <span className="text-[11px] text-secondary">
-                Specialized Medical Centre
-              </span>
-            </div>
-            <div className="bg-surface-container-low p-3.5 border border-outline-variant/30 flex flex-col justify-center">
-              <span className="font-label-sm text-label-sm text-on-surface font-bold">
-                St. Peter&apos;s Hospital
-              </span>
-              <span className="text-[11px] text-secondary">
-                Radiology &amp; X-Ray Suites
-              </span>
-            </div>
-            <div className="bg-surface-container-low p-3.5 border border-outline-variant/30 flex flex-col justify-center">
-              <span className="font-label-sm text-label-sm text-on-surface font-bold">
-                World Vision
-              </span>
-              <span className="text-[11px] text-secondary">
-                Water &amp; Education Projects
-              </span>
-            </div>
-            <div className="bg-surface-container-low p-3.5 border border-outline-variant/30 flex flex-col justify-center">
-              <span className="font-label-sm text-label-sm text-on-surface font-bold">
-                Customs Commission
-              </span>
-              <span className="text-[11px] text-secondary">
-                Bole Airport Cargo Yard
-              </span>
-            </div>
-            <div className="bg-surface-container-low p-3.5 border border-outline-variant/30 flex flex-col justify-center">
-              <span className="font-label-sm text-label-sm text-on-surface font-bold">
-                The Hunger Project
-              </span>
-              <span className="text-[11px] text-secondary">
-                Rural Civil &amp; Water Works
-              </span>
-            </div>
+          <div className="pt-2">
+            <ClientRosterCarousel speed={0.8} />
           </div>
         </div>
       </section>
@@ -221,7 +178,14 @@ export default function HomePage() {
             </span>
             <div className="flex items-baseline gap-1">
               <span className="font-headline-xl text-headline-xl text-on-surface font-bold tracking-tight">
-                15+
+                <CountUp
+                  from={0}
+                  to={15}
+                  duration={1.5}
+                  separator=""
+                  className=""
+                />
+                +
               </span>
             </div>
             <span className="font-headline-sm text-headline-sm text-on-surface font-medium">
@@ -238,7 +202,14 @@ export default function HomePage() {
             </span>
             <div className="flex items-baseline gap-1">
               <span className="font-headline-xl text-headline-xl text-on-surface font-bold tracking-tight">
-                85+
+                <CountUp
+                  from={0}
+                  to={85}
+                  duration={2}
+                  separator=""
+                  className=""
+                />
+                +
               </span>
             </div>
             <span className="font-headline-sm text-headline-sm text-on-surface font-medium">
@@ -255,7 +226,14 @@ export default function HomePage() {
             </span>
             <div className="flex items-baseline gap-1">
               <span className="font-headline-xl text-headline-xl text-on-surface font-bold tracking-tight">
-                100%
+                <CountUp
+                  from={0}
+                  to={100}
+                  duration={1.8}
+                  separator=""
+                  className=""
+                />
+                %
               </span>
             </div>
             <span className="font-headline-sm text-headline-sm text-on-surface font-medium">
@@ -272,7 +250,14 @@ export default function HomePage() {
             </span>
             <div className="flex items-baseline gap-1">
               <span className="font-headline-xl text-headline-xl text-on-surface font-bold tracking-tight">
-                04
+                0
+                <CountUp
+                  from={0}
+                  to={4}
+                  duration={1}
+                  separator=""
+                  className=""
+                />
               </span>
             </div>
             <span className="font-headline-sm text-headline-sm text-on-surface font-medium">
@@ -341,7 +326,7 @@ export default function HomePage() {
                 </p>
               </div>
               <div className="font-label-sm text-label-sm text-secondary uppercase">
-                <span>CIVIL // GC-1</span>
+                <span>CIVIL // GC-3</span>
               </div>
             </div>
 
@@ -509,7 +494,7 @@ export default function HomePage() {
                   </span>
                 </div>
                 <h3 className="font-headline-sm text-headline-sm text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
-                  Commercial Office Building — Kazanchis
+                  Commercial Office Building - Kazanchis
                 </h3>
                 <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
                   Prime grade multi-story commercial facility in the central
@@ -931,7 +916,7 @@ export default function HomePage() {
               <span>SEC_05 // CASE STUDY DOSSIER</span>
             </div>
             <h2 className="font-headline-lg text-headline-lg text-on-surface uppercase tracking-tight">
-              Project 008 Spotlight — Clinical Healthcare Center
+              Project 008 Spotlight - Clinical Healthcare Center
             </h2>
           </div>
 
@@ -1008,7 +993,7 @@ export default function HomePage() {
                       BOQ &amp; Spec Matrix
                     </span>
                     <span className="font-label-sm text-label-sm text-primary">
-                      LICENSED GC-1
+                      LICENSED GC-3
                     </span>
                   </div>
                   <div className="flex flex-col gap-3 font-label-sm text-label-sm">
@@ -1274,7 +1259,7 @@ export default function HomePage() {
                   <span className="material-symbols-outlined text-primary text-[20px]">
                     mail
                   </span>
-                  <span>CONTRACTS DESK: INQUIRIES@YEBISENGINEERING.COM</span>
+                  <span>CONTRACTS DESK: inquiries@yebisengineering.pro.et</span>
                 </div>
               </div>
             </div>
@@ -1283,7 +1268,7 @@ export default function HomePage() {
               <div className="font-label-md text-label-md uppercase text-on-surface-variant tracking-wider pb-2 border-b border-outline-variant/40 flex items-center justify-between">
                 <span>Project Technical Brief</span>
                 <span className="text-primary font-label-sm">
-                  CONFIDENTIAL // GC-1
+                  CONFIDENTIAL // GC-3
                 </span>
               </div>
 
@@ -1339,12 +1324,16 @@ export default function HomePage() {
                       <label className="font-label-sm text-label-sm uppercase text-on-surface-variant">
                         Sector
                       </label>
-                      <select className="bg-surface-container-low px-3 py-2 text-body-sm font-body-sm text-on-surface outline-none border border-outline-variant/40 focus:border-primary">
-                        <option>Commercial Tower</option>
-                        <option>Institutional / Healthcare</option>
-                        <option>Residential Compound</option>
-                        <option>Specialized Subcontract Scope</option>
-                      </select>
+                      <CustomSelect
+                        options={[
+                          "Commercial Tower",
+                          "Institutional / Healthcare",
+                          "Residential Compound",
+                          "Specialized Subcontract Scope",
+                        ]}
+                        defaultValue="Commercial Tower"
+                        name="sector"
+                      />
                     </div>
                     <div className="flex flex-col gap-1">
                       <label className="font-label-sm text-label-sm uppercase text-on-surface-variant">
@@ -1365,7 +1354,7 @@ export default function HomePage() {
                     </label>
                     <textarea
                       required
-                      className="bg-surface-container-low px-3 py-2 text-body-sm font-body-sm text-on-surface outline-none border border-outline-variant/40 focus:border-primary"
+                      className="bg-surface-container-low px-3 py-2 text-body-sm font-body-sm text-on-surface outline-none border border-outline-variant/40 focus:border-primary max-h-[220px] resize-y"
                       placeholder="Describe the structural parameters, total built-up area (sqm), or specific finishing / MEP scope required..."
                       rows={3}
                     ></textarea>

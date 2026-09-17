@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { motion } from "framer-motion";
 import StrokeText from "./StrokeText";
 
 const NAV = [
@@ -20,26 +21,31 @@ export function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-surface/95 backdrop-blur-md border-b border-outline-variant/40">
-      {/* Operational Credential & Telemetry Bar */}
-      <div className="w-full bg-surface-container-low border-b border-outline-variant/30 hidden lg:block">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 h-7 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm tracking-wider uppercase">
-          <div className="flex items-center gap-2.5">
-            <span className="inline-block w-2 h-2 bg-primary"></span>
-            <span className="font-semibold text-on-surface">
-              FEDERAL DEMOCRATIC REPUBLIC OF ETHIOPIA
+    <header className="fixed top-0 inset-x-0 z-50 pointer-events-none">
+      <div className="w-full max-w-7xl mx-auto bg-surface/95 backdrop-blur-md border-x border-b border-outline-variant/40 pointer-events-auto">
+        {/* Operational Credential & Telemetry Bar */}
+        <div className="w-full bg-surface-container-low border-b border-outline-variant/30 hidden lg:block overflow-hidden">
+          <div className="px-6 lg:px-12 h-7 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm tracking-wider uppercase whitespace-nowrap">
+          <div className="flex items-center gap-2.5 shrink-0 whitespace-nowrap">
+            <span className="inline-block w-2 h-2 bg-primary shrink-0"></span>
+            <span className="font-semibold text-on-surface whitespace-nowrap">
+              ETHIOPIA
             </span>
             <span className="text-secondary/60">•</span>
-            <span>GRADE 1 GENERAL CONTRACTOR (GC-1)</span>
-            <span className="hidden xl:inline text-secondary/60">•</span>
-            <span className="hidden xl:inline text-secondary">
-              REG: MOTI/GC-01/ET
+            <span className="whitespace-nowrap">
+              GRADE 3 GENERAL CONTRACTOR (GC-3)
+            </span>
+            <span className="text-secondary/60">•</span>
+            <span className="text-secondary whitespace-nowrap">
+              TRADE REG: BL/AA/1/0001088/2004 · TIN: 0001985917
             </span>
           </div>
-          <div className="flex items-center gap-4 text-secondary">
-            <span>HEADQUARTERS: BOLE ROAD, ADDIS ABABA</span>
-            <span className="text-secondary/60">•</span>
-            <span className="text-primary font-medium">
+          <div className="flex items-center gap-4 text-secondary shrink-0 whitespace-nowrap pl-4">
+            <span className="hidden xl:inline whitespace-nowrap">
+              HQ: BOLE ROAD, ADDIS ABABA
+            </span>
+            <span className="hidden xl:inline text-secondary/60">•</span>
+            <span className="text-primary font-medium whitespace-nowrap">
               NATIONWIDE CONTRACTING
             </span>
           </div>
@@ -47,13 +53,13 @@ export function SiteHeader() {
       </div>
 
       {/* Main Navigation Bar */}
-      <div className="h-20 max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between gap-space-md">
+      <div className="h-20 px-6 lg:px-12 flex items-center justify-between gap-space-md">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-3.5 group">
           <span className="flex h-11 w-11 items-center justify-center bg-inverse-surface border border-outline-variant/60 group-hover:border-primary group-hover:bg-primary transition-all p-1.5 shrink-0">
             <Image
               src="/assets/logo-light.png"
-              alt="Yebis Engineering PLC Logo"
+              alt="Yebis Engineering Logo"
               width={34}
               height={34}
               className="object-contain"
@@ -79,7 +85,7 @@ export function SiteHeader() {
               />
             </span>
             <span className="font-label-sm text-label-sm tracking-widest text-on-surface-variant uppercase">
-              PLC · Addis Ababa · Ethiopia
+              · Addis Ababa · Ethiopia
             </span>
           </div>
         </Link>
@@ -93,13 +99,23 @@ export function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`py-space-xs transition-colors ${
+                className={`relative py-space-xs transition-colors duration-150 ${
                   isActive
-                    ? "text-primary font-bold border-b-2 border-primary"
+                    ? "text-primary font-bold"
                     : "text-on-surface-variant hover:text-on-surface"
                 }`}
               >
-                {item.label}
+                <span>{item.label}</span>
+                {isActive && (
+                  <motion.span
+                    layoutId="activeNavIndicator"
+                    className="absolute -bottom-0.5 inset-x-0 h-[2px] bg-primary"
+                    transition={{
+                      duration: 0.22,
+                      ease: [0.25, 1, 0.5, 1],
+                    }}
+                  />
+                )}
               </Link>
             );
           })}
@@ -142,7 +158,7 @@ export function SiteHeader() {
       {mobileMenuOpen && (
         <div className="xl:hidden border-t border-outline-variant/40 bg-surface px-6 py-6 flex flex-col gap-4 shadow-xl">
           <div className="font-label-sm text-label-sm text-secondary uppercase pb-2 border-b border-outline-variant/30">
-            NAVIGATION INDEX // GC-1 DIRECTORY
+            NAVIGATION INDEX // GC-3 DIRECTORY
           </div>
           {NAV.map((item) => {
             const isActive =
@@ -169,6 +185,7 @@ export function SiteHeader() {
           </div>
         </div>
       )}
+      </div>
     </header>
   );
 }

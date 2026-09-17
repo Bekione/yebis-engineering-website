@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { IMG } from "@/lib/site-images";
 import { SITE_URL } from "@/lib/seo";
+import { CapabilitiesMetrics } from "@/components/CapabilitiesMetrics";
 
 export const metadata: Metadata = {
   title: "Capabilities & Divisions",
@@ -12,40 +13,12 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/capabilities`,
   },
   openGraph: {
-    title: "Capabilities & Divisions | Yebis Engineering PLC",
+    title: "Capabilities & Divisions | Yebis Engineering",
     description:
       "Eight integrated engineering divisions under single-source responsibility across Ethiopia.",
     url: `${SITE_URL}/capabilities`,
   },
 };
-
-const METRICS = [
-  {
-    label: "Project Scope",
-    value: "Turnkey",
-    unit: "& SKELETON",
-    desc: "From ground-up builds to skeleton finishing",
-  },
-  {
-    label: "In-House Trades",
-    value: "08",
-    unit: "DIVISIONS",
-    desc: "Civil, MEP, aluminum, wood & finishing",
-  },
-  {
-    label: "Code Standards",
-    value: "100%",
-    unit: "EBCS",
-    desc: "Ethiopian Building Code compliant",
-  },
-  {
-    label: "Delivery Model",
-    value: "Single",
-    unit: "SOURCE",
-    desc: "Eliminating subcontractor friction",
-    highlight: true,
-  },
-];
 
 const DIVISIONS = [
   {
@@ -62,7 +35,7 @@ const DIVISIONS = [
       "Structural Steel Portal Framing",
     ],
     datum: "CAPACITY: TURNKEY GC & SKELETON PACKAGES",
-    cta: "GC-1 CERTIFIED →",
+    cta: "GC-3 CERTIFIED →",
     href: "/capabilities/structural",
   },
   {
@@ -214,7 +187,7 @@ export default function CapabilitiesPage() {
                 REGULATORY RATING
               </span>
               <span className="font-label-lg text-label-lg font-bold text-on-surface">
-                GC-1 CLASSIFICATION
+                GC-3 CLASSIFICATION
               </span>
               <span className="font-label-sm text-label-sm text-primary">
                 FULL VERTICAL INTEGRATION
@@ -223,31 +196,7 @@ export default function CapabilitiesPage() {
           </div>
 
           {/* Quick Metrics Ledger */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-space-sm pt-space-md">
-            {METRICS.map((m) => (
-              <div
-                key={m.label}
-                className="bg-surface-container p-space-md flex flex-col justify-between"
-              >
-                <span className="font-label-sm text-label-sm text-on-surface-variant font-semibold uppercase">
-                  {m.label}
-                </span>
-                <div className="flex items-baseline gap-space-xs mt-space-sm">
-                  <span
-                    className={`font-headline-lg text-[28px] leading-[36px] lg:text-headline-lg font-bold ${m.highlight ? "text-primary" : "text-on-surface"}`}
-                  >
-                    {m.value}
-                  </span>
-                  <span className="font-label-sm text-label-sm text-on-surface-variant">
-                    {m.unit}
-                  </span>
-                </div>
-                <span className="font-body-sm text-body-sm text-on-surface-variant mt-space-xs">
-                  {m.desc}
-                </span>
-              </div>
-            ))}
-          </div>
+          <CapabilitiesMetrics />
         </div>
       </section>
 

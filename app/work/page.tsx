@@ -1,8 +1,11 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import CustomSelect from "@/components/ui/select";
+import ScrollFade from "@/components/ScrollFade";
 import {
   ALL_PROJECTS,
   ProjectRecord,
@@ -10,13 +13,106 @@ import {
   FORMATTED_TOTAL_ETB,
 } from "@/lib/projects-data";
 
-export default function WorkPage() {
-  const [activeSector, setActiveSector] = useState<ProjectSector>("all");
-  const [selectedClientCategory, setSelectedClientCategory] =
-    useState<string>("all");
-  const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
+const CLIENT_FILTER_OPTIONS = [
+  { value: "all", label: "All Clients & Agencies" },
+  {
+    value: "government",
+    label: "Government & Public Agencies (AAHDPO, Customs, Kirkos)",
+  },
+  {
+    value: "healthcare",
+    label: "Specialized Public Hospitals (ALERT, St. Peter's, St. Paul's)",
+  },
+  {
+    value: "ngo",
+    label: "NGO & International (World Vision, Hunger Project, Cancer Care)",
+  },
+  {
+    value: "educational",
+    label: "Educational & Institutional (TVET, EOC-DICAC)",
+  },
+  { value: "commercial", label: "Commercial Developers" },
+  { value: "residential", label: "Private Residential" },
+];
+
+const VALID_SECTORS: ProjectSector[] = [
+  "all",
+  "healthcare",
+  "housing",
+  "education",
+  "civil",
+  "commercial",
+  "specialized",
+];
+
+function WorkContent() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const sectorParam = searchParams.get("sector") as ProjectSector | null;
+  const clientParam = searchParams.get("client");
+  const viewParam = searchParams.get("view");
+
+  const activeSector: ProjectSector =
+    sectorParam && VALID_SECTORS.includes(sectorParam) ? sectorParam : "all";
+  const selectedClientCategory: string = clientParam || "all";
+  const viewMode: "grid" | "table" = viewParam === "table" ? "table" : "grid";
+
   const [activeModalProject, setActiveModalProject] =
     useState<ProjectRecord | null>(null);
+
+  // Close modal on Escape and prevent body scrolling when open
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActiveModalProject(null);
+      }
+    };
+    if (activeModalProject) {
+      window.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "unset";
+    };
+  }, [activeModalProject]);
+
+  const updateFilters = (
+    newSector?: ProjectSector,
+    newClient?: string,
+    newView?: "grid" | "table",
+  ) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    const targetSector = newSector !== undefined ? newSector : activeSector;
+    if (targetSector && targetSector !== "all") {
+      params.set("sector", targetSector);
+    } else {
+      params.delete("sector");
+    }
+
+    const targetClient =
+      newClient !== undefined ? newClient : selectedClientCategory;
+    if (targetClient && targetClient !== "all") {
+      params.set("client", targetClient);
+    } else {
+      params.delete("client");
+    }
+
+    const targetView = newView !== undefined ? newView : viewMode;
+    if (targetView && targetView !== "grid") {
+      params.set("view", targetView);
+    } else {
+      params.delete("view");
+    }
+
+    const queryString = params.toString();
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
+      scroll: false,
+    });
+  };
 
   const filteredProjects = useMemo(() => {
     return ALL_PROJECTS.filter((proj) => {
@@ -55,7 +151,8 @@ export default function WorkPage() {
             <div className="flex items-center gap-3 bg-surface px-3.5 py-1.5 border border-outline-variant/40">
               <span className="inline-block w-2 h-2 rounded-full bg-primary animate-pulse"></span>
               <span className="font-label-sm text-label-sm text-on-surface font-medium uppercase tracking-wide">
-                {ALL_PROJECTS.length} DELIVERED PROJECTS ACROSS ETHIOPIA ({FORMATTED_TOTAL_ETB})
+                {ALL_PROJECTS.length} DELIVERED PROJECTS ACROSS ETHIOPIA (
+                {FORMATTED_TOTAL_ETB})
               </span>
             </div>
           </div>
@@ -67,7 +164,7 @@ export default function WorkPage() {
               </h1>
               <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
                 From turnkey multi-story buildings and public housing to
-                high-tolerance specialized packages—including lead-lined
+                high-tolerance specialized packages-including lead-lined
                 hospital radiology suites, potable water reservoirs, and
                 municipal civil infrastructure.
               </p>
@@ -78,7 +175,7 @@ export default function WorkPage() {
                   Contracting License
                 </span>
                 <span className="font-label-md text-label-md text-on-surface font-bold">
-                  Grade 1 General Contractor (GC-1)
+                  GRADE 3 General Contractor (GC-3)
                 </span>
               </div>
               <div className="flex items-center justify-between text-on-surface-variant">
@@ -106,7 +203,7 @@ export default function WorkPage() {
             <div className="flex flex-wrap items-center gap-2">
               <button
                 type="button"
-                onClick={() => setActiveSector("all")}
+                onClick={() => updateFilters("all")}
                 className={`px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border ${
                   activeSector === "all"
                     ? "bg-inverse-surface text-on-primary border-inverse-surface"
@@ -121,7 +218,7 @@ export default function WorkPage() {
 
               <button
                 type="button"
-                onClick={() => setActiveSector("healthcare")}
+                onClick={() => updateFilters("healthcare")}
                 className={`px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border ${
                   activeSector === "healthcare"
                     ? "bg-inverse-surface text-on-primary border-inverse-surface"
@@ -134,7 +231,7 @@ export default function WorkPage() {
 
               <button
                 type="button"
-                onClick={() => setActiveSector("housing")}
+                onClick={() => updateFilters("housing")}
                 className={`px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border ${
                   activeSector === "housing"
                     ? "bg-inverse-surface text-on-primary border-inverse-surface"
@@ -147,7 +244,7 @@ export default function WorkPage() {
 
               <button
                 type="button"
-                onClick={() => setActiveSector("education")}
+                onClick={() => updateFilters("education")}
                 className={`px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border ${
                   activeSector === "education"
                     ? "bg-inverse-surface text-on-primary border-inverse-surface"
@@ -160,7 +257,7 @@ export default function WorkPage() {
 
               <button
                 type="button"
-                onClick={() => setActiveSector("civil")}
+                onClick={() => updateFilters("civil")}
                 className={`px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border ${
                   activeSector === "civil"
                     ? "bg-inverse-surface text-on-primary border-inverse-surface"
@@ -173,7 +270,7 @@ export default function WorkPage() {
 
               <button
                 type="button"
-                onClick={() => setActiveSector("commercial")}
+                onClick={() => updateFilters("commercial")}
                 className={`px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border ${
                   activeSector === "commercial"
                     ? "bg-inverse-surface text-on-primary border-inverse-surface"
@@ -186,7 +283,7 @@ export default function WorkPage() {
 
               <button
                 type="button"
-                onClick={() => setActiveSector("specialized")}
+                onClick={() => updateFilters("specialized")}
                 className={`px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border ${
                   activeSector === "specialized"
                     ? "bg-inverse-surface text-on-primary border-inverse-surface"
@@ -205,29 +302,13 @@ export default function WorkPage() {
                   <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
                     Client / Tender Authority:
                   </label>
-                  <select
-                    value={selectedClientCategory}
-                    onChange={(e) => setSelectedClientCategory(e.target.value)}
-                    className="bg-surface text-on-surface font-label-md text-label-md px-3 py-1.5 border border-outline-variant/40 focus:outline-none focus:border-primary"
-                  >
-                    <option value="all">All Clients &amp; Agencies</option>
-                    <option value="government">
-                      Government &amp; Public Agencies (AAHDPO, Customs, Kirkos)
-                    </option>
-                    <option value="healthcare">
-                      Specialized Public Hospitals (ALERT, St. Peter&apos;s, St.
-                      Paul&apos;s)
-                    </option>
-                    <option value="ngo">
-                      NGO &amp; International (World Vision, Hunger Project,
-                      Cancer Care)
-                    </option>
-                    <option value="educational">
-                      Educational &amp; Institutional (TVET, EOC-DICAC)
-                    </option>
-                    <option value="commercial">Commercial Developers</option>
-                    <option value="residential">Private Residential</option>
-                  </select>
+                  <div className="min-w-[260px] sm:min-w-[300px]">
+                    <CustomSelect
+                      options={CLIENT_FILTER_OPTIONS}
+                      value={selectedClientCategory}
+                      onChange={(val) => updateFilters(undefined, val)}
+                    />
+                  </div>
                 </div>
 
                 <span className="font-label-sm text-label-sm bg-primary/10 text-primary px-2.5 py-1 border border-primary/20">
@@ -240,7 +321,7 @@ export default function WorkPage() {
               <div className="flex items-center gap-1 bg-surface-container-high p-1 border border-outline-variant/50">
                 <button
                   type="button"
-                  onClick={() => setViewMode("grid")}
+                  onClick={() => updateFilters(undefined, undefined, "grid")}
                   className={`flex items-center gap-1.5 px-3 py-1.5 font-label-sm text-label-sm uppercase tracking-wider font-semibold transition-all duration-150 ${
                     viewMode === "grid"
                       ? "bg-inverse-surface text-on-primary shadow-sm"
@@ -255,7 +336,7 @@ export default function WorkPage() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setViewMode("table")}
+                  onClick={() => updateFilters(undefined, undefined, "table")}
                   className={`flex items-center gap-1.5 px-3 py-1.5 font-label-sm text-label-sm uppercase tracking-wider font-semibold transition-all duration-150 ${
                     viewMode === "table"
                       ? "bg-inverse-surface text-on-primary shadow-sm"
@@ -279,10 +360,12 @@ export default function WorkPage() {
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between text-on-surface-variant font-label-sm text-label-sm tracking-wider">
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1.5 text-on-surface font-semibold">
-              <span className="w-1.5 h-1.5 bg-primary"></span>GC-1 STATUTORY
+              <span className="w-1.5 h-1.5 bg-primary"></span>GC-3 STATUTORY
               REGISTRY
             </span>
-            <span className="hidden md:inline font-medium">MOUD-GC1-CERTIFIED</span>
+            <span className="hidden md:inline font-medium">
+              MOUD-GC1-CERTIFIED
+            </span>
             <span className="hidden sm:inline">
               CONTRACT SPECTRUM: TURNKEY GC &amp; TARGETED SUBCONTRACTS
             </span>
@@ -320,7 +403,9 @@ export default function WorkPage() {
                     </div>
                     <div className="absolute bottom-3 left-3 right-auto max-w-[calc(100%-24px)] bg-inverse-surface/90 text-white backdrop-blur-md px-2.5 py-1 font-label-sm text-[11px] tracking-wider uppercase border border-white/10 flex items-center gap-1.5 shadow-sm">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0"></span>
-                      <span className="truncate">{project.location} · {project.region}</span>
+                      <span className="truncate">
+                        {project.location} · {project.region}
+                      </span>
                     </div>
                   </div>
 
@@ -381,93 +466,103 @@ export default function WorkPage() {
               ))}
             </div>
           ) : (
-            /* Technical Register Table View — Mirroring Official Work Performance Document */
+            /* Technical Register Table View - Mirroring Official Work Performance Document */
             <div className="flex flex-col bg-surface border border-outline-variant/40 overflow-hidden shadow-sm">
               <div className="bg-inverse-surface text-on-primary px-6 py-4 flex flex-wrap items-center justify-between gap-2 font-label-sm text-label-sm uppercase tracking-wider">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 bg-primary"></span>
                   <span className="font-bold">
-                    YEBIS ENGINEERING PLC // PROJECT &amp; CONTRACT REGISTER
+                    YEBIS ENGINEERING // PROJECT &amp; CONTRACT REGISTER
                   </span>
                 </div>
                 <span className="text-primary-fixed">
                   DELIVERED PROJECT LEDGER (ETHIOPIA)
                 </span>
               </div>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse min-w-[900px]">
-                  <thead>
-                    <tr className="bg-surface-container-high text-on-surface font-label-sm text-label-sm uppercase tracking-wider border-b border-outline-variant/40">
-                      <th className="py-3.5 px-4 text-center w-12">No</th>
-                      <th className="py-3.5 px-6">Project Title &amp; Scope</th>
-                      <th className="py-3.5 px-6">Client / Contracting Body</th>
-                      <th className="py-3.5 px-4">Region / Location</th>
-                      <th className="py-3.5 px-4">Completion</th>
-                      <th className="py-3.5 px-4 text-right">
-                        Contract Cost (ETB)
-                      </th>
-                      <th className="py-3.5 px-6 text-right">Dossier</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-outline-variant/20 font-body-sm text-body-sm text-on-surface">
-                    {filteredProjects.map((proj) => (
-                      <tr
-                        key={proj.id}
-                        className="hover:bg-surface-container-low transition-colors"
-                      >
-                        <td className="py-4 px-4 text-center font-label-md text-label-md text-secondary font-bold">
-                          {proj.recordNumber}
-                        </td>
-                        <td className="py-4 px-6">
-                          <div className="flex flex-col">
-                            <span className="font-semibold text-on-surface">
-                              {proj.title}
-                            </span>
-                            <div className="flex items-center gap-2 mt-1">
-                              <span className="font-label-sm text-label-sm text-secondary uppercase">
-                                {proj.projectType}
-                              </span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="py-4 px-6 font-medium text-on-surface-variant">
-                          {proj.client}
-                        </td>
-                        <td className="py-4 px-4 text-on-surface-variant font-label-sm text-label-sm">
-                          <div>{proj.location}</div>
-                          <div className="text-secondary text-[11px]">
-                            {proj.region}
-                          </div>
-                        </td>
-                        <td className="py-4 px-4 font-label-sm text-label-sm text-secondary">
-                          {proj.completion}
-                        </td>
-                        <td className="py-4 px-4 text-right font-label-md text-label-md text-on-surface font-semibold whitespace-nowrap">
-                          {proj.contractCostETB}
-                        </td>
-                        <td className="py-4 px-6 text-right whitespace-nowrap">
-                          {proj.slug ? (
-                            <Link
-                              href={`/work/${proj.slug}`}
-                              className="font-label-sm text-label-sm uppercase text-primary hover:underline font-semibold"
-                            >
-                              Case Study →
-                            </Link>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => setActiveModalProject(proj)}
-                              className="font-label-sm text-label-sm uppercase text-primary hover:underline font-semibold cursor-pointer"
-                            >
-                              Specsheet →
-                            </button>
-                          )}
-                        </td>
+              <ScrollFade
+                direction="horizontal"
+                fadeSize={24}
+                fadeMode="scroll"
+              >
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse min-w-[900px]">
+                    <thead>
+                      <tr className="bg-surface-container-high text-on-surface font-label-sm text-label-sm uppercase tracking-wider border-b border-outline-variant/40">
+                        <th className="py-3.5 px-4 text-center w-12">No</th>
+                        <th className="py-3.5 px-6">
+                          Project Title &amp; Scope
+                        </th>
+                        <th className="py-3.5 px-6">
+                          Client / Contracting Body
+                        </th>
+                        <th className="py-3.5 px-4">Region / Location</th>
+                        <th className="py-3.5 px-4">Completion</th>
+                        <th className="py-3.5 px-4 text-right">
+                          Contract Cost (ETB)
+                        </th>
+                        <th className="py-3.5 px-6 text-right">Dossier</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                    </thead>
+                    <tbody className="divide-y divide-outline-variant/20 font-body-sm text-body-sm text-on-surface">
+                      {filteredProjects.map((proj) => (
+                        <tr
+                          key={proj.id}
+                          className="hover:bg-surface-container-low transition-colors"
+                        >
+                          <td className="py-4 px-4 text-center font-label-md text-label-md text-secondary font-bold">
+                            {proj.recordNumber}
+                          </td>
+                          <td className="py-4 px-6">
+                            <div className="flex flex-col">
+                              <span className="font-semibold text-on-surface">
+                                {proj.title}
+                              </span>
+                              <div className="flex items-center gap-2 mt-1">
+                                <span className="font-label-sm text-label-sm text-secondary uppercase">
+                                  {proj.projectType}
+                                </span>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="py-4 px-6 font-medium text-on-surface-variant">
+                            {proj.client}
+                          </td>
+                          <td className="py-4 px-4 text-on-surface-variant font-label-sm text-label-sm">
+                            <div>{proj.location}</div>
+                            <div className="text-secondary text-[11px]">
+                              {proj.region}
+                            </div>
+                          </td>
+                          <td className="py-4 px-4 font-label-sm text-label-sm text-secondary">
+                            {proj.completion}
+                          </td>
+                          <td className="py-4 px-4 text-right font-label-md text-label-md text-on-surface font-semibold whitespace-nowrap">
+                            {proj.contractCostETB}
+                          </td>
+                          <td className="py-4 px-6 text-right whitespace-nowrap">
+                            {proj.slug ? (
+                              <Link
+                                href={`/work/${proj.slug}`}
+                                className="font-label-sm text-label-sm uppercase text-primary hover:underline font-semibold"
+                              >
+                                Case Study →
+                              </Link>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => setActiveModalProject(proj)}
+                                className="font-label-sm text-label-sm uppercase text-primary hover:underline font-semibold cursor-pointer"
+                              >
+                                Specsheet →
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </ScrollFade>
             </div>
           )}
         </div>
@@ -487,7 +582,7 @@ export default function WorkPage() {
             </div>
             <p className="font-body-sm text-body-sm text-on-surface-variant max-w-md">
               Yebis Engineering operates as both a lead General Contractor
-              (GC-1) managing full architectural complexes and as a specialized
+              (GC-3) managing full architectural complexes and as a specialized
               contractor executing targeted high-precision scopes.
             </p>
           </div>
@@ -541,7 +636,7 @@ export default function WorkPage() {
                 </span>
               </div>
               <div>
-                <span className="font-headline-lg text-headline-lg text-on-surface font-bold">
+                <span className="font-headline-lg text-headline-lg text-on-surface font-bold whitespace-nowrap">
                   150m³ + Wells
                 </span>
                 <p className="font-label-md text-label-md text-on-surface-variant uppercase mt-1">
@@ -578,10 +673,19 @@ export default function WorkPage() {
 
       {/* Technical Specsheet Modal */}
       {activeModalProject && (
-        <div className="fixed inset-0 z-50 bg-inverse-surface/80 flex items-center justify-center p-4">
-          <div className="bg-surface max-w-2xl w-full border border-outline-variant/60 shadow-2xl p-6 lg:p-8 flex flex-col gap-6 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-start justify-between border-b border-outline-variant/30 pb-4">
-              <div className="flex flex-col">
+        <div
+          className="fixed inset-0 z-50 bg-inverse-surface/80 backdrop-blur-xs flex items-center justify-center p-4 cursor-pointer"
+          onClick={() => setActiveModalProject(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            className="bg-surface max-w-2xl w-full border border-outline-variant/60 shadow-2xl flex flex-col max-h-[90vh] overflow-hidden cursor-default"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Non-scrolling pinned header */}
+            <div className="flex items-start justify-between border-b border-outline-variant/30 p-6 pb-4 shrink-0 bg-surface z-10">
+              <div className="flex flex-col pr-4">
                 <div className="flex items-center gap-2">
                   <span className="font-label-sm text-label-sm text-primary uppercase font-bold">
                     {activeModalProject.id} // TECHNICAL DOSSIER
@@ -594,119 +698,135 @@ export default function WorkPage() {
               <button
                 type="button"
                 onClick={() => setActiveModalProject(null)}
-                className="p-1 hover:bg-surface-container border border-outline-variant/40 text-on-surface text-lg leading-none"
+                className="p-1.5 hover:bg-surface-container border border-outline-variant/40 text-on-surface text-lg leading-none shrink-0 cursor-pointer"
+                title="Close Specsheet (Esc)"
               >
                 ✕
               </button>
             </div>
 
-            {/* Quick Metrics Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 font-label-sm text-label-sm bg-surface-container-low p-4 border border-outline-variant/30">
-              <div>
-                <span className="text-secondary block">
-                  CLIENT / AUTHORITY:
-                </span>
-                <span className="font-semibold text-on-surface">
-                  {activeModalProject.client}
-                </span>
-              </div>
-              <div>
-                <span className="text-secondary block">LOCATION:</span>
-                <span className="font-semibold text-on-surface">
-                  {activeModalProject.location}, {activeModalProject.region}
-                </span>
-              </div>
-              <div>
-                <span className="text-secondary block">CONTRACT VALUE:</span>
-                <span className="font-semibold text-primary">
-                  {activeModalProject.contractCostETB}
-                </span>
-              </div>
-              <div>
-                <span className="text-secondary block">SCALE / TYPE:</span>
-                <span className="font-semibold text-on-surface">
-                  {activeModalProject.scale}
-                </span>
-              </div>
-              <div>
-                <span className="text-secondary block">COMPLETION:</span>
-                <span className="font-semibold text-on-surface">
-                  {activeModalProject.completion}
-                </span>
-              </div>
-              <div>
-                <span className="text-secondary block">CONTRACT MODE:</span>
-                <span className="font-semibold text-on-surface uppercase">
-                  {activeModalProject.scopeType.replace("-", " ")}
-                </span>
-              </div>
-            </div>
-
-            {/* Description */}
-            <div className="flex flex-col gap-2">
-              <h4 className="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">
-                Project Scope &amp; Engineering Summary:
-              </h4>
-              <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                {activeModalProject.summary}
-              </p>
-            </div>
-
-            {/* Scope Breakdown */}
-            {activeModalProject.scopeBreakdown &&
-              activeModalProject.scopeBreakdown.length > 0 && (
-                <div className="flex flex-col gap-2">
-                  <h4 className="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">
-                    Delivered Works &amp; Subsystems:
-                  </h4>
-                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-on-surface font-body-sm text-body-sm">
-                    {activeModalProject.scopeBreakdown.map((item, idx) => (
-                      <li
-                        key={idx}
-                        className="flex items-start gap-2 bg-surface-container-low p-2 border border-outline-variant/20"
-                      >
-                        <span className="text-primary font-bold">✓</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-            {/* Technical Specs */}
-            {activeModalProject.technicalSpecs &&
-              activeModalProject.technicalSpecs.length > 0 && (
-                <div className="flex flex-col gap-2">
-                  <h4 className="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">
-                    Technical Specifications:
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 font-label-sm text-label-sm">
-                    {activeModalProject.technicalSpecs.map((spec, idx) => (
-                      <div
-                        key={idx}
-                        className="p-2 border border-outline-variant/30 flex justify-between"
-                      >
-                        <span className="text-secondary">{spec.label}:</span>
-                        <span className="font-semibold text-on-surface">
-                          {spec.value}
-                        </span>
-                      </div>
-                    ))}
+            {/* Scrollable content body with ScrollFade */}
+            <ScrollFade
+              direction="vertical"
+              fadeSize={24}
+              fadeMode="scroll"
+              className="flex-1 overflow-hidden"
+            >
+              <div className="overflow-y-auto p-6 flex flex-col gap-6 max-h-[calc(90vh-170px)]" data-lenis-prevent>
+                {/* Quick Metrics Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 font-label-sm text-label-sm bg-surface-container-low p-4 border border-outline-variant/30">
+                  <div>
+                    <span className="text-secondary block">
+                      CLIENT / AUTHORITY:
+                    </span>
+                    <span className="font-semibold text-on-surface">
+                      {activeModalProject.client}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-secondary block">LOCATION:</span>
+                    <span className="font-semibold text-on-surface">
+                      {activeModalProject.location}, {activeModalProject.region}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-secondary block">
+                      CONTRACT VALUE:
+                    </span>
+                    <span className="font-semibold text-primary">
+                      {activeModalProject.contractCostETB}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-secondary block">SCALE / TYPE:</span>
+                    <span className="font-semibold text-on-surface">
+                      {activeModalProject.scale}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-secondary block">COMPLETION:</span>
+                    <span className="font-semibold text-on-surface">
+                      {activeModalProject.completion}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-secondary block">CONTRACT MODE:</span>
+                    <span className="font-semibold text-on-surface uppercase">
+                      {activeModalProject.scopeType.replace("-", " ")}
+                    </span>
                   </div>
                 </div>
-              )}
 
-            <div className="flex items-center justify-between pt-4 border-t border-outline-variant/30">
+                {/* Description */}
+                <div className="flex flex-col gap-2">
+                  <h4 className="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">
+                    Project Scope &amp; Engineering Summary:
+                  </h4>
+                  <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                    {activeModalProject.summary}
+                  </p>
+                </div>
+
+                {/* Scope Breakdown */}
+                {activeModalProject.scopeBreakdown &&
+                  activeModalProject.scopeBreakdown.length > 0 && (
+                    <div className="flex flex-col gap-2">
+                      <h4 className="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">
+                        Delivered Works &amp; Subsystems:
+                      </h4>
+                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-on-surface font-body-sm text-body-sm">
+                        {activeModalProject.scopeBreakdown.map((item, idx) => (
+                          <li
+                            key={idx}
+                            className="flex items-start gap-2 bg-surface-container-low p-2 border border-outline-variant/20"
+                          >
+                            <span className="text-primary font-bold">✓</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                {/* Technical Specs */}
+                {activeModalProject.technicalSpecs &&
+                  activeModalProject.technicalSpecs.length > 0 && (
+                    <div className="flex flex-col gap-2">
+                      <h4 className="font-label-sm text-label-sm text-secondary uppercase tracking-wider font-semibold">
+                        Technical Specifications:
+                      </h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 font-label-sm text-label-sm">
+                        {activeModalProject.technicalSpecs.map((spec, idx) => (
+                          <div
+                            key={idx}
+                            className="p-2 border border-outline-variant/30 flex justify-between"
+                          >
+                            <span className="text-secondary">
+                              {spec.label}:
+                            </span>
+                            <span className="font-semibold text-on-surface">
+                              {spec.value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+              </div>
+            </ScrollFade>
+
+            {/* Non-scrolling pinned footer */}
+            <div className="flex items-center justify-between p-6 py-4 border-t border-outline-variant/30 shrink-0 bg-surface z-10">
               <Link
                 href="/start-a-project"
-                className="bg-inverse-surface hover:bg-primary text-on-primary font-label-sm text-label-sm uppercase px-6 py-2.5 transition-colors"
+                className="bg-inverse-surface hover:bg-primary text-on-primary font-label-sm text-label-sm uppercase px-6 py-2.5 transition-colors cursor-pointer"
               >
                 Inquire Similar Scope →
               </Link>
               <button
                 type="button"
                 onClick={() => setActiveModalProject(null)}
-                className="border border-outline-variant/50 px-4 py-2 font-label-sm text-label-sm uppercase hover:bg-surface-container"
+                className="border border-outline-variant/50 px-4 py-2 font-label-sm text-label-sm uppercase hover:bg-surface-container cursor-pointer"
               >
                 Close Specsheet
               </button>
@@ -715,5 +835,19 @@ export default function WorkPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function WorkPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-surface flex items-center justify-center font-label-sm text-secondary uppercase">
+          Loading Project Archive...
+        </div>
+      }
+    >
+      <WorkContent />
+    </Suspense>
   );
 }

@@ -67,9 +67,13 @@ export const StrokeText: React.FC<StrokeTextProps> = ({
 
   // Resolve color variables gracefully with fallbacks
   const resolvedStroke =
-    strokeColor === "var(--accent)" ? "var(--color-primary, #D97706)" : strokeColor;
+    strokeColor === "var(--accent)"
+      ? "var(--color-primary, #D97706)"
+      : strokeColor;
   const resolvedFill =
-    fillColor === "var(--text-primary)" ? "var(--color-on-surface, #111618)" : fillColor;
+    fillColor === "var(--text-primary)"
+      ? "var(--color-on-surface, #111618)"
+      : fillColor;
 
   const displayText = uppercase ? text.toUpperCase() : text;
 
@@ -145,7 +149,7 @@ export const StrokeText: React.FC<StrokeTextProps> = ({
                 fillRect.setAttribute("width", `${animState.fillProg}%`);
               },
             },
-            `+=${fillDelay}`
+            `+=${fillDelay}`,
           );
 
           if (beam) {
@@ -156,7 +160,7 @@ export const StrokeText: React.FC<StrokeTextProps> = ({
                 duration: 0.25,
                 ease: "power2.out",
               },
-              `-=${0.15}`
+              `-=${0.15}`,
             );
           }
 
@@ -169,7 +173,7 @@ export const StrokeText: React.FC<StrokeTextProps> = ({
                 duration: 0.35,
                 ease: "power2.out",
               },
-              `-=${0.15}`
+              `-=${0.15}`,
             );
           }
         } else if (fillMode === "fade") {
@@ -184,7 +188,7 @@ export const StrokeText: React.FC<StrokeTextProps> = ({
                 duration: 0.5,
                 ease: "power2.out",
               },
-              `+=${fillDelay}`
+              `+=${fillDelay}`,
             );
 
             if (removeStrokeOnEnd && strokeText) {
@@ -195,7 +199,7 @@ export const StrokeText: React.FC<StrokeTextProps> = ({
                   duration: 0.35,
                   ease: "power2.out",
                 },
-                `-=${0.2}`
+                `-=${0.2}`,
               );
             }
           }
@@ -217,7 +221,17 @@ export const StrokeText: React.FC<StrokeTextProps> = ({
     }, containerRef);
 
     return () => ctx.revert();
-  }, [mounted, drawDuration, delay, fillDelay, ease, trigger, fillMode, replayOnHover, removeStrokeOnEnd]);
+  }, [
+    mounted,
+    drawDuration,
+    delay,
+    fillDelay,
+    ease,
+    trigger,
+    fillMode,
+    replayOnHover,
+    removeStrokeOnEnd,
+  ]);
 
   return (
     <span
@@ -232,7 +246,7 @@ export const StrokeText: React.FC<StrokeTextProps> = ({
       role="img"
       aria-label={displayText}
     >
-      {/* Structural layout reservation element — guarantees correct inline height & width */}
+      {/* Structural layout reservation element - guarantees correct inline height & width */}
       <span
         className="stroke-text-ghost invisible select-none pointer-events-none whitespace-nowrap leading-none"
         aria-hidden="true"
@@ -248,10 +262,22 @@ export const StrokeText: React.FC<StrokeTextProps> = ({
       >
         <defs>
           <clipPath id={strokeClipId}>
-            <rect ref={strokeClipRectRef} x="0" y="-25%" width="100%" height="150%" />
+            <rect
+              ref={strokeClipRectRef}
+              x="0"
+              y="-25%"
+              width="100%"
+              height="150%"
+            />
           </clipPath>
           <clipPath id={fillClipId}>
-            <rect ref={fillClipRectRef} x="0" y="-25%" width="100%" height="150%" />
+            <rect
+              ref={fillClipRectRef}
+              x="0"
+              y="-25%"
+              width="100%"
+              height="150%"
+            />
           </clipPath>
         </defs>
 

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/capabilities/bim-coordination`,
   },
   openGraph: {
-    title: "Virtual Design & BIM Coordination | Yebis Engineering PLC",
+    title: "Virtual Design & BIM Coordination | Yebis Engineering",
     description:
       "Multi-disciplinary 3D clash detection, LOD 400 federated modeling, and structural-to-MEP coordination across Addis Ababa and Ethiopia.",
     url: `${SITE_URL}/capabilities/bim-coordination`,
@@ -217,7 +217,7 @@ export default function BimCapabilityPage() {
                 and HVAC duct conflicts compound rapidly once concrete is
                 poured. Our Virtual Design &amp; Construction unit executes
                 digital fabrication models down to rebars, anchor bolts, and MEP
-                branch penetrations — ensuring total spatial reconciliation
+                branch penetrations - ensuring total spatial reconciliation
                 prior to ground mobilization in Addis Ababa.
               </p>
               <div className="pt-space-md flex flex-wrap items-center gap-space-md">
@@ -523,7 +523,7 @@ export default function BimCapabilityPage() {
                 <span className="text-outline-variant">|</span>
                 <span>PHONE: +251 91 151 7784</span>
                 <span className="text-outline-variant">|</span>
-                <span>STATUS: GRADE 1 ACCREDITED</span>
+                <span>STATUS: GRADE 3 ACCREDITED</span>
               </div>
             </div>
             <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-space-sm justify-center">

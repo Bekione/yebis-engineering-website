@@ -7,12 +7,12 @@ import { SITE_URL } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Structural & Civil Engineering",
   description:
-    "Deep foundations, basalt rock excavation, 5-stage pour protocol, and high-seismic structural specifications. Grade 1 certified Ethiopian contractor.",
+    "Deep foundations, basalt rock excavation, 5-stage pour protocol, and high-seismic structural specifications. GRADE 3 certified Ethiopian contractor.",
   alternates: {
     canonical: `${SITE_URL}/capabilities/structural`,
   },
   openGraph: {
-    title: "Structural & Civil Engineering | Yebis Engineering PLC",
+    title: "Structural & Civil Engineering | Yebis Engineering",
     description:
       "Deep foundations, basalt rock excavation, and high-seismic structural engineering across Ethiopia.",
     url: `${SITE_URL}/capabilities/structural`,
@@ -94,7 +94,7 @@ export default function StructuralCapabilityPage() {
             </span>
           </div>
           <div className="flex items-center gap-space-lg">
-            <span>GC-1 CERTIFIED</span>
+            <span>GC-3 CERTIFIED</span>
             <span className="text-primary font-medium">
               STATUS: FIELD ACTIVE
             </span>
@@ -118,12 +118,12 @@ export default function StructuralCapabilityPage() {
               <p className="font-body-lg text-body-lg text-primary font-medium leading-relaxed max-w-3xl">
                 Deep foundation engineering through Addis Ababa&apos;s volcanic
                 basalt substrata, structural frame erection to G+16, and
-                complete civil works execution under single-source Grade 1
+                complete civil works execution under single-source GRADE 3
                 responsibility.
               </p>
               <p className="font-body-md text-body-md text-on-surface-variant max-w-3xl leading-relaxed">
                 Our structural division manages the most demanding scope on
-                every project — from controlled rock excavation and bored piling
+                every project - from controlled rock excavation and bored piling
                 on unpredictable volcanic clay to post-tensioned slab systems on
                 high-rise commercial towers. We maintain an in-house fleet of
                 tower cranes, concrete boom pumps, and steel formwork systems to
