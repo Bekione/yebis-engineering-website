@@ -828,4 +828,17 @@ export const TOTAL_RECORDED_SUM_ETB = ALL_PROJECTS.reduce(
   0
 );
 
+export const VERIFIED_PROJECTS = ALL_PROJECTS.filter(
+  (p) => p.isVerifiedDocumentRecord
+);
+
+export const TOTAL_VERIFIED_SUM_ETB = VERIFIED_PROJECTS.reduce(
+  (acc, curr) => acc + curr.costNumeric,
+  0
+);
+
 export const FORMATTED_TOTAL_ETB = `ETB ${(TOTAL_RECORDED_SUM_ETB / 1_000_000).toFixed(0)}M+`;
+export const FORMATTED_TOTAL_DECIMAL_ETB = `ETB ${(TOTAL_RECORDED_SUM_ETB / 1_000_000).toFixed(1)}M+`;
+export const FORMATTED_VERIFIED_TOTAL_ETB = `ETB ${(TOTAL_VERIFIED_SUM_ETB / 1_000_000).toFixed(1)}M+`;
+export const TOTAL_MILLIONS_ETB = Math.round(TOTAL_RECORDED_SUM_ETB / 1_000_000);
+

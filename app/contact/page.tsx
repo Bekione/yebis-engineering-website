@@ -98,20 +98,43 @@ export default function ContactPage() {
         {/* Corporate Telemetry Bar */}
         <div className="mt-space-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
           <div className="bg-surface-container-lowest p-space-md flex flex-col gap-space-xs shadow-sm">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between pb-1 border-b border-outline-variant/30">
               <span className="font-label-sm text-label-sm text-secondary uppercase tracking-wider">
-                Tender Desk Hotlines
+                Direct Telephony Lines
               </span>
               <span className="material-symbols-outlined text-primary text-[18px]">
                 support_agent
               </span>
             </div>
-            <span className="font-label-lg text-label-lg font-semibold text-on-surface">
-              +251 91 387 9093
-            </span>
-            <span className="font-label-sm text-label-sm text-on-surface-variant">
-              +251 91 151 7784 (Urgent/Site)
-            </span>
+            <div className="flex flex-col gap-1 mt-1">
+              <a
+                href="tel:+251911517784"
+                className="font-label-md text-label-md font-semibold text-on-surface hover:text-primary transition-colors flex items-center justify-between"
+              >
+                <span>+251 91 151 7784</span>
+                <span className="text-[10px] text-secondary font-mono">
+                  HQ / Site
+                </span>
+              </a>
+              <a
+                href="tel:+251913879093"
+                className="font-label-md text-label-md font-semibold text-on-surface hover:text-primary transition-colors flex items-center justify-between"
+              >
+                <span>+251 91 387 9093</span>
+                <span className="text-[10px] text-secondary font-mono">
+                  Tenders
+                </span>
+              </a>
+              <a
+                href="tel:+251911629279"
+                className="font-label-md text-label-md font-semibold text-on-surface hover:text-primary transition-colors flex items-center justify-between"
+              >
+                <span>+251 91 162 9879</span>
+                <span className="text-[10px] text-secondary font-mono">
+                  Operations
+                </span>
+              </a>
+            </div>
           </div>
           <div className="bg-surface-container-lowest p-space-md flex flex-col gap-space-xs shadow-sm">
             <div className="flex items-center justify-between">
@@ -346,9 +369,35 @@ export default function ContactPage() {
                 <p className="font-label-sm text-label-sm text-on-surface pt-space-xs">
                   inquiries@yebisengineering.pro.et
                 </p>
-                <p className="font-label-sm text-label-sm text-on-surface">
-                  +251 91 151 7784
-                </p>
+                <div className="flex flex-col gap-1 font-label-sm text-label-sm text-on-surface pt-1">
+                  <a
+                    href="tel:+251911517784"
+                    className="hover:text-primary transition-colors flex items-center justify-between"
+                  >
+                    <span className="font-semibold">+251 91 151 7784</span>
+                    <span className="text-[10px] text-secondary font-mono">
+                      HQ / Site
+                    </span>
+                  </a>
+                  <a
+                    href="tel:+251913879093"
+                    className="hover:text-primary transition-colors flex items-center justify-between"
+                  >
+                    <span className="font-semibold">+251 91 387 9093</span>
+                    <span className="text-[10px] text-secondary font-mono">
+                      Tenders
+                    </span>
+                  </a>
+                  <a
+                    href="tel:+251911629279"
+                    className="hover:text-primary transition-colors flex items-center justify-between"
+                  >
+                    <span className="font-semibold">+251 91 162 9879</span>
+                    <span className="text-[10px] text-secondary font-mono">
+                      Operations
+                    </span>
+                  </a>
+                </div>
               </address>
             </div>
 

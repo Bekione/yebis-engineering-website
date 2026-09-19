@@ -42,7 +42,8 @@ function SelectTrigger({
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "flex w-full items-center justify-between gap-2 rounded-none border border-outline-variant/40 bg-surface-container-low px-3 py-2 text-body-sm font-body-sm text-on-surface transition-colors duration-150 outline-none select-none hover:border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-error data-placeholder:text-on-surface-variant cursor-pointer",
+        "flex w-full items-center justify-between gap-2 rounded-none border border-outline-variant/40 bg-surface-container-low px-3 text-body-sm font-body-sm text-on-surface transition-colors duration-150 outline-none select-none hover:border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-error data-placeholder:text-on-surface-variant cursor-pointer",
+        size === "sm" ? "h-8 min-h-8" : "h-[38px] min-h-[38px]",
         className
       )}
       {...props}
@@ -205,6 +206,8 @@ export interface CustomSelectProps {
   id?: string;
   required?: boolean;
   className?: string;
+  triggerClassName?: string;
+  size?: "sm" | "default";
   onChange?: (value: string) => void;
 }
 
@@ -221,6 +224,8 @@ export function CustomSelect({
   id,
   required = false,
   className = "",
+  triggerClassName = "",
+  size = "default",
   onChange,
 }: CustomSelectProps) {
   const normalizedOptions: SelectOption[] = React.useMemo(
@@ -271,7 +276,7 @@ export function CustomSelect({
         value={activeVal}
         onValueChange={handleValueChange}
       >
-        <SelectTrigger id={id} className="w-full">
+        <SelectTrigger id={id} size={size} className={cn("w-full", triggerClassName)}>
           <SelectValue placeholder={placeholder}>
             {currentLabel}
           </SelectValue>

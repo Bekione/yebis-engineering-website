@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { IMG } from "@/lib/site-images";
 import { SITE_URL } from "@/lib/seo";
+import ScrollFade from "@/components/ScrollFade";
 
 export const metadata: Metadata = {
   title: "Furniture & Bespoke Architectural Joinery",
@@ -453,7 +454,8 @@ export default function FurnitureCapabilityPage() {
             </div>
           </div>
 
-          <div className="w-full overflow-x-auto border border-outline-variant/40">
+          <ScrollFade direction="horizontal" fadeSize={24} fadeMode="scroll" className="w-full">
+            <div className="w-full overflow-x-auto border border-outline-variant/40">
             <table className="w-full text-left font-body-sm text-body-sm min-w-[700px]">
               <thead className="bg-surface-container-high text-on-surface font-label-sm text-label-sm uppercase tracking-wider border-b border-outline-variant/40">
                 <tr>
@@ -494,6 +496,7 @@ export default function FurnitureCapabilityPage() {
               </tbody>
             </table>
           </div>
+        </ScrollFade>
         </div>
       </section>
 

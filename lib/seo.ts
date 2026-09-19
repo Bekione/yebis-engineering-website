@@ -30,7 +30,11 @@ export const COMPANY_SOCIALS = {
   tiktok: "https://tiktok.com/@yebisengineering",
 } as const;
 
-export const COMPANY_PHONES = ["+251 91 151 7784"] as const;
+export const COMPANY_PHONES = [
+  "+251 91 151 7784",
+  "+251 91 387 9093",
+  "+251 91 162 9879",
+] as const;
 
 export const COMPANY_ADDRESS = {
   street: "Bole Road",
@@ -45,7 +49,8 @@ export function getOrganizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "GeneralContractor",
     name: SITE_NAME,
-    legalName: "Yebis Engineering (Yeshitila Tedla & Brook Yeshitila General Partnership)",
+    legalName:
+      "Yebis Engineering (Yeshitila Tedla & Brook Yeshitila General Partnership)",
     alternateName: "Yeshitila Tedla Building Contractor",
     taxID: "0001985917",
     url: SITE_URL,

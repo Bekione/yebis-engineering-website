@@ -7,6 +7,7 @@ import { IMG } from "@/lib/site-images";
 import CountUp from "@/components/CountUp";
 import ClientRosterCarousel from "@/components/ClientRosterCarousel";
 import CustomSelect from "@/components/ui/select";
+import { ALL_PROJECTS } from "@/lib/projects-data";
 
 export default function HomePage() {
   const [submitted, setSubmitted] = useState(false);
@@ -91,7 +92,7 @@ export default function HomePage() {
           </div>
 
           {/* Architectural Hero Showcase Viewport */}
-          <div className="relative w-full h-[520px] lg:h-[640px] bg-surface-container mt-4 overflow-hidden border border-outline-variant/30">
+          <div className="relative w-full h-[360px] sm:h-[480px] lg:h-[640px] bg-surface-container mt-4 overflow-hidden border border-outline-variant/30">
             <div
               className="w-full h-full bg-cover bg-center"
               data-alt="Massive concrete structural framework in Addis Ababa"
@@ -100,11 +101,11 @@ export default function HomePage() {
 
             <div className="absolute inset-0 bg-gradient-to-t from-inverse-surface/90 via-inverse-surface/30 to-transparent"></div>
 
-            <div className="absolute top-4 left-4 font-label-sm text-label-sm text-white/90 bg-inverse-surface/80 px-3 py-1.5 flex items-center gap-2 backdrop-blur-sm border border-white/10">
+            <div className="absolute top-3 left-3 sm:top-4 sm:left-4 font-label-sm text-[11px] sm:text-label-sm text-white/90 bg-inverse-surface/80 px-2.5 sm:px-3 py-1 sm:py-1.5 flex items-center gap-2 backdrop-blur-sm border border-white/10">
               <span className="w-1.5 h-1.5 bg-primary"></span>
               <span>FRAME: 2B+G+8 HYBRID CONCRETE &amp; STEEL</span>
             </div>
-            <div className="absolute top-4 right-4 font-label-sm text-label-sm text-white/90 bg-inverse-surface/80 px-3 py-1.5 backdrop-blur-sm border border-white/10">
+            <div className="hidden sm:block absolute top-4 right-4 font-label-sm text-label-sm text-white/90 bg-inverse-surface/80 px-3 py-1.5 backdrop-blur-sm border border-white/10">
               <span>KAZANCHIS LOT 412 // ELEVATION +34.5M</span>
             </div>
 
@@ -450,7 +451,7 @@ export default function HomePage() {
               </h2>
             </div>
             <div className="flex items-center gap-4 font-label-sm text-label-sm text-secondary uppercase">
-              <span>OFFICIAL REGISTER: 14 DOCUMENTED CONTRACTS</span>
+              <span>OFFICIAL REGISTER: {ALL_PROJECTS.length} DOCUMENTED CONTRACTS</span>
               <Link
                 href="/work"
                 className="text-primary font-semibold hover:underline"
@@ -460,19 +461,19 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Commercial Office Building Kazanchis */}
             <Link
               href="/work/commercial-office-kazanchis"
               className="bg-surface flex flex-col overflow-hidden group border border-outline-variant/40 hover:border-primary transition-colors"
             >
-              <div className="bg-surface-container-high px-6 py-3 flex items-center justify-between font-label-sm text-label-sm uppercase text-on-surface-variant border-b border-outline-variant/30">
+              <div className="bg-surface-container-high px-5 py-3 flex items-center justify-between font-label-sm text-[11px] uppercase text-on-surface-variant border-b border-outline-variant/30">
                 <span className="font-bold text-on-surface">
                   2B+G+8 COMMERCIAL TOWER
                 </span>
                 <span>KAZANCHIS · ADDIS ABABA</span>
               </div>
-              <div className="relative h-72 bg-surface-container overflow-hidden">
+              <div className="relative h-64 bg-surface-container overflow-hidden">
                 <div
                   className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
                   style={{ backgroundImage: `url(${IMG.facade})` }}
@@ -481,30 +482,29 @@ export default function HomePage() {
                   CONF: 2B+G+8 // 12,200 M²
                 </div>
               </div>
-              <div className="p-6 flex flex-col gap-4">
-                <div className="flex flex-wrap gap-2">
-                  <span className="bg-surface-container px-2 py-1 font-label-sm text-label-sm text-on-surface uppercase font-medium">
-                    GENERAL CONTRACTING
-                  </span>
-                  <span className="bg-surface-container px-2 py-1 font-label-sm text-label-sm text-on-surface uppercase font-medium">
-                    CURTAIN WALL FACADE
-                  </span>
-                  <span className="bg-surface-container px-2 py-1 font-label-sm text-label-sm text-on-surface uppercase font-medium">
-                    MEP SYSTEMS
-                  </span>
+              <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-wrap gap-1.5">
+                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                      GENERAL CONTRACTING
+                    </span>
+                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                      CURTAIN WALL FACADE
+                    </span>
+                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                      MEP SYSTEMS
+                    </span>
+                  </div>
+                  <h3 className="font-headline-sm text-lg text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
+                    Commercial Office Building - Kazanchis
+                  </h3>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-3">
+                    Prime grade multi-story commercial facility in the central financial core. Dual subterranean basements, cast-in-place superstructure, acoustic facade envelope, and integrated BMS.
+                  </p>
                 </div>
-                <h3 className="font-headline-sm text-headline-sm text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
-                  Commercial Office Building - Kazanchis
-                </h3>
-                <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                  Prime grade multi-story commercial facility in the central
-                  financial core. Dual subterranean basements, reinforced
-                  cast-in-place superstructure, acoustic facade envelope,
-                  high-speed dual elevators, and integrated building automation.
-                </p>
-                <div className="pt-2 flex items-center justify-between font-label-md text-label-md uppercase text-primary font-bold">
+                <div className="pt-2 flex items-center justify-between font-label-sm text-label-sm uppercase text-primary font-bold border-t border-outline-variant/20">
                   <span>Explore In-Depth Case Study</span>
-                  <span className="material-symbols-outlined text-[18px]">
+                  <span className="material-symbols-outlined text-[16px]">
                     arrow_outward
                   </span>
                 </div>
@@ -513,10 +513,10 @@ export default function HomePage() {
 
             {/* Cancer Care Home Burayu */}
             <Link
-              href="/work"
+              href="/work?project=YEB-WP-012"
               className="bg-surface flex flex-col overflow-hidden group border border-outline-variant/40 hover:border-primary transition-colors"
             >
-              <div className="bg-surface-container-high px-6 py-3 flex items-center justify-between font-label-sm text-label-sm uppercase text-on-surface-variant border-b border-outline-variant/30">
+              <div className="bg-surface-container-high px-5 py-3 flex items-center justify-between font-label-sm text-[11px] uppercase text-on-surface-variant border-b border-outline-variant/30">
                 <span className="font-bold text-primary flex items-center gap-1.5">
                   <span className="material-symbols-outlined text-[14px]">
                     verified
@@ -525,7 +525,7 @@ export default function HomePage() {
                 </span>
                 <span>BURAYU · OROMIA</span>
               </div>
-              <div className="relative h-72 bg-surface-container overflow-hidden">
+              <div className="relative h-64 bg-surface-container overflow-hidden">
                 <div
                   className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
                   style={{ backgroundImage: `url(${IMG.cleanroom})` }}
@@ -534,30 +534,29 @@ export default function HomePage() {
                   CONTRACT VALUE: ETB 8,186,933.04
                 </div>
               </div>
-              <div className="p-6 flex flex-col gap-4">
-                <div className="flex flex-wrap gap-2">
-                  <span className="bg-surface-container px-2 py-1 font-label-sm text-label-sm text-on-surface uppercase font-medium">
-                    MEDICAL RESIDENCE
-                  </span>
-                  <span className="bg-surface-container px-2 py-1 font-label-sm text-label-sm text-on-surface uppercase font-medium">
-                    BARRIER-FREE RAMPS
-                  </span>
-                  <span className="bg-primary/10 text-primary px-2 py-1 font-label-sm text-label-sm uppercase font-semibold">
-                    TURNKEY GC
-                  </span>
+              <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-wrap gap-1.5">
+                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                      MEDICAL RESIDENCE
+                    </span>
+                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                      BARRIER-FREE RAMPS
+                    </span>
+                    <span className="bg-primary/10 text-primary px-2 py-0.5 font-label-sm text-[10px] uppercase font-semibold">
+                      TURNKEY GC
+                    </span>
+                  </div>
+                  <h3 className="font-headline-sm text-lg text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
+                    Cancer Care Home &amp; Palliative Residence
+                  </h3>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-3">
+                    Turnkey delivery of a dedicated oncology patient recovery complex. Features patient lodging units, clinical consult suites, anti-microbial floor screeds, and accessible courtyard.
+                  </p>
                 </div>
-                <h3 className="font-headline-sm text-headline-sm text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
-                  Cancer Care Home &amp; Palliative Residence
-                </h3>
-                <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                  Turnkey delivery of a dedicated oncology patient recovery
-                  complex. Features patient lodging units, clinical consult
-                  suites, commercial dietary facilities, anti-microbial floor
-                  screeds, and accessible courtyard landscaping.
-                </p>
-                <div className="pt-2 flex items-center justify-between font-label-md text-label-md uppercase text-primary font-bold">
-                  <span>View Project Dossier in Work Archive</span>
-                  <span className="material-symbols-outlined text-[18px]">
+                <div className="pt-2 flex items-center justify-between font-label-sm text-label-sm uppercase text-primary font-bold border-t border-outline-variant/20">
+                  <span>View Project Specsheet</span>
+                  <span className="material-symbols-outlined text-[16px]">
                     arrow_outward
                   </span>
                 </div>
@@ -566,19 +565,19 @@ export default function HomePage() {
 
             {/* Bole Arabissa AAHDPO G+4 */}
             <Link
-              href="/work"
+              href="/work?project=YEB-WP-009"
               className="bg-surface flex flex-col overflow-hidden group border border-outline-variant/40 hover:border-primary transition-colors"
             >
-              <div className="bg-surface-container-high px-6 py-3 flex items-center justify-between font-label-sm text-label-sm uppercase text-on-surface-variant border-b border-outline-variant/30">
+              <div className="bg-surface-container-high px-5 py-3 flex items-center justify-between font-label-sm text-[11px] uppercase text-on-surface-variant border-b border-outline-variant/30">
                 <span className="font-bold text-primary flex items-center gap-1.5">
                   <span className="material-symbols-outlined text-[14px]">
                     verified
                   </span>
-                  RECORD #09 // AA HOUSING DEV PROJECT OFFICE
+                  RECORD #09 // AAHDPO
                 </span>
-                <span>BOLE ARABISSA · ADDIS ABABA</span>
+                <span>BOLE ARABISSA · ADDIS</span>
               </div>
-              <div className="relative h-72 bg-surface-container overflow-hidden">
+              <div className="relative h-64 bg-surface-container overflow-hidden">
                 <div
                   className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
                   style={{ backgroundImage: `url(${IMG.towers})` }}
@@ -587,30 +586,29 @@ export default function HomePage() {
                   CONTRACT VALUE: ETB 2,093,916.93
                 </div>
               </div>
-              <div className="p-6 flex flex-col gap-4">
-                <div className="flex flex-wrap gap-2">
-                  <span className="bg-surface-container px-2 py-1 font-label-sm text-label-sm text-on-surface uppercase font-medium">
-                    PUBLIC HOUSING
-                  </span>
-                  <span className="bg-surface-container px-2 py-1 font-label-sm text-label-sm text-on-surface uppercase font-medium">
-                    G+4 CONCRETE FRAME
-                  </span>
-                  <span className="bg-surface-container px-2 py-1 font-label-sm text-label-sm text-on-surface uppercase font-medium">
-                    HCB MASONRY
-                  </span>
+              <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-wrap gap-1.5">
+                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                      PUBLIC HOUSING
+                    </span>
+                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                      G+4 CONCRETE FRAME
+                    </span>
+                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                      HCB MASONRY
+                    </span>
+                  </div>
+                  <h3 className="font-headline-sm text-lg text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
+                    Bole Arabissa G+4 Condominium Block
+                  </h3>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-3">
+                    Multi-family residential block delivered under Addis Ababa public housing program. Complete reinforced concrete skeletal structure, HCB exterior masonry, and terrazzo staircases.
+                  </p>
                 </div>
-                <h3 className="font-headline-sm text-headline-sm text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
-                  Bole Arabissa G+4 Condominium Multi-Story Block
-                </h3>
-                <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                  Full multi-family residential block delivered under Addis
-                  Ababa City Administration public housing program. Complete
-                  reinforced concrete skeletal structure, HCB exterior masonry,
-                  polished terrazzo staircases, and sanitary drainage stacks.
-                </p>
-                <div className="pt-2 flex items-center justify-between font-label-md text-label-md uppercase text-primary font-bold">
-                  <span>View Project Dossier in Work Archive</span>
-                  <span className="material-symbols-outlined text-[18px]">
+                <div className="pt-2 flex items-center justify-between font-label-sm text-label-sm uppercase text-primary font-bold border-t border-outline-variant/20">
+                  <span>View Project Specsheet</span>
+                  <span className="material-symbols-outlined text-[16px]">
                     arrow_outward
                   </span>
                 </div>
@@ -619,19 +617,19 @@ export default function HomePage() {
 
             {/* St. Peter's Specialized Hospital X-Ray Room */}
             <Link
-              href="/work"
+              href="/work?project=YEB-WP-005"
               className="bg-surface flex flex-col overflow-hidden group border border-outline-variant/40 hover:border-primary transition-colors"
             >
-              <div className="bg-surface-container-high px-6 py-3 flex items-center justify-between font-label-sm text-label-sm uppercase text-on-surface-variant border-b border-outline-variant/30">
+              <div className="bg-surface-container-high px-5 py-3 flex items-center justify-between font-label-sm text-[11px] uppercase text-on-surface-variant border-b border-outline-variant/30">
                 <span className="font-bold text-primary flex items-center gap-1.5">
                   <span className="material-symbols-outlined text-[14px]">
                     verified
                   </span>
-                  RECORD #05 // ST. PETER&apos;S SPECIALIZED HOSPITAL
+                  RECORD #05 // ST. PETER HOSPITAL
                 </span>
-                <span>ENTOTO ROAD · ADDIS ABABA</span>
+                <span>ENTOTO ROAD · ADDIS</span>
               </div>
-              <div className="relative h-72 bg-surface-container overflow-hidden">
+              <div className="relative h-64 bg-surface-container overflow-hidden">
                 <div
                   className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
                   style={{ backgroundImage: `url(${IMG.renovation})` }}
@@ -640,31 +638,133 @@ export default function HomePage() {
                   CONTRACT VALUE: ETB 886,096.97
                 </div>
               </div>
-              <div className="p-6 flex flex-col gap-4">
-                <div className="flex flex-wrap gap-2">
-                  <span className="bg-surface-container px-2 py-1 font-label-sm text-label-sm text-on-surface uppercase font-medium">
-                    RADIATION SHIELDING
-                  </span>
-                  <span className="bg-surface-container px-2 py-1 font-label-sm text-label-sm text-on-surface uppercase font-medium">
-                    BARYTE PLASTER
-                  </span>
-                  <span className="bg-surface-container px-2 py-1 font-label-sm text-label-sm text-on-surface uppercase font-medium">
-                    LEAD-LINED DOORS
+              <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-wrap gap-1.5">
+                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                      RADIATION SHIELDING
+                    </span>
+                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                      BARYTE PLASTER
+                    </span>
+                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                      LEAD-LINED DOORS
+                    </span>
+                  </div>
+                  <h3 className="font-headline-sm text-lg text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
+                    X-Ray Suite Radiation Shielding
+                  </h3>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-3">
+                    High-precision engineering and architectural shielding for diagnostic X-ray facilities. 2.0mm Pb lead-sheet shielding, baryte radiation-attenuating plaster, and isolated circuits.
+                  </p>
+                </div>
+                <div className="pt-2 flex items-center justify-between font-label-sm text-label-sm uppercase text-primary font-bold border-t border-outline-variant/20">
+                  <span>View Project Specsheet</span>
+                  <span className="material-symbols-outlined text-[16px]">
+                    arrow_outward
                   </span>
                 </div>
-                <h3 className="font-headline-sm text-headline-sm text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
-                  X-Ray Radiology Suite Radiation Shielding
-                </h3>
-                <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                  High-precision engineering and architectural shielding for
-                  diagnostic X-ray facilities. 2.0mm Pb lead-sheet shielding,
-                  baryte radiation-attenuating wall plaster, certified
-                  lead-glass observation consoles, and clean isolated hospital
-                  electrical circuits.
-                </p>
-                <div className="pt-2 flex items-center justify-between font-label-md text-label-md uppercase text-primary font-bold">
-                  <span>View Project Dossier in Work Archive</span>
-                  <span className="material-symbols-outlined text-[18px]">
+              </div>
+            </Link>
+
+            {/* Chole TVET College Campus Expansion */}
+            <Link
+              href="/work?project=YEB-WP-015"
+              className="bg-surface flex flex-col overflow-hidden group border border-outline-variant/40 hover:border-primary transition-colors"
+            >
+              <div className="bg-surface-container-high px-5 py-3 flex items-center justify-between font-label-sm text-[11px] uppercase text-on-surface-variant border-b border-outline-variant/30">
+                <span className="font-bold text-primary flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-[14px]">
+                    verified
+                  </span>
+                  RECORD #15 // OTVETB
+                </span>
+                <span>CHOLE · ARSI ZONE</span>
+              </div>
+              <div className="relative h-64 bg-surface-container overflow-hidden">
+                <div
+                  className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                  style={{ backgroundImage: `url(${IMG.university})` }}
+                ></div>
+                <div className="absolute bottom-3 left-3 bg-inverse-surface/90 text-white font-label-sm text-label-sm px-2 py-1 uppercase">
+                  CONTRACT VALUE: ETB 9,645,940.10
+                </div>
+              </div>
+              <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-wrap gap-1.5">
+                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                      VOCATIONAL CAMPUS
+                    </span>
+                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                      WORKSHOPS &amp; LABS
+                    </span>
+                    <span className="bg-primary/10 text-primary px-2 py-0.5 font-label-sm text-[10px] uppercase font-semibold">
+                      TURNKEY GC
+                    </span>
+                  </div>
+                  <h3 className="font-headline-sm text-lg text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
+                    Chole TVET College Campus Expansion
+                  </h3>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-3">
+                    Comprehensive campus expansion delivering dedicated vocational training workshops, instructional classrooms, reinforced concrete frame, and integrated sanitary systems.
+                  </p>
+                </div>
+                <div className="pt-2 flex items-center justify-between font-label-sm text-label-sm uppercase text-primary font-bold border-t border-outline-variant/20">
+                  <span>View Project Specsheet</span>
+                  <span className="material-symbols-outlined text-[16px]">
+                    arrow_outward
+                  </span>
+                </div>
+              </div>
+            </Link>
+
+            {/* ALERT Hospital MDR-TB Isolation Center */}
+            <Link
+              href="/work?project=YEB-WP-008"
+              className="bg-surface flex flex-col overflow-hidden group border border-outline-variant/40 hover:border-primary transition-colors"
+            >
+              <div className="bg-surface-container-high px-5 py-3 flex items-center justify-between font-label-sm text-[11px] uppercase text-on-surface-variant border-b border-outline-variant/30">
+                <span className="font-bold text-primary flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-[14px]">
+                    verified
+                  </span>
+                  RECORD #08 // ALERT HOSPITAL
+                </span>
+                <span>ZENEBEWORK · ADDIS</span>
+              </div>
+              <div className="relative h-64 bg-surface-container overflow-hidden">
+                <div
+                  className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                  style={{ backgroundImage: `url(${IMG.cleanroom})` }}
+                ></div>
+                <div className="absolute bottom-3 left-3 bg-inverse-surface/90 text-white font-label-sm text-label-sm px-2 py-1 uppercase">
+                  CONTRACT VALUE: ETB 6,958,545.53
+                </div>
+              </div>
+              <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
+                <div className="flex flex-col gap-3">
+                  <div className="flex flex-wrap gap-1.5">
+                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                      ISOLATION CLINIC
+                    </span>
+                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                      ANTI-MICROBIAL
+                    </span>
+                    <span className="bg-primary/10 text-primary px-2 py-0.5 font-label-sm text-[10px] uppercase font-semibold">
+                      HEALTHCARE MEP
+                    </span>
+                  </div>
+                  <h3 className="font-headline-sm text-lg text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
+                    ALERT Hospital MDR-TB Isolation Center
+                  </h3>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-3">
+                    Turnkey construction of multi-drug resistant tuberculosis specialized clinical wing. Non-porous antimicrobial floor finishes, medical oxygen trunk lines, and patient isolation bays.
+                  </p>
+                </div>
+                <div className="pt-2 flex items-center justify-between font-label-sm text-label-sm uppercase text-primary font-bold border-t border-outline-variant/20">
+                  <span>View Project Specsheet</span>
+                  <span className="material-symbols-outlined text-[16px]">
                     arrow_outward
                   </span>
                 </div>
@@ -1249,11 +1349,26 @@ export default function HomePage() {
                     HEADQUARTERS: BOLE SUB-CITY, CAMEROON STREET, YEBIS TOWER
                   </span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-primary text-[20px]">
-                    call
-                  </span>
-                  <span>DIRECT LINE: +251 91 151 7784 </span>
+                <div className="flex flex-col gap-1.5 pt-1">
+                  <div className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-primary text-[20px]">
+                      call
+                    </span>
+                    <span className="font-semibold text-white">DIRECT HOTLINES:</span>
+                  </div>
+                  <div className="pl-7 flex flex-wrap items-center gap-x-3 gap-y-1 font-label-sm text-label-sm text-surface-variant">
+                    <a href="tel:+251911517784" className="hover:text-primary transition-colors">
+                      HQ: +251 91 151 7784
+                    </a>
+                    <span>•</span>
+                    <a href="tel:+251913879093" className="hover:text-primary transition-colors">
+                      Tenders: +251 91 387 9093
+                    </a>
+                    <span>•</span>
+                    <a href="tel:+251911629279" className="hover:text-primary transition-colors">
+                      Ops: +251 91 162 9279
+                    </a>
+                  </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="material-symbols-outlined text-primary text-[20px]">
@@ -1264,7 +1379,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="bg-surface text-on-surface p-8 lg:w-1/2 flex flex-col gap-5 border border-outline-variant/40">
+            <div className="bg-surface text-on-surface p-5 sm:p-8 lg:w-1/2 flex flex-col gap-5 border border-outline-variant/40">
               <div className="font-label-md text-label-md uppercase text-on-surface-variant tracking-wider pb-2 border-b border-outline-variant/40 flex items-center justify-between">
                 <span>Project Technical Brief</span>
                 <span className="text-primary font-label-sm">
@@ -1301,7 +1416,7 @@ export default function HomePage() {
                       </label>
                       <input
                         required
-                        className="bg-surface-container-low px-3 py-2 text-body-sm font-body-sm text-on-surface outline-none border border-outline-variant/40 focus:border-primary"
+                        className="h-[38px] bg-surface-container-low px-3 text-body-sm font-body-sm text-on-surface outline-none border border-outline-variant/40 focus:border-primary"
                         placeholder="e.g. Dawit Mengistu"
                         type="text"
                       />
@@ -1312,7 +1427,7 @@ export default function HomePage() {
                       </label>
                       <input
                         required
-                        className="bg-surface-container-low px-3 py-2 text-body-sm font-body-sm text-on-surface outline-none border border-outline-variant/40 focus:border-primary"
+                        className="h-[38px] bg-surface-container-low px-3 text-body-sm font-body-sm text-on-surface outline-none border border-outline-variant/40 focus:border-primary"
                         placeholder="+251 9..."
                         type="tel"
                       />
@@ -1341,7 +1456,7 @@ export default function HomePage() {
                       </label>
                       <input
                         required
-                        className="bg-surface-container-low px-3 py-2 text-body-sm font-body-sm text-on-surface outline-none border border-outline-variant/40 focus:border-primary"
+                        className="h-[38px] bg-surface-container-low px-3 text-body-sm font-body-sm text-on-surface outline-none border border-outline-variant/40 focus:border-primary"
                         placeholder="e.g. Bole / Kazanchis / Regional"
                         type="text"
                       />

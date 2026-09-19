@@ -517,19 +517,27 @@ export default function StartProjectPage() {
                   <div className="flex flex-col gap-space-sm">
                     <div className="flex flex-col gap-space-xs">
                       <span className="font-label-sm text-label-sm text-secondary uppercase">
-                        TENDER DESK
+                        HEADQUARTERS DIRECT
                       </span>
-                      <span className="font-label-lg text-label-lg text-on-surface font-semibold">
+                      <a href="tel:+251911517784" className="font-label-lg text-label-lg text-on-surface font-semibold hover:text-primary transition-colors">
                         +251 91 151 7784
-                      </span>
+                      </a>
                     </div>
                     <div className="flex flex-col gap-space-xs">
                       <span className="font-label-sm text-label-sm text-secondary uppercase">
-                        URGENT SITE LINE
+                        COMMERCIAL TENDERS
                       </span>
-                      <span className="font-label-lg text-label-lg text-on-surface font-semibold">
-                        +251 91 151 7784
+                      <a href="tel:+251913879093" className="font-label-lg text-label-lg text-on-surface font-semibold hover:text-primary transition-colors">
+                        +251 91 387 9093
+                      </a>
+                    </div>
+                    <div className="flex flex-col gap-space-xs">
+                      <span className="font-label-sm text-label-sm text-secondary uppercase">
+                        OPERATIONS &amp; SITE DESK
                       </span>
+                      <a href="tel:+251911629279" className="font-label-lg text-label-lg text-on-surface font-semibold hover:text-primary transition-colors">
+                        +251 91 162 9279
+                      </a>
                     </div>
                     <div className="flex flex-col gap-space-xs">
                       <span className="font-label-sm text-label-sm text-secondary uppercase">

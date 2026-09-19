@@ -4,13 +4,16 @@ import { useState, useMemo, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import CustomSelect from "@/components/ui/select";
 import ScrollFade from "@/components/ScrollFade";
+import CountUp from "@/components/CountUp";
 import {
   ALL_PROJECTS,
   ProjectRecord,
   ProjectSector,
   FORMATTED_TOTAL_ETB,
+  TOTAL_MILLIONS_ETB,
 } from "@/lib/projects-data";
 
 const CLIENT_FILTER_OPTIONS = [
@@ -53,6 +56,7 @@ function WorkContent() {
   const sectorParam = searchParams.get("sector") as ProjectSector | null;
   const clientParam = searchParams.get("client");
   const viewParam = searchParams.get("view");
+  const projectParam = searchParams.get("project");
 
   const activeSector: ProjectSector =
     sectorParam && VALID_SECTORS.includes(sectorParam) ? sectorParam : "all";
@@ -61,6 +65,20 @@ function WorkContent() {
 
   const [activeModalProject, setActiveModalProject] =
     useState<ProjectRecord | null>(null);
+
+  // Auto-open modal if ?project query parameter is provided
+  useEffect(() => {
+    if (projectParam) {
+      const match = ALL_PROJECTS.find(
+        (p) =>
+          p.id.toLowerCase() === projectParam.toLowerCase() ||
+          (p.slug && p.slug.toLowerCase() === projectParam.toLowerCase())
+      );
+      if (match) {
+        setActiveModalProject(match);
+      }
+    }
+  }, [projectParam]);
 
   // Close modal on Escape and prevent body scrolling when open
   useEffect(() => {
@@ -191,118 +209,120 @@ function WorkContent() {
                   Delivery Track Record
                 </span>
                 <span className="font-label-md text-label-md text-primary font-bold">
-                  {ALL_PROJECTS.length} Documented Contracts
+                  <CountUp from={0} to={ALL_PROJECTS.length} duration={1.2} /> Documented Contracts
                 </span>
               </div>
             </div>
           </div>
 
           {/* Filter Controls Module */}
-          <div className="mt-4 bg-surface p-5 border border-outline-variant/40 flex flex-col gap-5">
-            {/* Sector & Category Tabs */}
-            <div className="flex flex-wrap items-center gap-2">
-              <button
-                type="button"
-                onClick={() => updateFilters("all")}
-                className={`px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border ${
-                  activeSector === "all"
-                    ? "bg-inverse-surface text-on-primary border-inverse-surface"
-                    : "bg-surface-container text-on-surface-variant hover:text-on-surface border-outline-variant/30"
-                }`}
-              >
-                <span>All Projects</span>
-                <span className="text-[10px] px-1.5 py-0.5 bg-black/20">
-                  {ALL_PROJECTS.length}
-                </span>
-              </button>
+          <div className="mt-4 bg-surface p-4 sm:p-6 border border-outline-variant/40 flex flex-col gap-4 sm:gap-5">
+            {/* Sector & Category Tabs - Horizontally swipeable on mobile with ScrollFade, wrapping on tablet/desktop */}
+            <ScrollFade direction="horizontal" fadeSize={24} fadeMode="scroll" className="w-full">
+              <div className="flex items-center gap-2 overflow-x-auto py-1 scrollbar-none sm:flex-wrap">
+                <button
+                  type="button"
+                  onClick={() => updateFilters("all")}
+                  className={`shrink-0 px-3.5 sm:px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border whitespace-nowrap ${
+                    activeSector === "all"
+                      ? "bg-inverse-surface text-on-primary border-inverse-surface"
+                      : "bg-surface-container text-on-surface-variant hover:text-on-surface border-outline-variant/30"
+                  }`}
+                >
+                  <span>All Projects</span>
+                  <span className="text-[10px] px-1.5 py-0.5 bg-black/20">
+                    {ALL_PROJECTS.length}
+                  </span>
+                </button>
 
-              <button
-                type="button"
-                onClick={() => updateFilters("healthcare")}
-                className={`px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border ${
-                  activeSector === "healthcare"
-                    ? "bg-inverse-surface text-on-primary border-inverse-surface"
-                    : "bg-surface-container text-on-surface-variant hover:text-on-surface border-outline-variant/30"
-                }`}
-              >
-                <span>Healthcare &amp; Medical</span>
-                <span className="text-[10px] px-1.5 py-0.5 bg-black/10">5</span>
-              </button>
+                <button
+                  type="button"
+                  onClick={() => updateFilters("healthcare")}
+                  className={`shrink-0 px-3.5 sm:px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border whitespace-nowrap ${
+                    activeSector === "healthcare"
+                      ? "bg-inverse-surface text-on-primary border-inverse-surface"
+                      : "bg-surface-container text-on-surface-variant hover:text-on-surface border-outline-variant/30"
+                  }`}
+                >
+                  <span>Healthcare &amp; Medical</span>
+                  <span className="text-[10px] px-1.5 py-0.5 bg-black/10">5</span>
+                </button>
 
-              <button
-                type="button"
-                onClick={() => updateFilters("housing")}
-                className={`px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border ${
-                  activeSector === "housing"
-                    ? "bg-inverse-surface text-on-primary border-inverse-surface"
-                    : "bg-surface-container text-on-surface-variant hover:text-on-surface border-outline-variant/30"
-                }`}
-              >
-                <span>Housing &amp; Condominiums</span>
-                <span className="text-[10px] px-1.5 py-0.5 bg-black/10">4</span>
-              </button>
+                <button
+                  type="button"
+                  onClick={() => updateFilters("housing")}
+                  className={`shrink-0 px-3.5 sm:px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border whitespace-nowrap ${
+                    activeSector === "housing"
+                      ? "bg-inverse-surface text-on-primary border-inverse-surface"
+                      : "bg-surface-container text-on-surface-variant hover:text-on-surface border-outline-variant/30"
+                  }`}
+                >
+                  <span>Housing &amp; Condominiums</span>
+                  <span className="text-[10px] px-1.5 py-0.5 bg-black/10">4</span>
+                </button>
 
-              <button
-                type="button"
-                onClick={() => updateFilters("education")}
-                className={`px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border ${
-                  activeSector === "education"
-                    ? "bg-inverse-surface text-on-primary border-inverse-surface"
-                    : "bg-surface-container text-on-surface-variant hover:text-on-surface border-outline-variant/30"
-                }`}
-              >
-                <span>Education &amp; Workshops</span>
-                <span className="text-[10px] px-1.5 py-0.5 bg-black/10">2</span>
-              </button>
+                <button
+                  type="button"
+                  onClick={() => updateFilters("education")}
+                  className={`shrink-0 px-3.5 sm:px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border whitespace-nowrap ${
+                    activeSector === "education"
+                      ? "bg-inverse-surface text-on-primary border-inverse-surface"
+                      : "bg-surface-container text-on-surface-variant hover:text-on-surface border-outline-variant/30"
+                  }`}
+                >
+                  <span>Education &amp; Workshops</span>
+                  <span className="text-[10px] px-1.5 py-0.5 bg-black/10">2</span>
+                </button>
 
-              <button
-                type="button"
-                onClick={() => updateFilters("civil")}
-                className={`px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border ${
-                  activeSector === "civil"
-                    ? "bg-inverse-surface text-on-primary border-inverse-surface"
-                    : "bg-surface-container text-on-surface-variant hover:text-on-surface border-outline-variant/30"
-                }`}
-              >
-                <span>Civil &amp; Water</span>
-                <span className="text-[10px] px-1.5 py-0.5 bg-black/10">4</span>
-              </button>
+                <button
+                  type="button"
+                  onClick={() => updateFilters("civil")}
+                  className={`shrink-0 px-3.5 sm:px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border whitespace-nowrap ${
+                    activeSector === "civil"
+                      ? "bg-inverse-surface text-on-primary border-inverse-surface"
+                      : "bg-surface-container text-on-surface-variant hover:text-on-surface border-outline-variant/30"
+                  }`}
+                >
+                  <span>Civil &amp; Water</span>
+                  <span className="text-[10px] px-1.5 py-0.5 bg-black/10">4</span>
+                </button>
 
-              <button
-                type="button"
-                onClick={() => updateFilters("commercial")}
-                className={`px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border ${
-                  activeSector === "commercial"
-                    ? "bg-inverse-surface text-on-primary border-inverse-surface"
-                    : "bg-surface-container text-on-surface-variant hover:text-on-surface border-outline-variant/30"
-                }`}
-              >
-                <span>Commercial &amp; Logistics</span>
-                <span className="text-[10px] px-1.5 py-0.5 bg-black/10">2</span>
-              </button>
+                <button
+                  type="button"
+                  onClick={() => updateFilters("commercial")}
+                  className={`shrink-0 px-3.5 sm:px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border whitespace-nowrap ${
+                    activeSector === "commercial"
+                      ? "bg-inverse-surface text-on-primary border-inverse-surface"
+                      : "bg-surface-container text-on-surface-variant hover:text-on-surface border-outline-variant/30"
+                  }`}
+                >
+                  <span>Commercial &amp; Logistics</span>
+                  <span className="text-[10px] px-1.5 py-0.5 bg-black/10">2</span>
+                </button>
 
-              <button
-                type="button"
-                onClick={() => updateFilters("specialized")}
-                className={`px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border ${
-                  activeSector === "specialized"
-                    ? "bg-inverse-surface text-on-primary border-inverse-surface"
-                    : "bg-surface-container text-on-surface-variant hover:text-on-surface border-outline-variant/30"
-                }`}
-              >
-                <span>Specialized Scopes</span>
-                <span className="text-[10px] px-1.5 py-0.5 bg-black/10">2</span>
-              </button>
-            </div>
+                <button
+                  type="button"
+                  onClick={() => updateFilters("specialized")}
+                  className={`shrink-0 px-3.5 sm:px-4 py-2 font-label-md text-label-md uppercase tracking-wider transition-all duration-150 flex items-center gap-2 border whitespace-nowrap ${
+                    activeSector === "specialized"
+                      ? "bg-inverse-surface text-on-primary border-inverse-surface"
+                      : "bg-surface-container text-on-surface-variant hover:text-on-surface border-outline-variant/30"
+                  }`}
+                >
+                  <span>Specialized Scopes</span>
+                  <span className="text-[10px] px-1.5 py-0.5 bg-black/10">2</span>
+                </button>
+              </div>
+            </ScrollFade>
 
             {/* Client Authority Filter & View Toggle */}
-            <div className="flex flex-wrap items-center justify-between gap-4 pt-4 bg-surface-container-low/50 px-4 py-3 border border-outline-variant/30">
-              <div className="flex flex-wrap items-center gap-4">
-                <div className="flex items-center gap-2">
-                  <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 bg-surface-container-low/50 px-3 sm:px-4 py-2.5 sm:py-3 border border-outline-variant/30">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 w-full sm:w-auto">
+                  <label className="font-label-sm text-[11px] sm:text-label-sm uppercase tracking-wider text-secondary shrink-0">
                     Client / Tender Authority:
                   </label>
-                  <div className="min-w-[260px] sm:min-w-[300px]">
+                  <div className="w-full sm:w-[320px]">
                     <CustomSelect
                       options={CLIENT_FILTER_OPTIONS}
                       value={selectedClientCategory}
@@ -310,45 +330,46 @@ function WorkContent() {
                     />
                   </div>
                 </div>
-
-                <span className="font-label-sm text-label-sm bg-primary/10 text-primary px-2.5 py-1 border border-primary/20">
-                  SHOWING {filteredProjects.length} OF {ALL_PROJECTS.length}{" "}
-                  CONTRACT DOSSIERS
-                </span>
               </div>
 
-              {/* View Toggle */}
-              <div className="flex items-center gap-1 bg-surface-container-high p-1 border border-outline-variant/50">
-                <button
-                  type="button"
-                  onClick={() => updateFilters(undefined, undefined, "grid")}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 font-label-sm text-label-sm uppercase tracking-wider font-semibold transition-all duration-150 ${
-                    viewMode === "grid"
-                      ? "bg-inverse-surface text-on-primary shadow-sm"
-                      : "text-on-surface hover:text-primary hover:bg-surface/80"
-                  }`}
-                  title="Grid Showcase View"
-                >
-                  <span className="material-symbols-outlined text-[16px] block">
-                    grid_view
-                  </span>
-                  <span className="hidden sm:inline">Grid</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => updateFilters(undefined, undefined, "table")}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 font-label-sm text-label-sm uppercase tracking-wider font-semibold transition-all duration-150 ${
-                    viewMode === "table"
-                      ? "bg-inverse-surface text-on-primary shadow-sm"
-                      : "text-on-surface hover:text-primary hover:bg-surface/80"
-                  }`}
-                  title="Official Performance Register Table"
-                >
-                  <span className="material-symbols-outlined text-[16px] block">
-                    table_rows
-                  </span>
-                  <span className="hidden sm:inline">Register Table</span>
-                </button>
+              <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 border-outline-variant/30">
+                <span className="font-label-sm text-[10px] sm:text-label-sm bg-primary/10 text-primary px-2 py-1 border border-primary/20 shrink-0">
+                  {filteredProjects.length} OF {ALL_PROJECTS.length} DOSSIERS
+                </span>
+
+                {/* View Toggle */}
+                <div className="flex items-center gap-1 bg-surface-container-high p-1 border border-outline-variant/50 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => updateFilters(undefined, undefined, "grid")}
+                    className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1 font-label-sm text-label-sm uppercase tracking-wider font-semibold transition-all duration-150 ${
+                      viewMode === "grid"
+                        ? "bg-inverse-surface text-on-primary shadow-sm"
+                        : "text-on-surface hover:text-primary hover:bg-surface/80"
+                    }`}
+                    title="Grid Showcase View"
+                  >
+                    <span className="material-symbols-outlined text-[16px] block">
+                      grid_view
+                    </span>
+                    <span className="hidden md:inline">Grid</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => updateFilters(undefined, undefined, "table")}
+                    className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1 font-label-sm text-label-sm uppercase tracking-wider font-semibold transition-all duration-150 ${
+                      viewMode === "table"
+                        ? "bg-inverse-surface text-on-primary shadow-sm"
+                        : "text-on-surface hover:text-primary hover:bg-surface/80"
+                    }`}
+                    title="Official Performance Register Table"
+                  >
+                    <span className="material-symbols-outlined text-[16px] block">
+                      table_rows
+                    </span>
+                    <span className="hidden md:inline">Table</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -383,88 +404,131 @@ function WorkContent() {
       <section className="w-full px-6 lg:px-12 py-12">
         <div className="max-w-7xl mx-auto">
           {viewMode === "grid" ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProjects.map((project) => (
-                <article
-                  key={project.id}
-                  className="project-card flex flex-col bg-surface overflow-hidden border border-outline-variant/40 hover:border-primary transition-all duration-200 shadow-sm hover:shadow-md"
+            filteredProjects.length > 0 ? (
+              <motion.div
+                layout
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              >
+                <AnimatePresence mode="popLayout">
+                  {filteredProjects.map((project) => (
+                    <motion.article
+                      layout
+                      key={project.id}
+                      initial={{ opacity: 0, scale: 0.95, y: 12 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.92, y: -8 }}
+                      transition={{
+                        duration: 0.32,
+                        ease: [0.22, 1, 0.36, 1],
+                        layout: {
+                          duration: 0.35,
+                          ease: [0.22, 1, 0.36, 1],
+                        },
+                      }}
+                      className="project-card flex flex-col bg-surface overflow-hidden border border-outline-variant/40 hover:border-primary transition-[border-color,box-shadow] duration-200 shadow-sm hover:shadow-md"
+                    >
+                      <div className="relative h-64 w-full bg-surface-container-highest overflow-hidden group">
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute top-3 left-3 bg-inverse-surface/90 text-on-primary font-label-sm text-label-sm px-2.5 py-1 tracking-widest uppercase flex items-center gap-1.5 shadow-sm">
+                          <span className="w-1.5 h-1.5 bg-primary"></span>
+                          {project.id}
+                        </div>
+                        <div className="absolute bottom-3 left-3 right-auto max-w-[calc(100%-24px)] bg-inverse-surface/90 text-white backdrop-blur-md px-2.5 py-1 font-label-sm text-[11px] tracking-wider uppercase border border-white/10 flex items-center gap-1.5 shadow-sm">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0"></span>
+                          <span className="truncate">
+                            {project.location} · {project.region}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="p-6 flex flex-col flex-1 justify-between gap-4">
+                        <div className="flex flex-col gap-2.5">
+                          <div className="flex items-center justify-between text-secondary font-label-sm text-label-sm uppercase">
+                            <span className="text-primary font-medium">
+                              {project.client}
+                            </span>
+                            <span className="bg-surface-container px-2 py-0.5 text-on-surface font-semibold">
+                              {project.completionYear}
+                            </span>
+                          </div>
+                          <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold leading-snug">
+                            {project.title}
+                          </h3>
+                          <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                            {project.summary}
+                          </p>
+                        </div>
+
+                        <div className="flex flex-col gap-4 pt-2">
+                          <div className="flex flex-wrap gap-1.5">
+                            <span className="font-label-sm text-label-sm bg-surface-container px-2 py-1 text-on-surface uppercase border border-outline-variant/30 font-medium">
+                              {project.projectType}
+                            </span>
+                            <span className="font-label-sm text-label-sm bg-primary/10 text-primary px-2 py-1 uppercase font-semibold">
+                              {project.contractCostETB}
+                            </span>
+                          </div>
+
+                          <div className="pt-3 flex items-center justify-between bg-surface-container-low/60 -mx-6 -mb-6 px-6 py-3.5 border-t border-outline-variant/30">
+                            <span className="font-label-sm text-label-sm text-secondary truncate max-w-[180px]">
+                              SCALE: {project.scale}
+                            </span>
+                            {project.slug ? (
+                              <Link
+                                href={`/work/${project.slug}`}
+                                className="inline-flex items-center gap-1 font-label-md text-label-md text-primary hover:text-primary-container font-semibold uppercase tracking-wider transition-colors shrink-0"
+                              >
+                                <span>Case Study</span>
+                                <span className="text-sm">→</span>
+                              </Link>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => setActiveModalProject(project)}
+                                className="inline-flex items-center gap-1 font-label-md text-label-md text-primary hover:text-primary-container font-semibold uppercase tracking-wider transition-colors cursor-pointer shrink-0"
+                              >
+                                <span>Specsheet</span>
+                                <span className="text-sm">→</span>
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </motion.article>
+                  ))}
+                </AnimatePresence>
+              </motion.div>
+            ) : (
+              <div className="w-full bg-surface border border-outline-variant/40 p-12 text-center flex flex-col items-center justify-center gap-4">
+                <div className="w-12 h-12 bg-surface-container-high border border-outline-variant/60 flex items-center justify-center text-secondary">
+                  <span className="material-symbols-outlined text-[24px]">filter_alt_off</span>
+                </div>
+                <div className="flex flex-col gap-1 max-w-md">
+                  <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold uppercase">
+                    No Matching Project Dossiers
+                  </h3>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant">
+                    No documented contracts match your combined sector and client authority filter criteria.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    updateFilters("all", "all");
+                  }}
+                  className="mt-2 inline-flex items-center gap-2 bg-inverse-surface text-on-primary px-5 py-2 font-label-sm text-label-sm uppercase tracking-wider hover:bg-primary transition-colors"
                 >
-                  <div className="relative h-64 w-full bg-surface-container-highest overflow-hidden group">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-3 left-3 bg-inverse-surface/90 text-on-primary font-label-sm text-label-sm px-2.5 py-1 tracking-widest uppercase flex items-center gap-1.5 shadow-sm">
-                      <span className="w-1.5 h-1.5 bg-primary"></span>
-                      {project.id}
-                    </div>
-                    <div className="absolute bottom-3 left-3 right-auto max-w-[calc(100%-24px)] bg-inverse-surface/90 text-white backdrop-blur-md px-2.5 py-1 font-label-sm text-[11px] tracking-wider uppercase border border-white/10 flex items-center gap-1.5 shadow-sm">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0"></span>
-                      <span className="truncate">
-                        {project.location} · {project.region}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="p-6 flex flex-col flex-1 justify-between gap-4">
-                    <div className="flex flex-col gap-2.5">
-                      <div className="flex items-center justify-between text-secondary font-label-sm text-label-sm uppercase">
-                        <span className="text-primary font-medium">
-                          {project.client}
-                        </span>
-                        <span className="bg-surface-container px-2 py-0.5 text-on-surface font-semibold">
-                          {project.completionYear}
-                        </span>
-                      </div>
-                      <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold leading-snug">
-                        {project.title}
-                      </h3>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-                        {project.summary}
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col gap-4 pt-2">
-                      <div className="flex flex-wrap gap-1.5">
-                        <span className="font-label-sm text-label-sm bg-surface-container px-2 py-1 text-on-surface uppercase border border-outline-variant/30 font-medium">
-                          {project.projectType}
-                        </span>
-                        <span className="font-label-sm text-label-sm bg-primary/10 text-primary px-2 py-1 uppercase font-semibold">
-                          {project.contractCostETB}
-                        </span>
-                      </div>
-
-                      <div className="pt-3 flex items-center justify-between bg-surface-container-low/60 -mx-6 -mb-6 px-6 py-3.5 border-t border-outline-variant/30">
-                        <span className="font-label-sm text-label-sm text-secondary truncate max-w-[180px]">
-                          SCALE: {project.scale}
-                        </span>
-                        {project.slug ? (
-                          <Link
-                            href={`/work/${project.slug}`}
-                            className="inline-flex items-center gap-1 font-label-md text-label-md text-primary hover:text-primary-container font-semibold uppercase tracking-wider transition-colors shrink-0"
-                          >
-                            <span>Case Study</span>
-                            <span className="text-sm">→</span>
-                          </Link>
-                        ) : (
-                          <button
-                            type="button"
-                            onClick={() => setActiveModalProject(project)}
-                            className="inline-flex items-center gap-1 font-label-md text-label-md text-primary hover:text-primary-container font-semibold uppercase tracking-wider transition-colors cursor-pointer shrink-0"
-                          >
-                            <span>Specsheet</span>
-                            <span className="text-sm">→</span>
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
+                  <span>Reset All Filters</span>
+                  <span>↺</span>
+                </button>
+              </div>
+            )
           ) : (
             /* Technical Register Table View - Mirroring Official Work Performance Document */
             <div className="flex flex-col bg-surface border border-outline-variant/40 overflow-hidden shadow-sm">
@@ -597,14 +661,20 @@ function WorkContent() {
               </div>
               <div>
                 <span className="font-headline-lg text-headline-lg text-on-surface font-bold">
-                  5 Contracts
+                  <CountUp from={0} to={5} duration={1.2} /> Contracts
                 </span>
                 <p className="font-label-md text-label-md text-on-surface-variant uppercase mt-1">
                   Healthcare &amp; Radiation Suites
                 </p>
               </div>
               <div className="w-full bg-surface-container h-1.5 overflow-hidden">
-                <div className="bg-primary h-full w-[88%]"></div>
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "88%" }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                  className="bg-primary h-full"
+                />
               </div>
             </div>
 
@@ -617,14 +687,20 @@ function WorkContent() {
               </div>
               <div>
                 <span className="font-headline-lg text-headline-lg text-on-surface font-bold">
-                  4 Blocks
+                  <CountUp from={0} to={4} duration={1.2} /> Blocks
                 </span>
                 <p className="font-label-md text-label-md text-on-surface-variant uppercase mt-1">
                   Public Housing &amp; Condominiums
                 </p>
               </div>
               <div className="w-full bg-surface-container h-1.5 overflow-hidden">
-                <div className="bg-primary h-full w-[75%]"></div>
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "75%" }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                  className="bg-primary h-full"
+                />
               </div>
             </div>
 
@@ -637,14 +713,20 @@ function WorkContent() {
               </div>
               <div>
                 <span className="font-headline-lg text-headline-lg text-on-surface font-bold whitespace-nowrap">
-                  150m³ + Wells
+                  <CountUp from={0} to={150} duration={1.5} />m³ + Wells
                 </span>
                 <p className="font-label-md text-label-md text-on-surface-variant uppercase mt-1">
                   Water &amp; Rural Civil Works
                 </p>
               </div>
               <div className="w-full bg-surface-container h-1.5 overflow-hidden">
-                <div className="bg-primary h-full w-[60%]"></div>
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "60%" }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="bg-primary h-full"
+                />
               </div>
             </div>
 
@@ -657,14 +739,20 @@ function WorkContent() {
               </div>
               <div>
                 <span className="font-headline-lg text-headline-lg text-on-surface font-bold">
-                  ETB 28.5M+
+                  ETB <CountUp from={0} to={TOTAL_MILLIONS_ETB} duration={1.8} />M+
                 </span>
                 <p className="font-label-md text-label-md text-on-surface-variant uppercase mt-1">
-                  Historical Track Record
+                  Historical Track Record ({ALL_PROJECTS.length} Contracts)
                 </p>
               </div>
               <div className="w-full bg-surface-container h-1.5 overflow-hidden">
-                <div className="bg-primary h-full w-[100%]"></div>
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "100%" }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+                  className="bg-primary h-full"
+                />
               </div>
             </div>
           </div>

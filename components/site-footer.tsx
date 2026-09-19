@@ -188,9 +188,35 @@ export function SiteFooter() {
               <p className="font-label-sm text-label-sm text-on-surface pt-space-xs">
                 inquiries@yebisengineering.pro.et
               </p>
-              <p className="font-label-sm text-label-sm text-on-surface">
-                +251 91 151 7784
-              </p>
+              <div className="flex flex-col gap-1 font-label-sm text-label-sm text-on-surface pt-1">
+                <a
+                  href="tel:+251911517784"
+                  className="hover:text-primary transition-colors flex items-center justify-between gap-2"
+                >
+                  <span className="font-semibold">+251 91 151 7784</span>
+                  <span className="text-[10px] text-secondary uppercase font-mono">
+                    HQ Line
+                  </span>
+                </a>
+                <a
+                  href="tel:+251913879093"
+                  className="hover:text-primary transition-colors flex items-center justify-between gap-2"
+                >
+                  <span className="font-semibold">+251 91 387 9093</span>
+                  <span className="text-[10px] text-secondary uppercase font-mono">
+                    Tenders
+                  </span>
+                </a>
+                <a
+                  href="tel:+251911629279"
+                  className="hover:text-primary transition-colors flex items-center justify-between gap-2"
+                >
+                  <span className="font-semibold">+251 91 162 9879</span>
+                  <span className="text-[10px] text-secondary uppercase font-mono">
+                    Operations
+                  </span>
+                </a>
+              </div>
               <span className="font-label-sm text-label-sm text-secondary pt-space-xs">
                 OPERATING HOURS: MON-SAT 08:00-17:30 EAT
               </span>
