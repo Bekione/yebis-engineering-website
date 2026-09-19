@@ -21,5 +21,5 @@ export default function StartAProjectLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return <>{children}</>;
 }

@@ -107,7 +107,7 @@ export default function ContactPage() {
               </span>
             </div>
             <span className="font-label-lg text-label-lg font-semibold text-on-surface">
-              +251 91 151 7784
+              +251 91 387 9093
             </span>
             <span className="font-label-sm text-label-sm text-on-surface-variant">
               +251 91 151 7784 (Urgent/Site)

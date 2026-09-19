@@ -134,17 +134,20 @@ export default function RootLayout({
       )}
     >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link key="font-preconnect" rel="preconnect" href="https://fonts.googleapis.com" />
         <link
+          key="font-preconnect-gstatic"
           rel="preconnect"
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
         <link
+          key="font-material-symbols"
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         />
         <script
+          key="jsonld-organization"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(getOrganizationJsonLd()),

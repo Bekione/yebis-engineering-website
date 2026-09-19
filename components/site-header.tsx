@@ -85,7 +85,7 @@ export function SiteHeader() {
               />
             </span>
             <span className="font-label-sm text-label-sm tracking-widest text-on-surface-variant uppercase">
-              · Addis Ababa · Ethiopia
+              Addis Ababa · Ethiopia
             </span>
           </div>
         </Link>

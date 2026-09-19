@@ -21,5 +21,5 @@ export default function WorkLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return <>{children}</>;
 }
