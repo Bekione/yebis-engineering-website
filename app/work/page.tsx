@@ -3,11 +3,16 @@
 import { useState, useMemo, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
+import ImageWithFallback from "@/components/ui/image-with-fallback";
 import { motion, AnimatePresence } from "framer-motion";
 import CustomSelect from "@/components/ui/select";
 import ScrollFade from "@/components/ScrollFade";
 import CountUp from "@/components/CountUp";
+import {
+  FadeUpView,
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/animations/ScrollTransitions";
 import {
   ALL_PROJECTS,
   ProjectRecord,
@@ -77,7 +82,7 @@ function WorkContent() {
       if (match) {
         setActiveModalProject(match);
       }
-    }
+    } 
   }, [projectParam]);
 
   // Close modal on Escape and prevent body scrolling when open
@@ -175,7 +180,7 @@ function WorkContent() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+          <FadeUpView className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
             <div className="lg:col-span-8 flex flex-col gap-3">
               <h1 className="font-headline-xl text-headline-xl text-on-surface tracking-tight uppercase font-bold">
                 Proven Execution Across Ethiopia.
@@ -213,7 +218,7 @@ function WorkContent() {
                 </span>
               </div>
             </div>
-          </div>
+          </FadeUpView>
 
           {/* Filter Controls Module */}
           <div className="mt-4 bg-surface p-4 sm:p-6 border border-outline-variant/40 flex flex-col gap-4 sm:gap-5">
@@ -428,7 +433,7 @@ function WorkContent() {
                       className="project-card flex flex-col bg-surface overflow-hidden border border-outline-variant/40 hover:border-primary transition-[border-color,box-shadow] duration-200 shadow-sm hover:shadow-md"
                     >
                       <div className="relative h-64 w-full bg-surface-container-highest overflow-hidden group">
-                        <Image
+                        <ImageWithFallback
                           src={project.image}
                           alt={project.title}
                           fill
@@ -635,7 +640,7 @@ function WorkContent() {
       {/* Scope Distribution Bar */}
       <section className="w-full bg-surface-container-low py-16 px-6 lg:px-12 border-t border-outline-variant/30">
         <div className="max-w-7xl mx-auto flex flex-col gap-10">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <FadeUpView className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div className="flex flex-col gap-2">
               <span className="font-label-sm text-label-sm text-primary uppercase tracking-widest font-semibold">
                 EXECUTION MODALITIES // ETHIOPIAN SECTOR BALANCE
@@ -649,10 +654,10 @@ function WorkContent() {
               (GC-3) managing full architectural complexes and as a specialized
               contractor executing targeted high-precision scopes.
             </p>
-          </div>
+          </FadeUpView>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-surface p-6 border border-outline-variant/40 flex flex-col justify-between h-48">
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <StaggerItem className="bg-surface p-6 border border-outline-variant/40 flex flex-col justify-between h-48">
               <div className="flex items-center justify-between text-secondary font-label-sm text-label-sm">
                 <span>SECTOR 01</span>
                 <span className="material-symbols-outlined text-primary text-[20px]">
@@ -676,9 +681,9 @@ function WorkContent() {
                   className="bg-primary h-full"
                 />
               </div>
-            </div>
+            </StaggerItem>
 
-            <div className="bg-surface p-6 border border-outline-variant/40 flex flex-col justify-between h-48">
+            <StaggerItem className="bg-surface p-6 border border-outline-variant/40 flex flex-col justify-between h-48">
               <div className="flex items-center justify-between text-secondary font-label-sm text-label-sm">
                 <span>SECTOR 02</span>
                 <span className="material-symbols-outlined text-primary text-[20px]">
@@ -702,9 +707,9 @@ function WorkContent() {
                   className="bg-primary h-full"
                 />
               </div>
-            </div>
+            </StaggerItem>
 
-            <div className="bg-surface p-6 border border-outline-variant/40 flex flex-col justify-between h-48">
+            <StaggerItem className="bg-surface p-6 border border-outline-variant/40 flex flex-col justify-between h-48">
               <div className="flex items-center justify-between text-secondary font-label-sm text-label-sm">
                 <span>SECTOR 03</span>
                 <span className="material-symbols-outlined text-primary text-[20px]">
@@ -728,9 +733,9 @@ function WorkContent() {
                   className="bg-primary h-full"
                 />
               </div>
-            </div>
+            </StaggerItem>
 
-            <div className="bg-surface p-6 border border-outline-variant/40 flex flex-col justify-between h-48">
+            <StaggerItem className="bg-surface p-6 border border-outline-variant/40 flex flex-col justify-between h-48">
               <div className="flex items-center justify-between text-secondary font-label-sm text-label-sm">
                 <span>SECTOR 04</span>
                 <span className="material-symbols-outlined text-primary text-[20px]">
@@ -754,8 +759,8 @@ function WorkContent() {
                   className="bg-primary h-full"
                 />
               </div>
-            </div>
-          </div>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 

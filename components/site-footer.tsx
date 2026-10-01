@@ -96,6 +96,16 @@ export function SiteFooter() {
                   Specialized Subcontracts
                 </Link>
               </li>
+              <li>
+                <a
+                  className="hover:text-primary transition-colors font-semibold text-primary inline-flex items-center gap-1"
+                  href="/assets/Yebis_Engineering_Corporate_Portfolio.pdf"
+                  download="Yebis_Engineering_Corporate_Portfolio.pdf"
+                >
+                  <span>Download Portfolio (PDF)</span>
+                  <span>↓</span>
+                </a>
+              </li>
             </ul>
           </div>
 

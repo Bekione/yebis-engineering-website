@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ALL_INSIGHTS } from "@/lib/insights-data";
 import { SITE_URL } from "@/lib/seo";
+import ImageWithFallback from "@/components/ui/image-with-fallback";
+import {
+  FadeUpView,
+} from "@/components/animations/ScrollTransitions";
 
 interface PageProps {
   params: Promise<{
@@ -76,6 +79,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 
       {/* Article Header */}
       <article className="w-full max-w-4xl mx-auto px-6 lg:px-8 pt-10 pb-16 flex flex-col gap-8">
+        <FadeUpView>
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-3 flex-wrap">
             <span className="px-2.5 py-0.5 bg-primary text-on-primary font-label-sm text-label-sm uppercase tracking-wider font-semibold">
@@ -120,22 +124,27 @@ export default async function ArticleDetailPage({ params }: PageProps) {
             </div>
           </div>
         </div>
+        </FadeUpView>
 
         {/* Hero Image */}
+        <FadeUpView delay={0.1}>
         <div className="relative w-full aspect-[16/9] bg-surface-container overflow-hidden border border-outline-variant/40 shadow-sm">
-          <Image
+          <ImageWithFallback
             src={article.image}
             alt={article.title}
             fill
             className="object-cover"
             priority
             sizes="(max-width: 1024px) 100vw, 896px"
+            fallbackTitle={article.title}
+            fallbackSubtitle={article.category}
           />
-          <div className="absolute bottom-0 inset-x-0 bg-inverse-surface/90 text-white px-4 py-2 text-label-sm font-label-sm flex items-center justify-between">
+          <div className="absolute bottom-0 inset-x-0 bg-inverse-surface/90 text-white px-4 py-2 text-label-sm font-label-sm flex items-center justify-between z-10">
             <span>FIELD SPECIFICATION // ADDIS ABABA HQ</span>
             <span className="text-primary font-medium">ETHIOPIAN STANDARDS</span>
           </div>
         </div>
+        </FadeUpView>
 
         {/* Technical Specifications Grid */}
         {article.specs && article.specs.length > 0 && (
@@ -156,7 +165,8 @@ export default async function ArticleDetailPage({ params }: PageProps) {
         {/* Article Body Content */}
         <div className="flex flex-col gap-8 pt-4">
           {article.content.map((sec, idx) => (
-            <section key={idx} className="flex flex-col gap-4">
+            <FadeUpView key={idx} delay={idx * 0.05}>
+            <section className="flex flex-col gap-4">
               <h2 className="font-headline-sm text-headline-sm text-on-surface uppercase font-bold tracking-tight">
                 {sec.heading}
               </h2>
@@ -179,6 +189,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                 </div>
               )}
             </section>
+            </FadeUpView>
           ))}
         </div>
 

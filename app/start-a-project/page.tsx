@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import CustomSelect from "@/components/ui/select";
+import { projectBriefFormSchema } from "@/lib/validations/inquiries";
+import { FadeUpView } from "@/components/animations/ScrollTransitions";
 
 const PROJECT_TYPES = [
   {
@@ -86,18 +88,102 @@ export default function StartProjectPage() {
   const [selectedType, setSelectedType] = useState("new_construction");
   const [selectedDisciplines, setSelectedDisciplines] = useState<string[]>([]);
   const [selectedScale, setSelectedScale] = useState("medium");
-  const [submitted, setSubmitted] = useState(false);
+  const [selectedTimeline, setSelectedTimeline] = useState(TIMELINES[0]);
+  const [contactData, setContactData] = useState({
+    fullName: "",
+    organization: "",
+    email: "",
+    phone: "",
+    description: "",
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [trackingCode, setTrackingCode] = useState<string | null>(null);
 
   function toggleDiscipline(d: string) {
     setSelectedDisciplines((prev) =>
       prev.includes(d) ? prev.filter((x) => x !== d) : [...prev, d],
     );
+    if (errors.disciplines) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next.disciplines;
+        return next;
+      });
+    }
   }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setServerError(null);
+    setErrors({});
+
+    const payload = {
+      projectType: selectedType,
+      disciplines: selectedDisciplines,
+      scale: selectedScale,
+      fullName: contactData.fullName,
+      organization: contactData.organization,
+      email: contactData.email,
+      phone: contactData.phone,
+      timeline: selectedTimeline,
+      description: contactData.description,
+    };
+
+    const validation = projectBriefFormSchema.safeParse(payload);
+    if (!validation.success) {
+      const fieldErrors: Record<string, string> = {};
+      validation.error.issues.forEach((err) => {
+        const field = err.path[0]?.toString() || "form";
+        fieldErrors[field] = err.message;
+      });
+      setErrors(fieldErrors);
+      window.scrollTo({ top: 300, behavior: "smooth" });
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/project-brief", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        if (data.errors) {
+          setErrors(data.errors);
+        } else {
+          setServerError(data.message || "Failed to lodge project brief.");
+        }
+        return;
+      }
+
+      setTrackingCode(data.trackingCode);
+      window.scrollTo({ top: 250, behavior: "smooth" });
+    } catch (err) {
+      setServerError(
+        "Network error submitting project brief. Please verify connection or call our hotlines.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  function handleReset() {
+    setTrackingCode(null);
+    setSelectedDisciplines([]);
+    setContactData({
+      fullName: "",
+      organization: "",
+      email: "",
+      phone: "",
+      description: "",
+    });
+    setErrors({});
+    setServerError(null);
   }
 
   return (
@@ -126,7 +212,7 @@ export default function StartProjectPage() {
 
       {/* Page Header */}
       <section className="w-full bg-surface pt-space-xl pb-space-lg">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        <FadeUpView className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-end">
             <div className="lg:col-span-8 flex flex-col gap-space-md">
               <div className="inline-flex items-center gap-space-xs">
@@ -165,45 +251,101 @@ export default function StartProjectPage() {
               </div>
             </div>
           </div>
-        </div>
+        </FadeUpView>
       </section>
 
       {/* Main Form Area */}
       <section className="w-full bg-surface-container pb-space-xl pt-space-lg">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          {submitted ? (
-            <div className="bg-surface-container-lowest p-space-xl shadow-md max-w-3xl mx-auto flex flex-col items-center text-center gap-space-lg">
-              <span className="material-symbols-outlined text-primary text-[48px]">
-                verified
-              </span>
-              <h2 className="font-headline-md text-headline-md text-on-surface uppercase font-bold">
-                Project Brief Registered
-              </h2>
+        <FadeUpView className="max-w-7xl mx-auto px-6 lg:px-12">
+          {trackingCode ? (
+            <div className="bg-surface-container-lowest p-space-xl shadow-md max-w-3xl mx-auto flex flex-col items-center text-center gap-space-lg border border-outline-variant/40">
+              <div className="w-16 h-16 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center text-primary">
+                <span className="material-symbols-outlined text-[36px]">
+                  verified
+                </span>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">
+                  TENDER REGISTRY CONFIRMED // ESTIMATING QUEUE
+                </span>
+                <h2 className="font-headline-md text-headline-md text-on-surface uppercase font-bold">
+                  Project Brief Lodged Successfully
+                </h2>
+              </div>
               <p className="font-body-md text-body-md text-on-surface-variant max-w-xl">
-                Our senior engineering bureau has logged your submission. A
-                Principal Estimator will initiate drawing/BOQ assessment within
-                48 business hours.
+                Our Senior Engineering Bureau and Chief Estimator have logged
+                your submission. A preliminary scope evaluation will be prepared
+                within 48 operational hours.
               </p>
-              <span className="font-label-sm text-label-sm text-primary font-medium">
-                REF: YB-PRJ-{new Date().getFullYear()}-
-                {Math.floor(Math.random() * 9000 + 1000)}
-              </span>
-              <span className="font-label-sm text-label-sm text-secondary">
-                CONFIRMATION DISPATCHED TO SUBMITTING EMAIL
-              </span>
-              <div className="flex items-center gap-space-md pt-space-md">
-                <Link
-                  href="/"
-                  className="inline-flex items-center gap-space-xs bg-surface-container-low hover:bg-surface-container text-on-surface font-label-lg text-label-lg uppercase px-space-lg py-space-sm border border-outline-variant/50 transition-colors"
+
+              <div className="bg-surface-container-low border border-outline-variant/50 p-5 w-full max-w-lg flex flex-col gap-3 text-left">
+                <div className="flex items-center justify-between text-secondary font-label-sm text-[10px] uppercase border-b border-outline-variant/30 pb-1.5">
+                  <span>OFFICIAL RFP DOSSIER CODE</span>
+                  <span className="text-primary font-bold">
+                    LOGGED &amp; VERIFIED
+                  </span>
+                </div>
+                <div className="font-mono text-xl font-bold text-on-surface select-all tracking-wider">
+                  {trackingCode}
+                </div>
+                <div className="grid grid-cols-2 gap-2 text-secondary text-[11px] pt-1 border-t border-outline-variant/20">
+                  <div>
+                    <span className="block font-mono text-[9px] uppercase">
+                      CLASSIFICATION
+                    </span>
+                    <span className="font-semibold text-on-surface">
+                      {selectedType.replace(/_/g, " ").toUpperCase()}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block font-mono text-[9px] uppercase">
+                      GROSS SCALE
+                    </span>
+                    <span className="font-semibold text-on-surface">
+                      {selectedScale.toUpperCase()}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block font-mono text-[9px] uppercase">
+                      DISCIPLINES
+                    </span>
+                    <span className="font-semibold text-on-surface">
+                      {selectedDisciplines.length} Selected
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block font-mono text-[9px] uppercase">
+                      TIMELINE
+                    </span>
+                    <span className="font-semibold text-on-surface">
+                      {selectedTimeline}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-center gap-space-sm pt-space-xs">
+                <button
+                  type="button"
+                  onClick={handleReset}
+                  className="inline-flex items-center gap-space-xs bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md uppercase px-space-md py-space-sm border border-outline-variant/50 transition-colors cursor-pointer"
                 >
-                  <span>Return Home</span>
-                  <span>→</span>
-                </Link>
+                  <span>Lodge Another Brief</span>
+                  <span>↺</span>
+                </button>
+                <a
+                  href="/assets/Yebis_Engineering_Corporate_Portfolio.pdf"
+                  download="Yebis_Engineering_Corporate_Portfolio.pdf"
+                  className="inline-flex items-center gap-space-xs bg-surface-container-high hover:bg-surface-container text-primary font-label-md text-label-md uppercase px-space-md py-space-sm border border-primary/30 transition-colors"
+                >
+                  <span>Download Company Portfolio (PDF)</span>
+                  <span>↓</span>
+                </a>
                 <Link
                   href="/work"
-                  className="inline-flex items-center gap-space-xs bg-inverse-surface hover:bg-primary text-on-primary font-label-lg text-label-lg uppercase px-space-lg py-space-sm border border-inverse-surface hover:border-primary transition-all duration-150"
+                  className="inline-flex items-center gap-space-xs bg-inverse-surface hover:bg-primary text-on-primary font-label-md text-label-md uppercase px-space-md py-space-sm border border-inverse-surface hover:border-primary transition-all duration-150"
                 >
-                  <span>View Our Work</span>
+                  <span>Explore 16 Verified Projects</span>
                   <span className="text-primary-fixed">→</span>
                 </Link>
               </div>
@@ -281,34 +423,37 @@ export default function StartProjectPage() {
                           02
                         </span>
                         <label className="font-label-lg text-label-lg uppercase tracking-wider text-on-surface font-semibold">
-                          Required Disciplines
+                          Required Disciplines *
                         </label>
                       </div>
                       <span className="font-label-sm text-label-sm text-secondary">
                         SELECT ALL THAT APPLY
                       </span>
                     </div>
+                    {errors.disciplines && (
+                      <p className="text-red-600 font-label-sm text-label-sm bg-red-50 p-2 border border-red-200">
+                        {errors.disciplines}
+                      </p>
+                    )}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-xs">
                       {DISCIPLINES.map((d) => (
                         <label
                           key={d}
                           className={`flex items-center gap-space-sm p-space-sm cursor-pointer transition-all ${
                             selectedDisciplines.includes(d)
-                              ? "bg-surface-container text-on-surface"
-                              : "bg-surface-container-low text-on-surface-variant hover:bg-surface-container"
+                              ? "bg-surface-container text-on-surface border border-primary/30"
+                              : "bg-surface-container-low text-on-surface-variant hover:bg-surface-container border border-transparent"
                           }`}
                         >
                           <span
                             className={`w-4 h-4 border inline-flex items-center justify-center shrink-0 ${
                               selectedDisciplines.includes(d)
-                                ? "bg-primary border-primary"
+                                ? "bg-primary border-primary text-on-primary"
                                 : "bg-surface-container-highest border-outline-variant"
                             }`}
                           >
                             {selectedDisciplines.includes(d) && (
-                              <span className="text-on-primary text-[10px] font-bold">
-                                ✓
-                              </span>
+                              <span className="text-[10px] font-bold">✓</span>
                             )}
                           </span>
                           <input
@@ -379,50 +524,117 @@ export default function StartProjectPage() {
                         Contact &amp; Project Details
                       </label>
                     </div>
+
+                    {serverError && (
+                      <div className="p-3 bg-red-500/10 border border-red-500/30 text-red-700 font-label-sm text-label-sm flex items-center gap-2">
+                        <span className="material-symbols-outlined text-[18px]">
+                          error
+                        </span>
+                        <span>{serverError}</span>
+                      </div>
+                    )}
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
                       <div className="flex flex-col gap-space-xs">
-                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
-                          Full Name *
+                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex items-center justify-between">
+                          <span>Full Name *</span>
+                          {errors.fullName && (
+                            <span className="text-red-600 text-[11px] normal-case">
+                              {errors.fullName}
+                            </span>
+                          )}
                         </label>
                         <input
                           type="text"
-                          required
-                          className="bg-surface-container-low border border-outline-variant/40 px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors"
+                          value={contactData.fullName}
+                          onChange={(e) =>
+                            setContactData({
+                              ...contactData,
+                              fullName: e.target.value,
+                            })
+                          }
+                          className={`bg-surface-container-low border px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none transition-colors ${
+                            errors.fullName
+                              ? "border-red-500 focus:border-red-600"
+                              : "border-outline-variant/40 focus:border-primary"
+                          }`}
                           placeholder="Eng. / Mr. / Ms."
                         />
                       </div>
                       <div className="flex flex-col gap-space-xs">
-                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
-                          Organization *
+                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex items-center justify-between">
+                          <span>Organization *</span>
+                          {errors.organization && (
+                            <span className="text-red-600 text-[11px] normal-case">
+                              {errors.organization}
+                            </span>
+                          )}
                         </label>
                         <input
                           type="text"
-                          required
-                          className="bg-surface-container-low border border-outline-variant/40 px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors"
+                          value={contactData.organization}
+                          onChange={(e) =>
+                            setContactData({
+                              ...contactData,
+                              organization: e.target.value,
+                            })
+                          }
+                          className={`bg-surface-container-low border px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none transition-colors ${
+                            errors.organization
+                              ? "border-red-500 focus:border-red-600"
+                              : "border-outline-variant/40 focus:border-primary"
+                          }`}
                           placeholder="Company / Agency"
                         />
                       </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
                       <div className="flex flex-col gap-space-xs">
-                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
-                          Email *
+                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex items-center justify-between">
+                          <span>Email *</span>
+                          {errors.email && (
+                            <span className="text-red-600 text-[11px] normal-case">
+                              {errors.email}
+                            </span>
+                          )}
                         </label>
                         <input
                           type="email"
-                          required
-                          className="bg-surface-container-low border border-outline-variant/40 px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors"
+                          value={contactData.email}
+                          onChange={(e) =>
+                            setContactData({
+                              ...contactData,
+                              email: e.target.value,
+                            })
+                          }
+                          className={`bg-surface-container-low border px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none transition-colors ${
+                            errors.email
+                              ? "border-red-500 focus:border-red-600"
+                              : "border-outline-variant/40 focus:border-primary"
+                          }`}
                           placeholder="email@domain.com"
                         />
                       </div>
                       <div className="flex flex-col gap-space-xs">
-                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
-                          Phone
+                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex items-center justify-between">
+                          <span>Phone</span>
+                          {errors.phone && (
+                            <span className="text-red-600 text-[11px] normal-case">
+                              {errors.phone}
+                            </span>
+                          )}
                         </label>
                         <input
                           type="tel"
+                          value={contactData.phone}
+                          onChange={(e) =>
+                            setContactData({
+                              ...contactData,
+                              phone: e.target.value,
+                            })
+                          }
                           className="bg-surface-container-low border border-outline-variant/40 px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors"
-                          placeholder="+251 ..."
+                          placeholder="+251 9..."
                         />
                       </div>
                     </div>
@@ -432,16 +644,24 @@ export default function StartProjectPage() {
                       </label>
                       <CustomSelect
                         options={TIMELINES}
-                        defaultValue={TIMELINES[0]}
+                        defaultValue={selectedTimeline}
+                        onChange={(val) => setSelectedTimeline(val)}
                         name="timeline"
                       />
                     </div>
                     <div className="flex flex-col gap-space-xs">
                       <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
-                        Project Description / Notes
+                        Project Description / Technical Parameters
                       </label>
                       <textarea
                         rows={4}
+                        value={contactData.description}
+                        onChange={(e) =>
+                          setContactData({
+                            ...contactData,
+                            description: e.target.value,
+                          })
+                        }
                         className="bg-surface-container-low border border-outline-variant/40 px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors max-h-[220px] resize-y"
                         placeholder="Site location, number of floors, approximate budget, special requirements..."
                       />
@@ -450,10 +670,22 @@ export default function StartProjectPage() {
 
                   <button
                     type="submit"
-                    className="inline-flex items-center justify-center gap-space-xs bg-inverse-surface hover:bg-primary text-on-primary font-label-lg text-label-lg uppercase px-space-lg py-space-sm border border-inverse-surface hover:border-primary transition-all duration-150 w-full sm:w-auto self-start"
+                    disabled={isSubmitting}
+                    className="inline-flex items-center justify-center gap-space-xs bg-inverse-surface hover:bg-primary disabled:opacity-50 text-on-primary font-label-lg text-label-lg uppercase px-space-lg py-space-sm border border-inverse-surface hover:border-primary transition-all duration-150 w-full sm:w-auto self-start cursor-pointer"
                   >
-                    <span className="tracking-wider">Submit Project Brief</span>
-                    <span className="text-primary-fixed">→</span>
+                    {isSubmitting ? (
+                      <>
+                        <span className="inline-block w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                        <span className="tracking-wider">Logging Brief...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="tracking-wider">
+                          Submit Project Brief
+                        </span>
+                        <span className="text-primary-fixed">→</span>
+                      </>
+                    )}
                   </button>
                 </form>
               </div>
@@ -519,7 +751,10 @@ export default function StartProjectPage() {
                       <span className="font-label-sm text-label-sm text-secondary uppercase">
                         HEADQUARTERS DIRECT
                       </span>
-                      <a href="tel:+251911517784" className="font-label-lg text-label-lg text-on-surface font-semibold hover:text-primary transition-colors">
+                      <a
+                        href="tel:+251911517784"
+                        className="font-label-lg text-label-lg text-on-surface font-semibold hover:text-primary transition-colors"
+                      >
                         +251 91 151 7784
                       </a>
                     </div>
@@ -527,7 +762,10 @@ export default function StartProjectPage() {
                       <span className="font-label-sm text-label-sm text-secondary uppercase">
                         COMMERCIAL TENDERS
                       </span>
-                      <a href="tel:+251913879093" className="font-label-lg text-label-lg text-on-surface font-semibold hover:text-primary transition-colors">
+                      <a
+                        href="tel:+251913879093"
+                        className="font-label-lg text-label-lg text-on-surface font-semibold hover:text-primary transition-colors"
+                      >
                         +251 91 387 9093
                       </a>
                     </div>
@@ -535,8 +773,11 @@ export default function StartProjectPage() {
                       <span className="font-label-sm text-label-sm text-secondary uppercase">
                         OPERATIONS &amp; SITE DESK
                       </span>
-                      <a href="tel:+251911629279" className="font-label-lg text-label-lg text-on-surface font-semibold hover:text-primary transition-colors">
-                        +251 91 162 9279
+                      <a
+                        href="tel:+251911629279"
+                        className="font-label-lg text-label-lg text-on-surface font-semibold hover:text-primary transition-colors"
+                      >
+                        +251 91 162 9879
                       </a>
                     </div>
                     <div className="flex flex-col gap-space-xs">
@@ -593,7 +834,7 @@ export default function StartProjectPage() {
               </div>
             </div>
           )}
-        </div>
+        </FadeUpView>
       </section>
     </div>
   );

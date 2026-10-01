@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import StrokeText from "./StrokeText";
 
 const NAV = [
@@ -21,7 +21,7 @@ export function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 pointer-events-none">
+    <header data-nosnippet className="fixed top-0 inset-x-0 z-50 pointer-events-none">
       <div className="w-full max-w-7xl mx-auto bg-surface/95 backdrop-blur-md border-x border-b border-outline-variant/40 pointer-events-auto">
         {/* Operational Credential & Telemetry Bar */}
         <div className="w-full bg-surface-container-low border-b border-outline-variant/30 hidden lg:block overflow-hidden">
@@ -55,7 +55,10 @@ export function SiteHeader() {
         {/* Main Navigation Bar */}
         <div className="h-20 px-3.5 sm:px-6 lg:px-12 flex items-center justify-between gap-2 sm:gap-4 lg:gap-space-md">
           {/* Brand Logo */}
-          <Link href="/" className="flex items-center gap-2 sm:gap-3.5 group min-w-0">
+          <Link
+            href="/"
+            className="flex items-center gap-2 sm:gap-3.5 group min-w-0"
+          >
             <span className="flex h-9 w-9 sm:h-11 sm:w-11 items-center justify-center bg-inverse-surface border border-outline-variant/60 group-hover:border-primary group-hover:bg-primary transition-all p-1 sm:p-1.5 shrink-0">
               <Image
                 src="/assets/logo-light.png"
@@ -181,7 +184,7 @@ export function SiteHeader() {
                       Operations &amp; Engineering
                     </span>
                     <span className="font-label-md text-label-md font-bold text-on-surface">
-                      +251 91 162 9279
+                      +251 91 162 9879
                     </span>
                   </div>
                   <span className="font-label-sm text-[9px] bg-surface-container-high px-1.5 py-0.5 text-secondary uppercase font-semibold">
@@ -190,6 +193,20 @@ export function SiteHeader() {
                 </a>
               </div>
             </div>
+
+            {/* <a
+              href="/assets/Yebis_Engineering_Corporate_Portfolio.pdf"
+              download="Yebis_Engineering_Corporate_Portfolio.pdf"
+              className="hidden lg:inline-flex items-center gap-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface hover:text-primary font-label-lg uppercase px-3 py-2 sm:py-2.5 border border-outline-variant/50 transition-colors text-xs shrink-0"
+              title="Download Corporate Portfolio (PDF)"
+            >
+              <span className="material-symbols-outlined text-[16px] text-primary">
+                download
+              </span>
+              <span className="tracking-wider text-[11px] font-semibold">
+                Portfolio (PDF)
+              </span>
+            </a> */}
 
             <Link
               className="inline-flex items-center gap-1.5 sm:gap-space-xs bg-inverse-surface hover:bg-primary text-on-primary font-label-lg uppercase px-2.5 sm:px-5 lg:px-space-lg py-2 sm:py-2.5 lg:py-space-sm border border-inverse-surface hover:border-primary transition-all duration-150 shrink-0"
@@ -218,94 +235,150 @@ export function SiteHeader() {
           </div>
         </div>
 
-        {/* Mobile Drawer */}
-        {mobileMenuOpen && (
-          <div className="xl:hidden border-t border-outline-variant/40 bg-surface px-6 py-6 flex flex-col gap-4 shadow-xl">
-            <div className="font-label-sm text-label-sm text-secondary uppercase pb-2 border-b border-outline-variant/30">
-              NAVIGATION INDEX // GC-3 DIRECTORY
-            </div>
-            {NAV.map((item) => {
-              const isActive =
-                pathname === item.href || pathname.startsWith(`${item.href}/`);
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`text-base uppercase tracking-wider py-2 border-b border-outline-variant/20 flex items-center justify-between ${
-                    isActive ? "text-primary font-bold" : "text-on-surface"
-                  }`}
+        {/* Mobile Drawer with AnimatePresence */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="xl:hidden border-t border-outline-variant/40 bg-surface overflow-hidden shadow-xl"
+            >
+              <div className="px-6 py-6 flex flex-col gap-4">
+                <div className="font-label-sm text-label-sm text-secondary uppercase pb-2 border-b border-outline-variant/30">
+                  NAVIGATION INDEX // GC-3 DIRECTORY
+                </div>
+                {NAV.map((item, idx) => {
+                  const isActive =
+                    pathname === item.href ||
+                    pathname.startsWith(`${item.href}/`);
+                  return (
+                    <motion.div
+                      key={item.href}
+                      initial={{ opacity: 0, x: -12 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        duration: 0.25,
+                        delay: 0.05 + idx * 0.04,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`text-base uppercase tracking-wider py-2 border-b border-outline-variant/20 flex items-center justify-between ${
+                          isActive
+                            ? "text-primary font-bold"
+                            : "text-on-surface"
+                        }`}
+                      >
+                        <span>{item.label}</span>
+                        <span className="font-label-sm text-label-sm text-secondary">
+                          →
+                        </span>
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+
+                {/* Mobile Portfolio Download */}
+                <motion.div
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    duration: 0.25,
+                    delay: 0.05 + NAV.length * 0.04,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                 >
-                  <span>{item.label}</span>
-                  <span className="font-label-sm text-label-sm text-secondary">
-                    →
-                  </span>
-                </Link>
-              );
-            })}
-            <div className="pt-2 flex flex-col gap-2.5 font-label-sm text-label-sm text-secondary border-t border-outline-variant/30">
-              <div className="font-label-sm text-[10px] uppercase tracking-wider text-secondary flex items-center justify-between">
-                <span>Direct Telephony Hotlines</span>
-                <span className="text-primary font-semibold">
-                  3 Lines Available
-                </span>
-              </div>
-              <div className="grid grid-cols-1 gap-2">
-                <a
-                  href="tel:+251911517784"
-                  className="flex items-center justify-between p-2.5 bg-surface-container-low border border-outline-variant/40 hover:border-primary text-on-surface transition-colors"
-                >
-                  <div className="flex flex-col text-left">
-                    <span className="text-[10px] uppercase text-secondary font-mono">
-                      Headquarters Direct
+                  <a
+                    href="/assets/Yebis_Engineering_Corporate_Portfolio.pdf"
+                    download="Yebis_Engineering_Corporate_Portfolio.pdf"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-base uppercase tracking-wider py-2.5 px-3 bg-surface-container border border-outline-variant/50 text-primary flex items-center justify-between font-semibold hover:bg-surface-container-high transition-colors"
+                  >
+                    <span className="flex items-center gap-2">
+                      <span className="material-symbols-outlined text-[18px]">
+                        download
+                      </span>
+                      <span>Company Portfolio (PDF)</span>
                     </span>
-                    <span className="font-bold text-sm tracking-wide">
-                      +251 91 151 7784
+                    <span className="font-label-sm text-label-sm text-primary">
+                      ↓
+                    </span>
+                  </a>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3, delay: 0.3 }}
+                  className="pt-2 flex flex-col gap-2.5 font-label-sm text-label-sm text-secondary border-t border-outline-variant/30"
+                >
+                  <div className="font-label-sm text-[10px] uppercase tracking-wider text-secondary flex items-center justify-between">
+                    <span>Direct Telephony Hotlines</span>
+                    <span className="text-primary font-semibold">
+                      3 Lines Available
                     </span>
                   </div>
-                  <span className="text-xs px-2 py-0.5 bg-primary/10 text-primary border border-primary/20 font-mono">
-                    CALL
-                  </span>
-                </a>
-                <a
-                  href="tel:+251913879093"
-                  className="flex items-center justify-between p-2.5 bg-surface-container-low border border-outline-variant/40 hover:border-primary text-on-surface transition-colors"
-                >
-                  <div className="flex flex-col text-left">
-                    <span className="text-[10px] uppercase text-secondary font-mono">
-                      Commercial Tenders
-                    </span>
-                    <span className="font-bold text-sm tracking-wide">
-                      +251 91 387 9093
-                    </span>
+                  <div className="grid grid-cols-1 gap-2">
+                    <a
+                      href="tel:+251911517784"
+                      className="flex items-center justify-between p-2.5 bg-surface-container-low border border-outline-variant/40 hover:border-primary text-on-surface transition-colors"
+                    >
+                      <div className="flex flex-col text-left">
+                        <span className="text-[10px] uppercase text-secondary font-mono">
+                          Headquarters Direct
+                        </span>
+                        <span className="font-bold text-sm tracking-wide">
+                          +251 91 151 7784
+                        </span>
+                      </div>
+                      <span className="text-xs px-2 py-0.5 bg-primary/10 text-primary border border-primary/20 font-mono">
+                        CALL
+                      </span>
+                    </a>
+                    <a
+                      href="tel:+251913879093"
+                      className="flex items-center justify-between p-2.5 bg-surface-container-low border border-outline-variant/40 hover:border-primary text-on-surface transition-colors"
+                    >
+                      <div className="flex flex-col text-left">
+                        <span className="text-[10px] uppercase text-secondary font-mono">
+                          Commercial Tenders
+                        </span>
+                        <span className="font-bold text-sm tracking-wide">
+                          +251 91 387 9093
+                        </span>
+                      </div>
+                      <span className="text-xs px-2 py-0.5 bg-primary/10 text-primary border border-primary/20 font-mono">
+                        CALL
+                      </span>
+                    </a>
+                    <a
+                      href="tel:+251911629279"
+                      className="flex items-center justify-between p-2.5 bg-surface-container-low border border-outline-variant/40 hover:border-primary text-on-surface transition-colors"
+                    >
+                      <div className="flex flex-col text-left">
+                        <span className="text-[10px] uppercase text-secondary font-mono">
+                          Operations &amp; Engineering
+                        </span>
+                        <span className="font-bold text-sm tracking-wide">
+                          +251 91 162 9879
+                        </span>
+                      </div>
+                      <span className="text-xs px-2 py-0.5 bg-primary/10 text-primary border border-primary/20 font-mono">
+                        CALL
+                      </span>
+                    </a>
                   </div>
-                  <span className="text-xs px-2 py-0.5 bg-primary/10 text-primary border border-primary/20 font-mono">
-                    CALL
-                  </span>
-                </a>
-                <a
-                  href="tel:+251911629279"
-                  className="flex items-center justify-between p-2.5 bg-surface-container-low border border-outline-variant/40 hover:border-primary text-on-surface transition-colors"
-                >
-                  <div className="flex flex-col text-left">
-                    <span className="text-[10px] uppercase text-secondary font-mono">
-                      Operations &amp; Engineering
-                    </span>
-                    <span className="font-bold text-sm tracking-wide">
-                      +251 91 162 9279
-                    </span>
+                  <div className="text-[11px] text-secondary/80 mt-1">
+                    BOLE ROAD, ADDIS ABABA // MON-SAT 08:00-18:00 EAT
                   </div>
-                  <span className="text-xs px-2 py-0.5 bg-primary/10 text-primary border border-primary/20 font-mono">
-                    CALL
-                  </span>
-                </a>
+                </motion.div>
               </div>
-              <div className="text-[11px] text-secondary/80 mt-1">
-                BOLE ROAD, ADDIS ABABA // MON-SAT 08:00-18:00 EAT
-              </div>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );

@@ -363,3 +363,97 @@ html.lenis body {
 .lenis.lenis-stopped {
   overflow: hidden;
 }
+
+/* ==========================================================================
+   OFFICIAL CORPORATE PORTFOLIO DOSSIER PRINT STYLES
+   ========================================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm;
+  }
+
+  html,
+  body {
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    color: #1b1c1a !important;
+    font-size: 10px !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide navigation, header, footer, top-progress-bar, and controls */
+  header,
+  footer,
+  nav,
+  aside,
+  .top-progress-bar,
+  [aria-label="Portfolio Actions & PDF Controls"],
+  [aria-label="Site Navigation Header"],
+  [aria-label="Site Navigation Footer"] {
+    display: none !important;
+  }
+
+  /* Neutralize all layout wrapper constraints from RootLayout */
+  body > div,
+  main,
+  div[class*="min-h-screen"],
+  div[class*="max-w-7xl"],
+  main[class*="pt-"] {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    position: static !important;
+    flex: none !important;
+    display: block !important;
+  }
+
+  /* Portfolio Sheets (Exact A4 Page Breaks) */
+  .portfolio-sheet {
+    break-after: page !important;
+    page-break-after: always !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    min-height: 270mm !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+  }
+
+  .portfolio-sheet-last {
+    break-after: auto !important;
+    page-break-after: auto !important;
+    min-height: 270mm !important;
+  }
+
+  .avoid-break {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  img {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}

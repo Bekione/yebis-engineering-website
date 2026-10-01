@@ -43,41 +43,104 @@ export const COMPANY_ADDRESS = {
   postalCode: "",
 } as const;
 
-/** JSON-LD Organization structured data for Google Knowledge Panel. */
+export const VERIFICATION = {
+  google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "",
+  bing: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION || "",
+};
+
+/** Complete JSON-LD Schema Graph: WebSite + GeneralContractor Organization for rich snippets and Knowledge Panel. */
 export function getOrganizationJsonLd() {
   return {
     "@context": "https://schema.org",
-    "@type": "GeneralContractor",
-    name: SITE_NAME,
-    legalName:
-      "Yebis Engineering (Yeshitila Tedla & Brook Yeshitila General Partnership)",
-    alternateName: "Yeshitila Tedla Building Contractor",
-    taxID: "0001985917",
-    url: SITE_URL,
-    logo: `${SITE_URL}/assets/logo-dark.png`,
-    image: `${SITE_URL}/og-yebis.png`,
-    description: SITE_DESCRIPTION,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: COMPANY_ADDRESS.street,
-      addressLocality: COMPANY_ADDRESS.city,
-      addressCountry: "ET",
-    },
-    telephone: COMPANY_PHONES[0],
-    sameAs: Object.values(COMPANY_SOCIALS),
-    areaServed: {
-      "@type": "Country",
-      name: "Ethiopia",
-    },
-    knowsAbout: [
-      "General Contracting",
-      "Structural Engineering",
-      "MEP Systems",
-      "Interior Finishing",
-      "Joinery & Millwork",
-      "Aluminum & Glass Facade",
-      "Building Renovation",
-      "BIM Coordination",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        url: `${SITE_URL}/`,
+        name: SITE_NAME,
+        alternateName: [
+          "Yebis Engineering",
+          "Yeshitila Tedla Building Contractor",
+          "Yebis Engineering Ethiopia",
+        ],
+        description: SITE_DESCRIPTION,
+        inLanguage: "en-US",
+        publisher: {
+          "@id": `${SITE_URL}/#organization`,
+        },
+      },
+      {
+        "@type": ["GeneralContractor", "ConstructionBusiness", "LocalBusiness"],
+        "@id": `${SITE_URL}/#organization`,
+        name: SITE_NAME,
+        legalName:
+          "Yebis Engineering (Yeshitila Tedla & Brook Yeshitila General Partnership)",
+        alternateName: "Yeshitila Tedla Building Contractor",
+        taxID: "0001985917",
+        url: SITE_URL,
+        logo: `${SITE_URL}/assets/logo-dark.png`,
+        image: `${SITE_URL}/og-yebis.png`,
+        description: SITE_DESCRIPTION,
+        telephone: COMPANY_PHONES[0],
+        email: "info@yebisengineering.pro.et",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: COMPANY_ADDRESS.street,
+          addressLocality: COMPANY_ADDRESS.city,
+          addressCountry: "ET",
+        },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 8.9973,
+          longitude: 38.7885,
+        },
+        areaServed: [
+          {
+            "@type": "Country",
+            name: "Ethiopia",
+          },
+          {
+            "@type": "City",
+            name: "Addis Ababa",
+          },
+        ],
+        openingHoursSpecification: [
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+            ],
+            opens: "08:30",
+            closes: "17:30",
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: ["Saturday"],
+            opens: "08:30",
+            closes: "12:30",
+          },
+        ],
+        priceRange: "$$",
+        currenciesAccepted: "ETB, USD",
+        paymentAccepted: "Bank Transfer, Letter of Credit, Cash",
+        sameAs: Object.values(COMPANY_SOCIALS),
+        knowsAbout: [
+          "General Contracting",
+          "GRADE 3 General Contractor (GC-3)",
+          "Structural Engineering",
+          "MEP Systems",
+          "Interior Finishing",
+          "Joinery & Millwork",
+          "Aluminum & Glass Facade",
+          "Building Renovation",
+          "BIM Coordination",
+          "Civil Works",
+        ],
+      },
     ],
   };
 }

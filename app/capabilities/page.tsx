@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { IMG } from "@/lib/site-images";
 import { SITE_URL } from "@/lib/seo";
 import { CapabilitiesMetrics } from "@/components/CapabilitiesMetrics";
+import ImageWithFallback from "@/components/ui/image-with-fallback";
+import {
+  FadeUpView,
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/animations/ScrollTransitions";
 
 export const metadata: Metadata = {
   title: "Capabilities & Divisions",
@@ -164,7 +169,7 @@ export default function CapabilitiesPage() {
     <div className="flex flex-col pt-2 w-full">
       {/* SECTION 00: EDITORIAL HEADER & METRIC STRIP */}
       <section className="w-full bg-surface-container-lowest px-6 lg:px-12 py-space-xl">
-        <div className="max-w-7xl mx-auto flex flex-col gap-space-lg">
+        <FadeUpView className="max-w-7xl mx-auto flex flex-col gap-space-lg">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
             <div className="flex flex-col gap-space-xs max-w-3xl">
               <div className="flex items-center gap-space-xs">
@@ -197,13 +202,13 @@ export default function CapabilitiesPage() {
 
           {/* Quick Metrics Ledger */}
           <CapabilitiesMetrics />
-        </div>
+        </FadeUpView>
       </section>
 
       {/* SECTION 01: CAPABILITY ARCHITECTURE DOSSIERS */}
       <section className="w-full bg-surface px-6 lg:px-12 py-space-xl">
         <div className="max-w-7xl mx-auto flex flex-col gap-space-xl">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-space-sm bg-surface-container-low p-space-md">
+          <FadeUpView className="flex flex-col md:flex-row md:items-center justify-between gap-space-sm bg-surface-container-low p-space-md">
             <div className="flex items-center gap-space-sm">
               <span className="w-3 h-3 bg-inverse-surface"></span>
               <span className="font-headline-sm text-headline-sm uppercase text-on-surface font-bold">
@@ -213,14 +218,14 @@ export default function CapabilitiesPage() {
             <span className="font-label-sm text-label-sm text-secondary uppercase tracking-widest">
               EXECUTED UNDER SINGLE-SOURCE RESPONSIBILITY
             </span>
-          </div>
+          </FadeUpView>
 
           {/* Capability Cards Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+          <StaggerContainer className="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
             {DIVISIONS.map((div) => (
+              <StaggerItem key={div.id}>
               <article
-                key={div.id}
-                className="bg-surface-container-lowest flex flex-col justify-between p-space-lg shadow-sm"
+                className="h-full bg-surface-container-lowest flex flex-col justify-between p-space-lg shadow-sm"
               >
                 <div className="flex flex-col gap-space-md">
                   <div className="flex items-center justify-between bg-surface-container-low p-space-sm">
@@ -235,12 +240,14 @@ export default function CapabilitiesPage() {
                     href={div.href}
                     className="w-full h-56 bg-surface-container overflow-hidden relative block group"
                   >
-                    <Image
+                    <ImageWithFallback
                       src={div.image}
                       alt={div.title}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
                       sizes="(max-width: 1024px) 100vw, 50vw"
+                      fallbackTitle={div.title}
+                      fallbackSubtitle={div.tag}
                     />
                   </Link>
                   <h2 className="font-headline-md text-[22px] leading-[30px] lg:text-headline-md text-on-surface uppercase font-bold hover:text-primary transition-colors">
@@ -281,14 +288,15 @@ export default function CapabilitiesPage() {
                   )}
                 </div>
               </article>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="w-full bg-inverse-surface px-6 lg:px-12 py-space-xl">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-space-lg">
+        <FadeUpView className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-space-lg">
           <div className="flex flex-col gap-space-xs">
             <h2 className="font-headline-md text-headline-md text-on-primary uppercase font-bold">
               Ready to scope your project?
@@ -305,7 +313,7 @@ export default function CapabilitiesPage() {
             <span className="tracking-wider">Start a Project</span>
             <span>→</span>
           </Link>
-        </div>
+        </FadeUpView>
       </section>
     </div>
   );

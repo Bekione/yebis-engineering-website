@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import ImageWithFallback from "@/components/ui/image-with-fallback";
+import {
+  FadeUpView,
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/animations/ScrollTransitions";
 import { IMG } from "@/lib/site-images";
 import { SITE_URL } from "@/lib/seo";
 
@@ -49,19 +55,20 @@ export default function KazanchisCaseStudyPage() {
 
       {/* Case Study Title & Overview */}
       <section className="w-full max-w-7xl mx-auto px-6 lg:px-12 pt-10 pb-8">
-        <div className="inline-flex items-center gap-2 mb-4 font-label-sm text-label-sm text-primary tracking-widest uppercase">
-          <span className="w-2 h-2 bg-primary"></span>
-          <span>
-            [ PROJECT ARCHIVE // PRJ-ETH-002 // SECTOR: COMMERCIAL // FINANCIAL
-            DISTRICT ]
-          </span>
-        </div>
+        <FadeUpView>
+          <div className="inline-flex items-center gap-2 mb-4 font-label-sm text-label-sm text-primary tracking-widest uppercase">
+            <span className="w-2 h-2 bg-primary"></span>
+            <span>
+              [ PROJECT ARCHIVE // PRJ-ETH-002 // SECTOR: COMMERCIAL // FINANCIAL
+              DISTRICT ]
+            </span>
+          </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-10">
-          <div className="lg:col-span-8 flex flex-col gap-4">
-            <h1 className="font-headline-xl text-headline-xl text-on-surface font-bold tracking-tight uppercase leading-none">
-              Commercial Office Building - Kazanchis
-            </h1>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-10">
+            <div className="lg:col-span-8 flex flex-col gap-4">
+              <h1 className="font-headline-xl text-headline-xl text-on-surface font-bold tracking-tight uppercase leading-none">
+                Commercial Office Building - Kazanchis
+              </h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl leading-relaxed">
               Turnkey structural execution, dual-level subterranean civil
               containment, high-performance acoustic facade envelope, and
@@ -201,10 +208,12 @@ export default function KazanchisCaseStudyPage() {
             </div>
           </div>
         </div>
+        </FadeUpView>
       </section>
 
       {/* Photographic Blueprint Elevation Viewport */}
       <section className="w-full max-w-7xl mx-auto px-6 lg:px-12 py-4">
+        <FadeUpView>
         <div className="relative w-full overflow-hidden border border-outline-variant/40 bg-inverse-surface">
           <div className="w-full bg-inverse-surface/90 border-b border-outline-variant/20 px-4 py-2 flex items-center justify-between text-on-primary font-label-sm text-label-sm">
             <span className="flex items-center gap-2">
@@ -217,10 +226,12 @@ export default function KazanchisCaseStudyPage() {
           </div>
 
           <div className="relative w-full h-[540px] md:h-[680px]">
-            <img
-              className="w-full h-full object-cover"
+            <ImageWithFallback
+              className="object-cover"
               alt="Commercial Office Building in Kazanchis"
               src={IMG.superstructure}
+              fill
+              priority
             />
 
             <div className="absolute inset-0 pointer-events-none p-6 flex flex-col justify-between">
@@ -291,11 +302,12 @@ export default function KazanchisCaseStudyPage() {
             </div>
           </div>
         </div>
+        </FadeUpView>
       </section>
 
       {/* Project Metric Highlights */}
       <section className="w-full bg-surface-container py-8 border-y border-outline-variant/30">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        <FadeUpView className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             <div className="flex flex-col gap-1 border-l-2 border-primary pl-4">
               <span className="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">
@@ -353,11 +365,12 @@ export default function KazanchisCaseStudyPage() {
               </span>
             </div>
           </div>
-        </div>
+        </FadeUpView>
       </section>
 
       {/* Technical Narrative & Phases */}
       <section className="w-full max-w-7xl mx-auto px-6 lg:px-12 py-16">
+        <FadeUpView>
         <div className="flex items-center gap-4 mb-10 pb-3 border-b border-outline-variant/40">
           <span className="font-label-sm text-label-sm text-primary font-semibold tracking-widest uppercase">
             SECTION 02 // TECHNICAL NARRATIVE &amp; METHODOLOGY
@@ -645,11 +658,12 @@ export default function KazanchisCaseStudyPage() {
             </div>
           </div>
         </div>
+        </FadeUpView>
       </section>
 
       {/* Stage Documentation Photos */}
       <section className="w-full bg-surface-container-low py-16 border-y border-outline-variant/30">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col gap-10">
+        <FadeUpView className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col gap-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-outline-variant/40 pb-4">
             <div>
               <span className="font-label-sm text-label-sm text-primary font-semibold tracking-widest uppercase">
@@ -674,10 +688,11 @@ export default function KazanchisCaseStudyPage() {
                 <span className="text-secondary">ELEV -8.50M</span>
               </div>
               <div className="relative w-full h-80 overflow-hidden bg-surface-container">
-                <img
-                  className="w-full h-full object-cover"
+                <ImageWithFallback
+                  className="object-cover"
                   alt="Deep foundation excavation"
                   src={IMG.foundation}
+                  fill
                 />
                 <div className="absolute bottom-3 left-3 bg-inverse-surface/90 text-on-primary px-2 py-1 font-label-sm text-label-sm border border-outline-variant/30">
                   112 PRE-STRESSED GROUND ANCHORS @ 320kN LOAD
@@ -703,10 +718,11 @@ export default function KazanchisCaseStudyPage() {
                 <span className="text-secondary">LEVEL 04 TO 08</span>
               </div>
               <div className="relative w-full h-80 overflow-hidden bg-surface-container">
-                <img
-                  className="w-full h-full object-cover"
+                <ImageWithFallback
+                  className="object-cover"
                   alt="Facade installation"
                   src={IMG.facade}
+                  fill
                 />
                 <div className="absolute bottom-3 left-3 bg-inverse-surface/90 text-on-primary px-2 py-1 font-label-sm text-label-sm border border-outline-variant/30">
                   UNITIZED CASSETTES FABRICATED IN YEBIS YARD
@@ -732,10 +748,11 @@ export default function KazanchisCaseStudyPage() {
                 <span className="text-secondary">GROUND FLOOR LEVEL 00</span>
               </div>
               <div className="relative w-full h-80 overflow-hidden bg-surface-container">
-                <img
-                  className="w-full h-full object-cover"
+                <ImageWithFallback
+                  className="object-cover"
                   alt="Corporate lobby"
                   src={IMG.lobby}
+                  fill
                 />
                 <div className="absolute bottom-3 left-3 bg-inverse-surface/90 text-on-primary px-2 py-1 font-label-sm text-label-sm border border-outline-variant/30">
                   CUSTOM WALNUT MILLWORK &amp; POURED TERRAZZO
@@ -761,10 +778,11 @@ export default function KazanchisCaseStudyPage() {
                 <span className="text-secondary">BASEMENT LEVEL -02</span>
               </div>
               <div className="relative w-full h-80 overflow-hidden bg-surface-container">
-                <img
-                  className="w-full h-full object-cover"
+                <ImageWithFallback
+                  className="object-cover"
                   alt="Central MEP plant room"
                   src={IMG.officeInterior}
+                  fill
                 />
                 <div className="absolute bottom-3 left-3 bg-inverse-surface/90 text-on-primary px-2 py-1 font-label-sm text-label-sm border border-outline-variant/30">
                   11kV SUBSTATION // DUAL 500kVA SYNC GENERATORS
@@ -782,7 +800,7 @@ export default function KazanchisCaseStudyPage() {
               </div>
             </div>
           </div>
-        </div>
+        </FadeUpView>
       </section>
 
       {/* Navigation Footer */}

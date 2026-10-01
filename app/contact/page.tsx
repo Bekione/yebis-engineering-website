@@ -1,17 +1,23 @@
 "use client";
 
 import type { FormEvent } from "react";
-import Image from "next/image";
+import ImageWithFallback from "@/components/ui/image-with-fallback";
 import Link from "next/link";
 import { useState } from "react";
 import { IMG } from "@/lib/site-images";
+import { contactFormSchema } from "@/lib/validations/inquiries";
+import {
+  FadeUpView,
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/animations/ScrollTransitions";
 
 const CATEGORIES = [
   { key: "tender", label: "General Commercial Tender" },
   { key: "subcontractor", label: "Trade Prequalification" },
   { key: "procurement", label: "Supplier & Materials Sourcing" },
   { key: "consultation", label: "Executive Consultation" },
-];
+] as const;
 
 const FIELD_STATIONS = [
   {
@@ -41,13 +47,78 @@ const FIELD_STATIONS = [
 ];
 
 export default function ContactPage() {
-  const [selectedCategory, setSelectedCategory] = useState("tender");
-  const [submitted, setSubmitted] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<"tender" | "subcontractor" | "procurement" | "consultation">("tender");
+  const [formData, setFormData] = useState({
+    fullName: "",
+    organization: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [ticketRef, setTicketRef] = useState<string | null>(null);
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setServerError(null);
+    setErrors({});
+
+    const payload = {
+      category: selectedCategory,
+      ...formData,
+    };
+
+    const validation = contactFormSchema.safeParse(payload);
+    if (!validation.success) {
+      const fieldErrors: Record<string, string> = {};
+      validation.error.issues.forEach((err) => {
+        const field = err.path[0]?.toString() || "form";
+        fieldErrors[field] = err.message;
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        if (data.errors) {
+          setErrors(data.errors);
+        } else {
+          setServerError(data.message || "Failed to submit transmission.");
+        }
+        return;
+      }
+
+      setTicketRef(data.ref);
+      window.scrollTo({ top: 300, behavior: "smooth" });
+    } catch (err) {
+      setServerError("Network error. Please verify connection and retry, or call our direct hotlines.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  function handleReset() {
+    setTicketRef(null);
+    setFormData({
+      fullName: "",
+      organization: "",
+      email: "",
+      phone: "",
+      message: "",
+    });
+    setErrors({});
+    setServerError(null);
   }
 
   return (
@@ -76,27 +147,28 @@ export default function ContactPage() {
 
       {/* Header */}
       <section className="w-full max-w-7xl mx-auto px-6 lg:px-12 pt-space-xl pb-space-lg">
-        <div className="flex flex-col gap-space-sm max-w-4xl">
-          <div className="flex items-center gap-space-xs">
-            <span className="text-primary font-label-sm text-label-sm uppercase tracking-widest font-semibold">
-              [ DIRECT COMMUNICATION &amp; TENDER INTAKE ]
-            </span>
-            <span className="text-secondary font-label-sm text-label-sm">
-              / BOLE SUB-CITY, ADDIS ABABA
-            </span>
+        <FadeUpView>
+          <div className="flex flex-col gap-space-sm max-w-4xl">
+            <div className="flex items-center gap-space-xs">
+              <span className="text-primary font-label-sm text-label-sm uppercase tracking-widest font-semibold">
+                [ DIRECT COMMUNICATION &amp; TENDER INTAKE ]
+              </span>
+              <span className="text-secondary font-label-sm text-label-sm">
+                / BOLE SUB-CITY, ADDIS ABABA
+              </span>
+            </div>
+            <h1 className="font-headline-xl text-[36px] leading-[44px] lg:text-headline-xl text-on-surface uppercase tracking-tight font-bold">
+              Headquarters &amp; Regional Field Operations.
+            </h1>
+            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
+              Connect directly with our corporate executive office, commercial
+              tender desk, procurement division, or project site engineers across
+              Ethiopia.
+            </p>
           </div>
-          <h1 className="font-headline-xl text-[36px] leading-[44px] lg:text-headline-xl text-on-surface uppercase tracking-tight font-bold">
-            Headquarters &amp; Regional Field Operations.
-          </h1>
-          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
-            Connect directly with our corporate executive office, commercial
-            tender desk, procurement division, or project site engineers across
-            Ethiopia.
-          </p>
-        </div>
 
-        {/* Corporate Telemetry Bar */}
-        <div className="mt-space-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+          {/* Corporate Telemetry Bar */}
+          <div className="mt-space-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
           <div className="bg-surface-container-lowest p-space-md flex flex-col gap-space-xs shadow-sm">
             <div className="flex items-center justify-between pb-1 border-b border-outline-variant/30">
               <span className="font-label-sm text-label-sm text-secondary uppercase tracking-wider">
@@ -190,55 +262,88 @@ export default function ContactPage() {
             </span>
           </div>
         </div>
+        </FadeUpView>
       </section>
 
       {/* Dual Column Interaction Grid */}
       <section className="w-full max-w-7xl mx-auto px-6 lg:px-12 py-space-lg">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+        <FadeUpView className="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
           {/* Left: Intake Form */}
-          <div className="lg:col-span-7 bg-surface-container-lowest p-space-lg md:p-space-xl shadow-md">
-            {submitted ? (
+          <div className="lg:col-span-7 bg-surface-container-lowest p-space-lg md:p-space-xl shadow-md border border-outline-variant/40">
+            {ticketRef ? (
               <div className="flex flex-col gap-space-md items-center text-center py-space-xl">
-                <span className="material-symbols-outlined text-primary text-[48px]">
-                  verified
-                </span>
-                <h2 className="font-headline-md text-headline-md text-on-surface uppercase font-bold">
-                  Transmission Received
-                </h2>
+                <div className="w-16 h-16 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center text-primary">
+                  <span className="material-symbols-outlined text-[36px]">
+                    verified
+                  </span>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <span className="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">
+                    TRANSMISSION CONFIRMED // SLA QUEUED
+                  </span>
+                  <h2 className="font-headline-md text-headline-md text-on-surface uppercase font-bold">
+                    Official Inquiry Received
+                  </h2>
+                </div>
                 <p className="font-body-md text-body-md text-on-surface-variant max-w-md">
-                  Your inquiry has been routed to the appropriate department. A
-                  designated engineer or commercial estimator will respond
-                  within 48 business hours.
+                  Your inquiry has been routed to our corporate executive office and engineering desk. A designated principal will contact you within 48 operational hours.
                 </p>
-                <span className="font-label-sm text-label-sm text-primary font-medium">
-                  REF: YB-CONT-{new Date().getFullYear()}-
-                  {Math.floor(Math.random() * 9000 + 1000)}
-                </span>
+                <div className="bg-surface-container-low border border-outline-variant/50 p-4 w-full max-w-md flex flex-col gap-2 text-left">
+                  <div className="flex items-center justify-between text-secondary font-label-sm text-[10px] uppercase border-b border-outline-variant/30 pb-1">
+                    <span>OFFICIAL DOSSIER TRACKING CODE</span>
+                    <span className="text-primary font-bold">ACTIVE</span>
+                  </div>
+                  <div className="font-mono text-lg font-bold text-on-surface select-all tracking-wider">
+                    {ticketRef}
+                  </div>
+                  <div className="text-secondary text-[11px] flex items-center justify-between pt-1">
+                    <span>CATEGORY: {selectedCategory.toUpperCase()}</span>
+                    <span>TIMESTAMP: {new Date().toLocaleTimeString()} EAT</span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleReset}
+                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-surface-container hover:bg-surface-container-high text-on-surface border border-outline-variant font-label-sm text-label-sm uppercase font-semibold transition-colors mt-2"
+                >
+                  <span>Transmit Another Inquiry</span>
+                  <span>↺</span>
+                </button>
               </div>
             ) : (
               <>
                 <div className="flex flex-col gap-space-xs pb-space-md">
                   <div className="flex items-center gap-space-xs text-primary font-label-sm text-label-sm uppercase">
+                    <span className="w-2 h-2 bg-primary"></span>
                     <span>TERMINAL_01 // SECURE_INTAKE_MODULE</span>
                   </div>
                   <h2 className="font-headline-md text-headline-md uppercase text-on-surface font-semibold">
                     Direct Departmental Transmission
                   </h2>
                   <p className="font-body-sm text-body-sm text-on-surface-variant">
-                    Official communications are routed directly to accredited
-                    engineers, commercial estimators, or the executive
-                    secretarial board.
+                    Official communications are routed directly to accredited engineers, commercial estimators, or the executive secretarial board.
                   </p>
                 </div>
+
+                {serverError && (
+                  <div className="p-3 bg-red-500/10 border border-red-500/30 text-red-700 dark:text-red-400 font-label-sm text-label-sm flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[18px]">error</span>
+                    <span>{serverError}</span>
+                  </div>
+                )}
 
                 <form
                   className="flex flex-col gap-space-md mt-space-sm"
                   onSubmit={handleSubmit}
+                  noValidate
                 >
                   {/* Category Selector */}
                   <div className="flex flex-col gap-space-xs">
-                    <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
-                      Inquiry Category &amp; Target Desk *
+                    <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex flex-col items-start justify-between">
+                      <span>Inquiry Category &amp; Target Desk *</span>
+                      {errors.category && (
+                        <span className="text-red-600 text-[11px] normal-case">{errors.category}</span>
+                      )}
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-xs">
                       {CATEGORIES.map((cat) => (
@@ -248,8 +353,8 @@ export default function ContactPage() {
                           onClick={() => setSelectedCategory(cat.key)}
                           className={`text-left p-space-sm font-label-sm text-label-sm uppercase transition-all duration-150 flex items-center justify-between ${
                             selectedCategory === cat.key
-                              ? "bg-surface-container text-on-surface"
-                              : "bg-surface-container-low text-on-surface-variant hover:bg-surface-container"
+                              ? "bg-surface-container text-on-surface border border-primary/50 shadow-xs"
+                              : "bg-surface-container-low text-on-surface-variant hover:bg-surface-container border border-transparent"
                           }`}
                         >
                           <span>{cat.label}</span>
@@ -264,24 +369,36 @@ export default function ContactPage() {
                   {/* Name Fields */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
                     <div className="flex flex-col gap-space-xs">
-                      <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
-                        Full Name *
+                      <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex flex-col items-start justify-between">
+                        <span>Full Name *</span>
+                        {errors.fullName && (
+                          <span className="text-red-600 text-[11px] normal-case">{errors.fullName}</span>
+                        )}
                       </label>
                       <input
                         type="text"
-                        required
-                        className="bg-surface-container-low border border-outline-variant/40 px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors"
+                        value={formData.fullName}
+                        onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                        className={`bg-surface-container-low border px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none transition-colors ${
+                          errors.fullName ? "border-red-500 focus:border-red-600" : "border-outline-variant/40 focus:border-primary"
+                        }`}
                         placeholder="Eng. / Mr. / Ms."
                       />
                     </div>
                     <div className="flex flex-col gap-space-xs">
-                      <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
-                        Organization *
+                      <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex flex-col items-start justify-between">
+                        <span>Organization *</span>
+                        {errors.organization && (
+                          <span className="text-red-600 text-[11px] normal-case">{errors.organization}</span>
+                        )}
                       </label>
                       <input
                         type="text"
-                        required
-                        className="bg-surface-container-low border border-outline-variant/40 px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors"
+                        value={formData.organization}
+                        onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
+                        className={`bg-surface-container-low border px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none transition-colors ${
+                          errors.organization ? "border-red-500 focus:border-red-600" : "border-outline-variant/40 focus:border-primary"
+                        }`}
                         placeholder="Company / Agency"
                       />
                     </div>
@@ -290,47 +407,74 @@ export default function ContactPage() {
                   {/* Contact Fields */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
                     <div className="flex flex-col gap-space-xs">
-                      <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
-                        Email Address *
+                      <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex flex-col items-start justify-between">
+                        <span>Email Address *</span>
+                        {errors.email && (
+                          <span className="text-red-600 text-[11px] normal-case">{errors.email}</span>
+                        )}
                       </label>
                       <input
                         type="email"
-                        required
-                        className="bg-surface-container-low border border-outline-variant/40 px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        className={`bg-surface-container-low border px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none transition-colors ${
+                          errors.email ? "border-red-500 focus:border-red-600" : "border-outline-variant/40 focus:border-primary"
+                        }`}
                         placeholder="email@domain.com"
                       />
                     </div>
                     <div className="flex flex-col gap-space-xs">
-                      <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
-                        Phone Number
+                      <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex flex-col items-start justify-between">
+                        <span>Phone Number</span>
+                        {errors.phone && (
+                          <span className="text-red-600 text-[11px] normal-case">{errors.phone}</span>
+                        )}
                       </label>
                       <input
                         type="tel"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="bg-surface-container-low border border-outline-variant/40 px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors"
-                        placeholder="+251 ..."
+                        placeholder="+251 9..."
                       />
                     </div>
                   </div>
 
                   {/* Message */}
                   <div className="flex flex-col gap-space-xs">
-                    <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary">
-                      Message / Scope Summary *
+                    <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex flex-col items-start justify-between">
+                      <span>Message / Scope Summary *</span>
+                      {errors.message && (
+                        <span className="text-red-600 text-[11px] normal-case">{errors.message}</span>
+                      )}
                     </label>
                     <textarea
-                      required
                       rows={5}
-                      className="bg-surface-container-low border border-outline-variant/40 px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors max-h-[220px] resize-y"
-                      placeholder="Describe your project scope, required disciplines, and timeline..."
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      className={`bg-surface-container-low border px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none transition-colors max-h-[220px] resize-y ${
+                        errors.message ? "border-red-500 focus:border-red-600" : "border-outline-variant/40 focus:border-primary"
+                      }`}
+                      placeholder="Describe your project scope, required disciplines, site location, and target timeline..."
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="inline-flex items-center justify-center gap-space-xs bg-inverse-surface hover:bg-primary text-on-primary font-label-lg text-label-lg uppercase px-space-lg py-space-sm border border-inverse-surface hover:border-primary transition-all duration-150 w-full sm:w-auto self-start"
+                    disabled={isSubmitting}
+                    className="inline-flex items-center justify-center gap-space-xs bg-inverse-surface hover:bg-primary disabled:opacity-50 text-on-primary font-label-lg text-label-lg uppercase px-space-lg py-space-sm border border-inverse-surface hover:border-primary transition-all duration-150 w-full sm:w-auto self-start cursor-pointer"
                   >
-                    <span className="tracking-wider">Transmit Inquiry</span>
-                    <span className="text-primary-fixed">→</span>
+                    {isSubmitting ? (
+                      <>
+                        <span className="inline-block w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                        <span className="tracking-wider">Transmitting...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="tracking-wider">Transmit Inquiry</span>
+                        <span className="text-primary-fixed">→</span>
+                      </>
+                    )}
                   </button>
                 </form>
               </>
@@ -350,8 +494,8 @@ export default function ContactPage() {
                 </span>
               </div>
               <div className="relative w-full aspect-[16/10] bg-surface-container overflow-hidden border border-outline-variant/40">
-                <Image
-                  src={IMG.towers}
+                <ImageWithFallback
+                  src={IMG.office}
                   alt="Yebis Engineering Bole headquarters"
                   fill
                   className="object-cover"
@@ -455,7 +599,7 @@ export default function ContactPage() {
               </span>
             </Link>
           </div>
-        </div>
+        </FadeUpView>
       </section>
     </div>
   );

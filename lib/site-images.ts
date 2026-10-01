@@ -3,7 +3,7 @@ export const IMG = {
   boardroom: "/assets/boardroom.jpg",
   civilWorks: "/assets/civil-works.jpg",
   cleanroom: "/assets/cleanroom.jpg",
-  concretePour: "/assets/concrete-pour.jpg",
+  concretePour: "/assets/concrete-pour-edit.jpg",
   electrical: "/assets/electrical.jpg",
   facade: "/assets/facade.jpg",
   foundation: "/assets/foundation.jpg",
@@ -21,6 +21,7 @@ export const IMG = {
   steelFrame: "/assets/steel-frame.jpg",
   superstructure: "/assets/superstructure.jpg",
   towers: "/assets/towers.jpg",
+  office: "/assets/office-bldg.png",
   university: "/assets/university.jpg",
   villa: "/assets/villa.jpg",
   // Verified Work Project Photography

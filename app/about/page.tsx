@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { IMG } from "@/lib/site-images";
 import { SITE_URL } from "@/lib/seo";
 import { AboutMetrics } from "@/components/AboutMetrics";
+import ImageWithFallback from "@/components/ui/image-with-fallback";
+import {
+  FadeUpView,
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/animations/ScrollTransitions";
 
 export const metadata: Metadata = {
   title: "About Us & Corporate Credentials",
@@ -113,7 +118,7 @@ export default function AboutPage() {
 
       {/* Hero Section */}
       <section className="w-full border-b border-outline-variant/40 bg-surface">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-space-xl pb-space-xl">
+        <FadeUpView className="max-w-7xl mx-auto px-6 lg:px-12 pt-space-xl pb-space-xl">
           <div className="flex items-center justify-between border-b border-outline-variant/30 pb-space-sm mb-space-lg">
             <span className="font-label-sm text-label-sm uppercase tracking-widest text-primary font-medium flex items-center gap-space-xs">
               <span className="text-on-surface">■</span> [ CORPORATE DOSSIER //
@@ -188,7 +193,7 @@ export default function AboutPage() {
               <div className="border-b border-outline-variant/30 pb-space-xs flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
                 <div className="flex items-center gap-2">
                   <span className="flex h-6 w-6 items-center justify-center bg-inverse-surface p-0.5 shrink-0">
-                    <Image
+                    <img
                       src="/assets/logo-light.png"
                       alt="Yebis Logo"
                       width={18}
@@ -205,7 +210,7 @@ export default function AboutPage() {
                 </span>
               </div>
               <div className="relative w-full aspect-[4/3] bg-surface-container overflow-hidden border border-outline-variant/40">
-                <Image
+                <ImageWithFallback
                   src={IMG.hero}
                   alt="Yebis Engineering headquarters and construction operations"
                   fill
@@ -244,12 +249,12 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
-        </div>
+        </FadeUpView>
       </section>
 
       {/* Enterprise Metrics */}
       <section className="w-full bg-surface-container-low border-b border-outline-variant/40">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-space-xl">
+        <FadeUpView className="max-w-7xl mx-auto px-6 lg:px-12 py-space-xl">
           <div className="flex items-center gap-space-sm mb-space-md">
             <span className="w-2 h-2 bg-primary"></span>
             <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
@@ -257,27 +262,27 @@ export default function AboutPage() {
             </span>
           </div>
           <AboutMetrics />
-        </div>
+        </FadeUpView>
       </section>
 
       {/* 5-Phase Execution Model */}
       <section className="w-full bg-surface px-6 lg:px-12 py-space-xl">
-        <div className="max-w-7xl mx-auto flex flex-col gap-space-lg">
+        <FadeUpView className="max-w-7xl mx-auto flex flex-col gap-space-lg">
           <div className="flex items-center justify-between border-b border-outline-variant/30 pb-space-sm">
             <div className="flex items-center gap-space-sm">
               <span className="w-3 h-3 bg-inverse-surface"></span>
-              <span className="font-headline-sm text-headline-sm uppercase text-on-surface font-bold">
+              <h2 className="font-headline-sm text-headline-sm uppercase text-on-surface font-bold">
                 5-Phase Integrated Execution Model
-              </span>
+              </h2>
             </div>
             <span className="font-label-sm text-label-sm text-secondary uppercase hidden md:inline">
               ZERO-GAP DELIVERY METHODOLOGY
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
             {PHASES.map((p) => (
-              <div
+              <StaggerItem
                 key={p.phase}
                 className="bg-surface-container-lowest border border-outline-variant/40 p-space-lg flex flex-col gap-space-sm"
               >
@@ -295,45 +300,47 @@ export default function AboutPage() {
                 <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
                   {p.desc}
                 </p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
-        </div>
+          </StaggerContainer>
+        </FadeUpView>
       </section>
 
       {/* Leadership */}
       <section className="w-full bg-surface-container-low border-y border-outline-variant/40 px-6 lg:px-12 py-space-xl">
-        <div className="max-w-7xl mx-auto flex flex-col gap-space-lg">
+        <FadeUpView className="max-w-7xl mx-auto flex flex-col gap-space-lg">
           <div className="flex items-center justify-between border-b border-outline-variant/30 pb-space-sm">
             <div className="flex items-center gap-space-sm">
               <span className="w-3 h-3 bg-primary"></span>
-              <span className="font-headline-sm text-headline-sm uppercase text-on-surface font-bold">
+              <h2 className="font-headline-sm text-headline-sm uppercase text-on-surface font-bold">
                 Engineering Leadership
-              </span>
+              </h2>
             </div>
             <span className="font-label-sm text-label-sm text-secondary uppercase hidden md:inline">
               EXECUTIVE BUREAU // ADDIS ABABA HQ
             </span>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
             {LEADERSHIP.map((person) => (
-              <div
+              <StaggerItem
                 key={person.name}
                 className="bg-surface-container-lowest border border-outline-variant/40 flex flex-col overflow-hidden"
               >
                 <div className="relative w-full aspect-[3/4] bg-surface-container overflow-hidden">
-                  <Image
+                  <ImageWithFallback
                     src={person.image}
                     alt={person.name}
+                    fallbackTitle={person.name}
+                    fallbackSubtitle={person.role}
                     fill
                     className="object-cover grayscale hover:grayscale-0 transition-all duration-500"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
                 </div>
                 <div className="p-space-md flex flex-col gap-space-xs">
-                  <h4 className="font-headline-sm text-[16px] leading-[22px] text-on-surface font-bold uppercase">
+                  <h3 className="font-headline-sm text-[16px] leading-[22px] text-on-surface font-bold uppercase">
                     {person.name}
-                  </h4>
+                  </h3>
                   <span className="font-label-sm text-label-sm text-primary uppercase tracking-wider">
                     {person.role}
                   </span>
@@ -341,24 +348,24 @@ export default function AboutPage() {
                     {person.bio}
                   </p>
                 </div>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
-        </div>
+          </StaggerContainer>
+        </FadeUpView>
       </section>
 
       {/* Equipment Fleet Register */}
       <section className="w-full bg-surface px-6 lg:px-12 py-space-xl">
-        <div className="max-w-7xl mx-auto flex flex-col gap-space-lg">
+        <FadeUpView className="max-w-7xl mx-auto flex flex-col gap-space-lg">
           <div className="flex items-center gap-space-sm">
             <span className="w-2 h-2 bg-primary"></span>
             <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
               HEAVY EQUIPMENT ASSET REGISTER // OWNED FLEET
             </span>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-space-sm">
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-space-sm">
             {EQUIPMENT.map((item) => (
-              <div
+              <StaggerItem
                 key={item}
                 className="flex items-center gap-space-sm bg-surface-container-low p-space-sm border border-outline-variant/30"
               >
@@ -366,15 +373,15 @@ export default function AboutPage() {
                 <span className="font-label-md text-label-md text-on-surface-variant">
                   {item}
                 </span>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
-        </div>
+          </StaggerContainer>
+        </FadeUpView>
       </section>
 
       {/* CTA */}
       <section className="w-full bg-inverse-surface px-6 lg:px-12 py-space-xl">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-space-lg">
+        <FadeUpView className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-space-lg">
           <div className="flex flex-col gap-space-xs">
             <h2 className="font-headline-md text-headline-md text-on-primary uppercase font-bold">
               Build with confidence.
@@ -384,14 +391,24 @@ export default function AboutPage() {
               ISO 9001:2015 compliant.
             </p>
           </div>
-          <Link
-            href="/start-a-project"
-            className="inline-flex items-center gap-space-xs bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg uppercase px-space-lg py-space-sm border border-primary transition-all duration-150 shrink-0"
-          >
-            <span className="tracking-wider">Start a Project</span>
-            <span>→</span>
-          </Link>
-        </div>
+          <div className="flex flex-wrap items-center gap-space-sm shrink-0">
+            <a
+              href="/assets/Yebis_Engineering_Corporate_Portfolio.pdf"
+              download="Yebis_Engineering_Corporate_Portfolio.pdf"
+              className="inline-flex items-center gap-space-xs bg-surface/10 hover:bg-surface/20 text-on-primary font-label-lg text-label-lg uppercase px-space-lg py-space-sm border border-white/20 transition-all duration-150"
+            >
+              <span className="tracking-wider">Company Dossier (PDF)</span>
+              <span>↓</span>
+            </a>
+            <Link
+              href="/start-a-project"
+              className="inline-flex items-center gap-space-xs bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg uppercase px-space-lg py-space-sm border border-primary transition-all duration-150"
+            >
+              <span className="tracking-wider">Start a Project</span>
+              <span>→</span>
+            </Link>
+          </div>
+        </FadeUpView>
       </section>
     </div>
   );

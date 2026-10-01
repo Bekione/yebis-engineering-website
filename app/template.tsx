@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 export default function Template({ children }: { children: React.ReactNode }) {
   return (
     <motion.div
-      initial={{ opacity: 0.15, y: 5 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{
-        duration: 0.2,
-        ease: [0.16, 1, 0.3, 1], // Snappy ease-out: reaches 80% opacity in ~50ms, then smoothly settles
+        duration: 0.35,
+        ease: [0.22, 1, 0.36, 1],
       }}
       className="flex-1 flex flex-col w-full"
     >

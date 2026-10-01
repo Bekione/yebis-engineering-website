@@ -8,13 +8,73 @@ import CountUp from "@/components/CountUp";
 import ClientRosterCarousel from "@/components/ClientRosterCarousel";
 import CustomSelect from "@/components/ui/select";
 import { ALL_PROJECTS } from "@/lib/projects-data";
+import { quickInquirySchema } from "@/lib/validations/inquiries";
+import {
+  FadeUpView,
+  SlideInView,
+  ScaleInView,
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/animations/ScrollTransitions";
 
 export default function HomePage() {
-  const [submitted, setSubmitted] = useState(false);
+  const [inquiryData, setInquiryData] = useState({
+    principalName: "",
+    phone: "",
+    sector: "Commercial Tower",
+    location: "",
+    description: "",
+  });
+  const [inquiryErrors, setInquiryErrors] = useState<Record<string, string>>(
+    {},
+  );
+  const [isInquirySubmitting, setIsInquirySubmitting] = useState(false);
+  const [inquiryRef, setInquiryRef] = useState<string | null>(null);
+  const [inquiryError, setInquiryError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    setInquiryError(null);
+    setInquiryErrors({});
+
+    const validation = quickInquirySchema.safeParse(inquiryData);
+    if (!validation.success) {
+      const fieldErrors: Record<string, string> = {};
+      validation.error.issues.forEach((err) => {
+        const field = err.path[0]?.toString() || "form";
+        fieldErrors[field] = err.message;
+      });
+      setInquiryErrors(fieldErrors);
+      return;
+    }
+
+    setIsInquirySubmitting(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "quick_inquiry",
+          ...inquiryData,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        if (data.errors) {
+          setInquiryErrors(data.errors);
+        } else {
+          setInquiryError(data.message || "Failed to submit inquiry.");
+        }
+        return;
+      }
+      setInquiryRef(data.ref);
+    } catch (err) {
+      setInquiryError(
+        "Network connection error. Please retry or contact our desk directly.",
+      );
+    } finally {
+      setIsInquirySubmitting(false);
+    }
   };
 
   return (
@@ -172,8 +232,8 @@ export default function HomePage() {
 
       {/* Metrics Strip */}
       <section className="w-full bg-surface-container py-12 px-6 lg:px-12 border-y border-outline-variant/30">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="flex flex-col gap-1 bg-surface p-6 border border-outline-variant/30">
+        <StaggerContainer className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6">
+          <StaggerItem className="flex flex-col gap-1 bg-surface p-6 border border-outline-variant/30">
             <span className="font-label-sm text-label-sm text-primary uppercase tracking-widest">
               [ METRIC 01 ]
             </span>
@@ -196,8 +256,8 @@ export default function HomePage() {
               Continuous field leadership across complex Ethiopian geological
               formations and urban settings.
             </p>
-          </div>
-          <div className="flex flex-col gap-1 bg-surface p-6 border border-outline-variant/30">
+          </StaggerItem>
+          <StaggerItem className="flex flex-col gap-1 bg-surface p-6 border border-outline-variant/30">
             <span className="font-label-sm text-label-sm text-primary uppercase tracking-widest">
               [ METRIC 02 ]
             </span>
@@ -220,8 +280,8 @@ export default function HomePage() {
               Spanning turnkey multi-story compounds, specialized healthcare
               wings, and Grade-A commercial fit-outs.
             </p>
-          </div>
-          <div className="flex flex-col gap-1 bg-surface p-6 border border-outline-variant/30">
+          </StaggerItem>
+          <StaggerItem className="flex flex-col gap-1 bg-surface p-6 border border-outline-variant/30">
             <span className="font-label-sm text-label-sm text-primary uppercase tracking-widest">
               [ METRIC 03 ]
             </span>
@@ -244,8 +304,8 @@ export default function HomePage() {
               Zero third-party scope handoff friction. In-house MEP, millwork,
               aluminum shop, and structural gangs.
             </p>
-          </div>
-          <div className="flex flex-col gap-1 bg-surface p-6 border border-outline-variant/30">
+          </StaggerItem>
+          <StaggerItem className="flex flex-col gap-1 bg-surface p-6 border border-outline-variant/30">
             <span className="font-label-sm text-label-sm text-primary uppercase tracking-widest">
               [ METRIC 04 ]
             </span>
@@ -268,14 +328,14 @@ export default function HomePage() {
               Residential towers, commercial office centers, clinical
               institutions, and precision trade subcontracting.
             </p>
-          </div>
-        </div>
+          </StaggerItem>
+        </StaggerContainer>
       </section>
 
       {/* Execution Methodology */}
       <section className="w-full bg-surface py-20 px-6 lg:px-12 border-b border-outline-variant/30">
         <div className="max-w-7xl mx-auto flex flex-col gap-12">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6">
+          <FadeUpView className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6">
             <div className="flex flex-col gap-2 max-w-2xl">
               <div className="flex items-center gap-2 font-label-sm text-label-sm text-primary tracking-widest uppercase">
                 <span className="w-2 h-2 bg-primary"></span>
@@ -292,10 +352,10 @@ export default function HomePage() {
               unites technical design, civil build, mechanical systems, and
               artisanal finishing under unified single-point accountability.
             </p>
-          </div>
+          </FadeUpView>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
-            <div className="bg-surface-container p-5 flex flex-col justify-between h-72 hover:bg-surface-container-high transition-colors border border-outline-variant/20">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
+            <StaggerItem className="bg-surface-container p-5 flex flex-col justify-between h-72 hover:bg-surface-container-high transition-colors border border-outline-variant/20">
               <div className="flex flex-col gap-2">
                 <span className="font-label-sm text-label-sm text-primary font-bold">
                   STAGE 01
@@ -311,9 +371,9 @@ export default function HomePage() {
               <div className="font-label-sm text-label-sm text-secondary uppercase">
                 <span>ENG_CAD // 01</span>
               </div>
-            </div>
+            </StaggerItem>
 
-            <div className="bg-surface-container p-5 flex flex-col justify-between h-72 hover:bg-surface-container-high transition-colors border border-outline-variant/20">
+            <StaggerItem className="bg-surface-container p-5 flex flex-col justify-between h-72 hover:bg-surface-container-high transition-colors border border-outline-variant/20">
               <div className="flex flex-col gap-2">
                 <span className="font-label-sm text-label-sm text-primary font-bold">
                   STAGE 02
@@ -329,9 +389,9 @@ export default function HomePage() {
               <div className="font-label-sm text-label-sm text-secondary uppercase">
                 <span>CIVIL // GC-3</span>
               </div>
-            </div>
+            </StaggerItem>
 
-            <div className="bg-surface-container p-5 flex flex-col justify-between h-72 hover:bg-surface-container-high transition-colors border border-outline-variant/20">
+            <StaggerItem className="bg-surface-container p-5 flex flex-col justify-between h-72 hover:bg-surface-container-high transition-colors border border-outline-variant/20">
               <div className="flex flex-col gap-2">
                 <span className="font-label-sm text-label-sm text-primary font-bold">
                   STAGE 03
@@ -347,9 +407,9 @@ export default function HomePage() {
               <div className="font-label-sm text-label-sm text-secondary uppercase">
                 <span>SYS_MEP // INFRA</span>
               </div>
-            </div>
+            </StaggerItem>
 
-            <div className="bg-surface-container p-5 flex flex-col justify-between h-72 hover:bg-surface-container-high transition-colors border border-outline-variant/20">
+            <StaggerItem className="bg-surface-container p-5 flex flex-col justify-between h-72 hover:bg-surface-container-high transition-colors border border-outline-variant/20">
               <div className="flex flex-col gap-2">
                 <span className="font-label-sm text-label-sm text-primary font-bold">
                   STAGE 04
@@ -365,9 +425,9 @@ export default function HomePage() {
               <div className="font-label-sm text-label-sm text-secondary uppercase">
                 <span>SURF // COATINGS</span>
               </div>
-            </div>
+            </StaggerItem>
 
-            <div className="bg-surface-container p-5 flex flex-col justify-between h-72 hover:bg-surface-container-high transition-colors border border-outline-variant/20">
+            <StaggerItem className="bg-surface-container p-5 flex flex-col justify-between h-72 hover:bg-surface-container-high transition-colors border border-outline-variant/20">
               <div className="flex flex-col gap-2">
                 <span className="font-label-sm text-label-sm text-primary font-bold">
                   STAGE 05
@@ -383,9 +443,9 @@ export default function HomePage() {
               <div className="font-label-sm text-label-sm text-secondary uppercase">
                 <span>FAB // SHOP-BUILT</span>
               </div>
-            </div>
+            </StaggerItem>
 
-            <div className="bg-inverse-surface text-on-primary p-5 flex flex-col justify-between h-72 border border-inverse-surface">
+            <StaggerItem className="bg-inverse-surface text-on-primary p-5 flex flex-col justify-between h-72 border border-inverse-surface">
               <div className="flex flex-col gap-2">
                 <span className="font-label-sm text-label-sm text-primary-fixed font-bold">
                   STAGE 06
@@ -404,10 +464,13 @@ export default function HomePage() {
                   verified
                 </span>
               </div>
-            </div>
-          </div>
+            </StaggerItem>
+          </StaggerContainer>
 
-          <div className="bg-surface-container-low p-6 flex flex-col md:flex-row items-center justify-between gap-4 border border-outline-variant/30">
+          <FadeUpView
+            delay={0.1}
+            className="bg-surface-container-low p-6 flex flex-col md:flex-row items-center justify-between gap-4 border border-outline-variant/30"
+          >
             <div className="flex items-center gap-4">
               <span className="material-symbols-outlined text-primary text-[28px]">
                 account_tree
@@ -430,7 +493,7 @@ export default function HomePage() {
               <span>Explore Specialized Scopes</span>
               <span>→</span>
             </Link>
-          </div>
+          </FadeUpView>
         </div>
       </section>
 
@@ -440,7 +503,7 @@ export default function HomePage() {
         id="projects"
       >
         <div className="max-w-7xl mx-auto flex flex-col gap-12">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-4">
+          <FadeUpView className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-4">
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2 font-label-sm text-label-sm text-primary tracking-widest uppercase">
                 <span className="w-2 h-2 bg-primary"></span>
@@ -451,7 +514,9 @@ export default function HomePage() {
               </h2>
             </div>
             <div className="flex items-center gap-4 font-label-sm text-label-sm text-secondary uppercase">
-              <span>OFFICIAL REGISTER: {ALL_PROJECTS.length} DOCUMENTED CONTRACTS</span>
+              <span>
+                OFFICIAL REGISTER: {ALL_PROJECTS.length} DOCUMENTED CONTRACTS
+              </span>
               <Link
                 href="/work"
                 className="text-primary font-semibold hover:underline"
@@ -459,325 +524,355 @@ export default function HomePage() {
                 [ VIEW FULL PERFORMANCE REGISTER → ]
               </Link>
             </div>
-          </div>
+          </FadeUpView>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Commercial Office Building Kazanchis */}
-            <Link
-              href="/work/commercial-office-kazanchis"
-              className="bg-surface flex flex-col overflow-hidden group border border-outline-variant/40 hover:border-primary transition-colors"
-            >
-              <div className="bg-surface-container-high px-5 py-3 flex items-center justify-between font-label-sm text-[11px] uppercase text-on-surface-variant border-b border-outline-variant/30">
-                <span className="font-bold text-on-surface">
-                  2B+G+8 COMMERCIAL TOWER
-                </span>
-                <span>KAZANCHIS · ADDIS ABABA</span>
-              </div>
-              <div className="relative h-64 bg-surface-container overflow-hidden">
-                <div
-                  className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                  style={{ backgroundImage: `url(${IMG.facade})` }}
-                ></div>
-                <div className="absolute bottom-3 left-3 bg-inverse-surface/90 text-white font-label-sm text-label-sm px-2 py-1 uppercase">
-                  CONF: 2B+G+8 // 12,200 M²
+            <StaggerItem className="flex flex-col h-full">
+              <Link
+                href="/work/commercial-office-kazanchis"
+                className="bg-surface flex flex-col overflow-hidden group border border-outline-variant/40 hover:border-primary transition-colors flex-1"
+              >
+                <div className="bg-surface-container-high px-5 py-3 flex items-center justify-between font-label-sm text-[11px] uppercase text-on-surface-variant border-b border-outline-variant/30">
+                  <span className="font-bold text-on-surface">
+                    2B+G+8 COMMERCIAL TOWER
+                  </span>
+                  <span>KAZANCHIS · ADDIS ABABA</span>
                 </div>
-              </div>
-              <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
-                <div className="flex flex-col gap-3">
-                  <div className="flex flex-wrap gap-1.5">
-                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
-                      GENERAL CONTRACTING
-                    </span>
-                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
-                      CURTAIN WALL FACADE
-                    </span>
-                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
-                      MEP SYSTEMS
+                <div className="relative h-64 bg-surface-container overflow-hidden">
+                  <div
+                    className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                    style={{ backgroundImage: `url(${IMG.facade})` }}
+                  ></div>
+                  <div className="absolute bottom-3 left-3 bg-inverse-surface/90 text-white font-label-sm text-label-sm px-2 py-1 uppercase">
+                    CONF: 2B+G+8 // 12,200 M²
+                  </div>
+                </div>
+                <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
+                  <div className="flex flex-col gap-3">
+                    <div className="flex flex-wrap gap-1.5">
+                      <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                        GENERAL CONTRACTING
+                      </span>
+                      <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                        CURTAIN WALL FACADE
+                      </span>
+                      <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                        MEP SYSTEMS
+                      </span>
+                    </div>
+                    <h3 className="font-headline-sm text-lg text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
+                      Commercial Office Building - Kazanchis
+                    </h3>
+                    <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-3">
+                      Prime grade multi-story commercial facility in the central
+                      financial core. Dual subterranean basements, cast-in-place
+                      superstructure, acoustic facade envelope, and integrated
+                      BMS.
+                    </p>
+                  </div>
+                  <div className="pt-2 flex items-center justify-between font-label-sm text-label-sm uppercase text-primary font-bold border-t border-outline-variant/20">
+                    <span>Explore In-Depth Case Study</span>
+                    <span className="material-symbols-outlined text-[16px]">
+                      arrow_outward
                     </span>
                   </div>
-                  <h3 className="font-headline-sm text-lg text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
-                    Commercial Office Building - Kazanchis
-                  </h3>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-3">
-                    Prime grade multi-story commercial facility in the central financial core. Dual subterranean basements, cast-in-place superstructure, acoustic facade envelope, and integrated BMS.
-                  </p>
                 </div>
-                <div className="pt-2 flex items-center justify-between font-label-sm text-label-sm uppercase text-primary font-bold border-t border-outline-variant/20">
-                  <span>Explore In-Depth Case Study</span>
-                  <span className="material-symbols-outlined text-[16px]">
-                    arrow_outward
-                  </span>
-                </div>
-              </div>
-            </Link>
+              </Link>
+            </StaggerItem>
 
             {/* Cancer Care Home Burayu */}
-            <Link
-              href="/work?project=YEB-WP-012"
-              className="bg-surface flex flex-col overflow-hidden group border border-outline-variant/40 hover:border-primary transition-colors"
-            >
-              <div className="bg-surface-container-high px-5 py-3 flex items-center justify-between font-label-sm text-[11px] uppercase text-on-surface-variant border-b border-outline-variant/30">
-                <span className="font-bold text-primary flex items-center gap-1.5">
-                  <span className="material-symbols-outlined text-[14px]">
-                    verified
+            <StaggerItem className="flex flex-col h-full">
+              <Link
+                href="/work?project=YEB-WP-012"
+                className="bg-surface flex flex-col overflow-hidden group border border-outline-variant/40 hover:border-primary transition-colors flex-1"
+              >
+                <div className="bg-surface-container-high px-5 py-3 flex items-center justify-between font-label-sm text-[11px] uppercase text-on-surface-variant border-b border-outline-variant/30">
+                  <span className="font-bold text-primary flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-[14px]">
+                      verified
+                    </span>
+                    RECORD #12 // CANCER CARE ETHIOPIA
                   </span>
-                  RECORD #12 // CANCER CARE ETHIOPIA
-                </span>
-                <span>BURAYU · OROMIA</span>
-              </div>
-              <div className="relative h-64 bg-surface-container overflow-hidden">
-                <div
-                  className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                  style={{ backgroundImage: `url(${IMG.cleanroom})` }}
-                ></div>
-                <div className="absolute bottom-3 left-3 bg-inverse-surface/90 text-white font-label-sm text-label-sm px-2 py-1 uppercase">
-                  CONTRACT VALUE: ETB 8,186,933.04
+                  <span>BURAYU · OROMIA</span>
                 </div>
-              </div>
-              <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
-                <div className="flex flex-col gap-3">
-                  <div className="flex flex-wrap gap-1.5">
-                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
-                      MEDICAL RESIDENCE
-                    </span>
-                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
-                      BARRIER-FREE RAMPS
-                    </span>
-                    <span className="bg-primary/10 text-primary px-2 py-0.5 font-label-sm text-[10px] uppercase font-semibold">
-                      TURNKEY GC
+                <div className="relative h-64 bg-surface-container overflow-hidden">
+                  <div
+                    className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                    style={{ backgroundImage: `url(${IMG.cleanroom})` }}
+                  ></div>
+                  <div className="absolute bottom-3 left-3 bg-inverse-surface/90 text-white font-label-sm text-label-sm px-2 py-1 uppercase">
+                    CONTRACT VALUE: ETB 8,186,933.04
+                  </div>
+                </div>
+                <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
+                  <div className="flex flex-col gap-3">
+                    <div className="flex flex-wrap gap-1.5">
+                      <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                        MEDICAL RESIDENCE
+                      </span>
+                      <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                        BARRIER-FREE RAMPS
+                      </span>
+                      <span className="bg-primary/10 text-primary px-2 py-0.5 font-label-sm text-[10px] uppercase font-semibold">
+                        TURNKEY GC
+                      </span>
+                    </div>
+                    <h3 className="font-headline-sm text-lg text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
+                      Cancer Care Home &amp; Palliative Residence
+                    </h3>
+                    <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-3">
+                      Turnkey delivery of a dedicated oncology patient recovery
+                      complex. Features patient lodging units, clinical consult
+                      suites, anti-microbial floor screeds, and accessible
+                      courtyard.
+                    </p>
+                  </div>
+                  <div className="pt-2 flex items-center justify-between font-label-sm text-label-sm uppercase text-primary font-bold border-t border-outline-variant/20">
+                    <span>View Project Specsheet</span>
+                    <span className="material-symbols-outlined text-[16px]">
+                      arrow_outward
                     </span>
                   </div>
-                  <h3 className="font-headline-sm text-lg text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
-                    Cancer Care Home &amp; Palliative Residence
-                  </h3>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-3">
-                    Turnkey delivery of a dedicated oncology patient recovery complex. Features patient lodging units, clinical consult suites, anti-microbial floor screeds, and accessible courtyard.
-                  </p>
                 </div>
-                <div className="pt-2 flex items-center justify-between font-label-sm text-label-sm uppercase text-primary font-bold border-t border-outline-variant/20">
-                  <span>View Project Specsheet</span>
-                  <span className="material-symbols-outlined text-[16px]">
-                    arrow_outward
-                  </span>
-                </div>
-              </div>
-            </Link>
+              </Link>
+            </StaggerItem>
 
             {/* Bole Arabissa AAHDPO G+4 */}
-            <Link
-              href="/work?project=YEB-WP-009"
-              className="bg-surface flex flex-col overflow-hidden group border border-outline-variant/40 hover:border-primary transition-colors"
-            >
-              <div className="bg-surface-container-high px-5 py-3 flex items-center justify-between font-label-sm text-[11px] uppercase text-on-surface-variant border-b border-outline-variant/30">
-                <span className="font-bold text-primary flex items-center gap-1.5">
-                  <span className="material-symbols-outlined text-[14px]">
-                    verified
+            <StaggerItem className="flex flex-col h-full">
+              <Link
+                href="/work?project=YEB-WP-009"
+                className="bg-surface flex flex-col overflow-hidden group border border-outline-variant/40 hover:border-primary transition-colors flex-1"
+              >
+                <div className="bg-surface-container-high px-5 py-3 flex items-center justify-between font-label-sm text-[11px] uppercase text-on-surface-variant border-b border-outline-variant/30">
+                  <span className="font-bold text-primary flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-[14px]">
+                      verified
+                    </span>
+                    RECORD #09 // AAHDPO
                   </span>
-                  RECORD #09 // AAHDPO
-                </span>
-                <span>BOLE ARABISSA · ADDIS</span>
-              </div>
-              <div className="relative h-64 bg-surface-container overflow-hidden">
-                <div
-                  className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                  style={{ backgroundImage: `url(${IMG.towers})` }}
-                ></div>
-                <div className="absolute bottom-3 left-3 bg-inverse-surface/90 text-white font-label-sm text-label-sm px-2 py-1 uppercase">
-                  CONTRACT VALUE: ETB 2,093,916.93
+                  <span>BOLE ARABISSA · ADDIS</span>
                 </div>
-              </div>
-              <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
-                <div className="flex flex-col gap-3">
-                  <div className="flex flex-wrap gap-1.5">
-                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
-                      PUBLIC HOUSING
-                    </span>
-                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
-                      G+4 CONCRETE FRAME
-                    </span>
-                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
-                      HCB MASONRY
+                <div className="relative h-64 bg-surface-container overflow-hidden">
+                  <div
+                    className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                    style={{ backgroundImage: `url(${IMG.towers})` }}
+                  ></div>
+                  <div className="absolute bottom-3 left-3 bg-inverse-surface/90 text-white font-label-sm text-label-sm px-2 py-1 uppercase">
+                    CONTRACT VALUE: ETB 2,093,916.93
+                  </div>
+                </div>
+                <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
+                  <div className="flex flex-col gap-3">
+                    <div className="flex flex-wrap gap-1.5">
+                      <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                        PUBLIC HOUSING
+                      </span>
+                      <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                        G+4 CONCRETE FRAME
+                      </span>
+                      <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                        HCB MASONRY
+                      </span>
+                    </div>
+                    <h3 className="font-headline-sm text-lg text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
+                      Bole Arabissa G+4 Condominium Block
+                    </h3>
+                    <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-3">
+                      Multi-family residential block delivered under Addis Ababa
+                      public housing program. Complete reinforced concrete
+                      skeletal structure, HCB exterior masonry, and terrazzo
+                      staircases.
+                    </p>
+                  </div>
+                  <div className="pt-2 flex items-center justify-between font-label-sm text-label-sm uppercase text-primary font-bold border-t border-outline-variant/20">
+                    <span>View Project Specsheet</span>
+                    <span className="material-symbols-outlined text-[16px]">
+                      arrow_outward
                     </span>
                   </div>
-                  <h3 className="font-headline-sm text-lg text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
-                    Bole Arabissa G+4 Condominium Block
-                  </h3>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-3">
-                    Multi-family residential block delivered under Addis Ababa public housing program. Complete reinforced concrete skeletal structure, HCB exterior masonry, and terrazzo staircases.
-                  </p>
                 </div>
-                <div className="pt-2 flex items-center justify-between font-label-sm text-label-sm uppercase text-primary font-bold border-t border-outline-variant/20">
-                  <span>View Project Specsheet</span>
-                  <span className="material-symbols-outlined text-[16px]">
-                    arrow_outward
-                  </span>
-                </div>
-              </div>
-            </Link>
+              </Link>
+            </StaggerItem>
 
             {/* St. Peter's Specialized Hospital X-Ray Room */}
-            <Link
-              href="/work?project=YEB-WP-005"
-              className="bg-surface flex flex-col overflow-hidden group border border-outline-variant/40 hover:border-primary transition-colors"
-            >
-              <div className="bg-surface-container-high px-5 py-3 flex items-center justify-between font-label-sm text-[11px] uppercase text-on-surface-variant border-b border-outline-variant/30">
-                <span className="font-bold text-primary flex items-center gap-1.5">
-                  <span className="material-symbols-outlined text-[14px]">
-                    verified
+            <StaggerItem className="flex flex-col h-full">
+              <Link
+                href="/work?project=YEB-WP-005"
+                className="bg-surface flex flex-col overflow-hidden group border border-outline-variant/40 hover:border-primary transition-colors flex-1"
+              >
+                <div className="bg-surface-container-high px-5 py-3 flex items-center justify-between font-label-sm text-[11px] uppercase text-on-surface-variant border-b border-outline-variant/30">
+                  <span className="font-bold text-primary flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-[14px]">
+                      verified
+                    </span>
+                    RECORD #05 // ST. PETER HOSPITAL
                   </span>
-                  RECORD #05 // ST. PETER HOSPITAL
-                </span>
-                <span>ENTOTO ROAD · ADDIS</span>
-              </div>
-              <div className="relative h-64 bg-surface-container overflow-hidden">
-                <div
-                  className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                  style={{ backgroundImage: `url(${IMG.renovation})` }}
-                ></div>
-                <div className="absolute bottom-3 left-3 bg-inverse-surface/90 text-white font-label-sm text-label-sm px-2 py-1 uppercase">
-                  CONTRACT VALUE: ETB 886,096.97
+                  <span>ENTOTO ROAD · ADDIS</span>
                 </div>
-              </div>
-              <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
-                <div className="flex flex-col gap-3">
-                  <div className="flex flex-wrap gap-1.5">
-                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
-                      RADIATION SHIELDING
-                    </span>
-                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
-                      BARYTE PLASTER
-                    </span>
-                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
-                      LEAD-LINED DOORS
+                <div className="relative h-64 bg-surface-container overflow-hidden">
+                  <div
+                    className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                    style={{ backgroundImage: `url(${IMG.renovation})` }}
+                  ></div>
+                  <div className="absolute bottom-3 left-3 bg-inverse-surface/90 text-white font-label-sm text-label-sm px-2 py-1 uppercase">
+                    CONTRACT VALUE: ETB 886,096.97
+                  </div>
+                </div>
+                <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
+                  <div className="flex flex-col gap-3">
+                    <div className="flex flex-wrap gap-1.5">
+                      <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                        RADIATION SHIELDING
+                      </span>
+                      <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                        BARYTE PLASTER
+                      </span>
+                      <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                        LEAD-LINED DOORS
+                      </span>
+                    </div>
+                    <h3 className="font-headline-sm text-lg text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
+                      X-Ray Suite Radiation Shielding
+                    </h3>
+                    <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-3">
+                      High-precision engineering and architectural shielding for
+                      diagnostic X-ray facilities. 2.0mm Pb lead-sheet
+                      shielding, baryte radiation-attenuating plaster, and
+                      isolated circuits.
+                    </p>
+                  </div>
+                  <div className="pt-2 flex items-center justify-between font-label-sm text-label-sm uppercase text-primary font-bold border-t border-outline-variant/20">
+                    <span>View Project Specsheet</span>
+                    <span className="material-symbols-outlined text-[16px]">
+                      arrow_outward
                     </span>
                   </div>
-                  <h3 className="font-headline-sm text-lg text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
-                    X-Ray Suite Radiation Shielding
-                  </h3>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-3">
-                    High-precision engineering and architectural shielding for diagnostic X-ray facilities. 2.0mm Pb lead-sheet shielding, baryte radiation-attenuating plaster, and isolated circuits.
-                  </p>
                 </div>
-                <div className="pt-2 flex items-center justify-between font-label-sm text-label-sm uppercase text-primary font-bold border-t border-outline-variant/20">
-                  <span>View Project Specsheet</span>
-                  <span className="material-symbols-outlined text-[16px]">
-                    arrow_outward
-                  </span>
-                </div>
-              </div>
-            </Link>
+              </Link>
+            </StaggerItem>
 
             {/* Chole TVET College Campus Expansion */}
-            <Link
-              href="/work?project=YEB-WP-015"
-              className="bg-surface flex flex-col overflow-hidden group border border-outline-variant/40 hover:border-primary transition-colors"
-            >
-              <div className="bg-surface-container-high px-5 py-3 flex items-center justify-between font-label-sm text-[11px] uppercase text-on-surface-variant border-b border-outline-variant/30">
-                <span className="font-bold text-primary flex items-center gap-1.5">
-                  <span className="material-symbols-outlined text-[14px]">
-                    verified
+            <StaggerItem className="flex flex-col h-full">
+              <Link
+                href="/work?project=YEB-WP-015"
+                className="bg-surface flex flex-col overflow-hidden group border border-outline-variant/40 hover:border-primary transition-colors flex-1"
+              >
+                <div className="bg-surface-container-high px-5 py-3 flex items-center justify-between font-label-sm text-[11px] uppercase text-on-surface-variant border-b border-outline-variant/30">
+                  <span className="font-bold text-primary flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-[14px]">
+                      verified
+                    </span>
+                    RECORD #15 // OTVETB
                   </span>
-                  RECORD #15 // OTVETB
-                </span>
-                <span>CHOLE · ARSI ZONE</span>
-              </div>
-              <div className="relative h-64 bg-surface-container overflow-hidden">
-                <div
-                  className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                  style={{ backgroundImage: `url(${IMG.university})` }}
-                ></div>
-                <div className="absolute bottom-3 left-3 bg-inverse-surface/90 text-white font-label-sm text-label-sm px-2 py-1 uppercase">
-                  CONTRACT VALUE: ETB 9,645,940.10
+                  <span>CHOLE · ARSI ZONE</span>
                 </div>
-              </div>
-              <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
-                <div className="flex flex-col gap-3">
-                  <div className="flex flex-wrap gap-1.5">
-                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
-                      VOCATIONAL CAMPUS
-                    </span>
-                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
-                      WORKSHOPS &amp; LABS
-                    </span>
-                    <span className="bg-primary/10 text-primary px-2 py-0.5 font-label-sm text-[10px] uppercase font-semibold">
-                      TURNKEY GC
+                <div className="relative h-64 bg-surface-container overflow-hidden">
+                  <div
+                    className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                    style={{ backgroundImage: `url(${IMG.university})` }}
+                  ></div>
+                  <div className="absolute bottom-3 left-3 bg-inverse-surface/90 text-white font-label-sm text-label-sm px-2 py-1 uppercase">
+                    CONTRACT VALUE: ETB 9,645,940.10
+                  </div>
+                </div>
+                <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
+                  <div className="flex flex-col gap-3">
+                    <div className="flex flex-wrap gap-1.5">
+                      <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                        VOCATIONAL CAMPUS
+                      </span>
+                      <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                        WORKSHOPS &amp; LABS
+                      </span>
+                      <span className="bg-primary/10 text-primary px-2 py-0.5 font-label-sm text-[10px] uppercase font-semibold">
+                        TURNKEY GC
+                      </span>
+                    </div>
+                    <h3 className="font-headline-sm text-lg text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
+                      Chole TVET College Campus Expansion
+                    </h3>
+                    <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-3">
+                      Comprehensive campus expansion delivering dedicated
+                      vocational training workshops, instructional classrooms,
+                      reinforced concrete frame, and integrated sanitary
+                      systems.
+                    </p>
+                  </div>
+                  <div className="pt-2 flex items-center justify-between font-label-sm text-label-sm uppercase text-primary font-bold border-t border-outline-variant/20">
+                    <span>View Project Specsheet</span>
+                    <span className="material-symbols-outlined text-[16px]">
+                      arrow_outward
                     </span>
                   </div>
-                  <h3 className="font-headline-sm text-lg text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
-                    Chole TVET College Campus Expansion
-                  </h3>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-3">
-                    Comprehensive campus expansion delivering dedicated vocational training workshops, instructional classrooms, reinforced concrete frame, and integrated sanitary systems.
-                  </p>
                 </div>
-                <div className="pt-2 flex items-center justify-between font-label-sm text-label-sm uppercase text-primary font-bold border-t border-outline-variant/20">
-                  <span>View Project Specsheet</span>
-                  <span className="material-symbols-outlined text-[16px]">
-                    arrow_outward
-                  </span>
-                </div>
-              </div>
-            </Link>
+              </Link>
+            </StaggerItem>
 
             {/* ALERT Hospital MDR-TB Isolation Center */}
-            <Link
-              href="/work?project=YEB-WP-008"
-              className="bg-surface flex flex-col overflow-hidden group border border-outline-variant/40 hover:border-primary transition-colors"
-            >
-              <div className="bg-surface-container-high px-5 py-3 flex items-center justify-between font-label-sm text-[11px] uppercase text-on-surface-variant border-b border-outline-variant/30">
-                <span className="font-bold text-primary flex items-center gap-1.5">
-                  <span className="material-symbols-outlined text-[14px]">
-                    verified
+            <StaggerItem className="flex flex-col h-full">
+              <Link
+                href="/work?project=YEB-WP-008"
+                className="bg-surface flex flex-col overflow-hidden group border border-outline-variant/40 hover:border-primary transition-colors flex-1"
+              >
+                <div className="bg-surface-container-high px-5 py-3 flex items-center justify-between font-label-sm text-[11px] uppercase text-on-surface-variant border-b border-outline-variant/30">
+                  <span className="font-bold text-primary flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-[14px]">
+                      verified
+                    </span>
+                    RECORD #08 // ALERT HOSPITAL
                   </span>
-                  RECORD #08 // ALERT HOSPITAL
-                </span>
-                <span>ZENEBEWORK · ADDIS</span>
-              </div>
-              <div className="relative h-64 bg-surface-container overflow-hidden">
-                <div
-                  className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                  style={{ backgroundImage: `url(${IMG.cleanroom})` }}
-                ></div>
-                <div className="absolute bottom-3 left-3 bg-inverse-surface/90 text-white font-label-sm text-label-sm px-2 py-1 uppercase">
-                  CONTRACT VALUE: ETB 6,958,545.53
+                  <span>ZENEBEWORK · ADDIS</span>
                 </div>
-              </div>
-              <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
-                <div className="flex flex-col gap-3">
-                  <div className="flex flex-wrap gap-1.5">
-                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
-                      ISOLATION CLINIC
-                    </span>
-                    <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
-                      ANTI-MICROBIAL
-                    </span>
-                    <span className="bg-primary/10 text-primary px-2 py-0.5 font-label-sm text-[10px] uppercase font-semibold">
-                      HEALTHCARE MEP
+                <div className="relative h-64 bg-surface-container overflow-hidden">
+                  <div
+                    className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                    style={{ backgroundImage: `url(${IMG.cleanroom})` }}
+                  ></div>
+                  <div className="absolute bottom-3 left-3 bg-inverse-surface/90 text-white font-label-sm text-label-sm px-2 py-1 uppercase">
+                    CONTRACT VALUE: ETB 6,958,545.53
+                  </div>
+                </div>
+                <div className="p-5 flex flex-col gap-3 flex-1 justify-between">
+                  <div className="flex flex-col gap-3">
+                    <div className="flex flex-wrap gap-1.5">
+                      <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                        ISOLATION CLINIC
+                      </span>
+                      <span className="bg-surface-container px-2 py-0.5 font-label-sm text-[10px] text-on-surface uppercase font-medium">
+                        ANTI-MICROBIAL
+                      </span>
+                      <span className="bg-primary/10 text-primary px-2 py-0.5 font-label-sm text-[10px] uppercase font-semibold">
+                        HEALTHCARE MEP
+                      </span>
+                    </div>
+                    <h3 className="font-headline-sm text-lg text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
+                      ALERT Hospital MDR-TB Isolation Center
+                    </h3>
+                    <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-3">
+                      Turnkey construction of multi-drug resistant tuberculosis
+                      specialized clinical wing. Non-porous antimicrobial floor
+                      finishes, medical oxygen trunk lines, and patient
+                      isolation bays.
+                    </p>
+                  </div>
+                  <div className="pt-2 flex items-center justify-between font-label-sm text-label-sm uppercase text-primary font-bold border-t border-outline-variant/20">
+                    <span>View Project Specsheet</span>
+                    <span className="material-symbols-outlined text-[16px]">
+                      arrow_outward
                     </span>
                   </div>
-                  <h3 className="font-headline-sm text-lg text-on-surface uppercase group-hover:text-primary transition-colors font-bold">
-                    ALERT Hospital MDR-TB Isolation Center
-                  </h3>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed line-clamp-3">
-                    Turnkey construction of multi-drug resistant tuberculosis specialized clinical wing. Non-porous antimicrobial floor finishes, medical oxygen trunk lines, and patient isolation bays.
-                  </p>
                 </div>
-                <div className="pt-2 flex items-center justify-between font-label-sm text-label-sm uppercase text-primary font-bold border-t border-outline-variant/20">
-                  <span>View Project Specsheet</span>
-                  <span className="material-symbols-outlined text-[16px]">
-                    arrow_outward
-                  </span>
-                </div>
-              </div>
-            </Link>
-          </div>
+              </Link>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* Sectors Section */}
       <section className="w-full bg-surface py-20 px-6 lg:px-12 border-b border-outline-variant/30">
         <div className="max-w-7xl mx-auto flex flex-col gap-12">
-          <div className="flex flex-col gap-2">
+          <FadeUpView className="flex flex-col gap-2">
             <div className="flex items-center gap-2 font-label-sm text-label-sm text-primary tracking-widest uppercase">
               <span className="w-2 h-2 bg-primary"></span>
               <span>SEC_04 // OPERATIONAL SECTORS</span>
@@ -790,10 +885,10 @@ export default function HomePage() {
               regulatory codes, seismic conditions, and specialized material
               supply chains.
             </p>
-          </div>
+          </FadeUpView>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-surface-container-low flex flex-col justify-between p-6 border border-outline-variant/30">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <StaggerItem className="bg-surface-container-low flex flex-col justify-between p-6 border border-outline-variant/30">
               <div className="flex flex-col gap-4">
                 <div className="flex items-center justify-between">
                   <span className="font-label-sm text-label-sm text-primary font-bold">
@@ -817,9 +912,9 @@ export default function HomePage() {
                 <span>• Acoustic Partitioning</span>
                 <span>• Imported Sanitary Ware</span>
               </div>
-            </div>
+            </StaggerItem>
 
-            <div className="bg-surface-container-low flex flex-col justify-between p-6 border border-outline-variant/30">
+            <StaggerItem className="bg-surface-container-low flex flex-col justify-between p-6 border border-outline-variant/30">
               <div className="flex flex-col gap-4">
                 <div className="flex items-center justify-between">
                   <span className="font-label-sm text-label-sm text-primary font-bold">
@@ -843,9 +938,9 @@ export default function HomePage() {
                 <span>• Facade Cladding Systems</span>
                 <span>• Backup Power Systems</span>
               </div>
-            </div>
+            </StaggerItem>
 
-            <div className="bg-surface-container-low flex flex-col justify-between p-6 border border-outline-variant/30">
+            <StaggerItem className="bg-surface-container-low flex flex-col justify-between p-6 border border-outline-variant/30">
               <div className="flex flex-col gap-4">
                 <div className="flex items-center justify-between">
                   <span className="font-label-sm text-label-sm text-primary font-bold">
@@ -869,9 +964,9 @@ export default function HomePage() {
                 <span>• Radiation Enclosures</span>
                 <span>• Heavy Redundant Power</span>
               </div>
-            </div>
+            </StaggerItem>
 
-            <div className="bg-surface-container-low flex flex-col justify-between p-6 border border-outline-variant/30">
+            <StaggerItem className="bg-surface-container-low flex flex-col justify-between p-6 border border-outline-variant/30">
               <div className="flex flex-col gap-4">
                 <div className="flex items-center justify-between">
                   <span className="font-label-sm text-label-sm text-primary font-bold">
@@ -894,8 +989,8 @@ export default function HomePage() {
                 <span>• Commercial Joinery</span>
                 <span>• MEP Subcontracting</span>
               </div>
-            </div>
-          </div>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 
@@ -906,7 +1001,10 @@ export default function HomePage() {
       >
         <div className="max-w-7xl mx-auto flex flex-col gap-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-8 flex flex-col gap-4">
+            <SlideInView
+              direction="left"
+              className="lg:col-span-8 flex flex-col gap-4"
+            >
               <div className="flex items-center gap-2 font-label-sm text-label-sm text-primary-fixed tracking-widest uppercase">
                 <span className="w-2 h-2 bg-primary"></span>
                 <span>SPECIALIZED TRADE SUBCONTRACTING</span>
@@ -919,8 +1017,11 @@ export default function HomePage() {
                 trade packages with the exact same engineering precision,
                 tooling, and quality assurance we apply to complete structures.
               </p>
-            </div>
-            <div className="lg:col-span-4 flex lg:justify-end">
+            </SlideInView>
+            <SlideInView
+              direction="right"
+              className="lg:col-span-4 flex lg:justify-end"
+            >
               <Link
                 className="inline-flex items-center justify-center gap-space-sm bg-primary hover:bg-primary-container text-white font-label-lg text-label-lg uppercase px-space-lg py-space-md transition-colors"
                 href="/start-a-project"
@@ -930,11 +1031,11 @@ export default function HomePage() {
                   arrow_forward
                 </span>
               </Link>
-            </div>
+            </SlideInView>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 pt-4">
-            <div className="bg-surface-container/10 p-5 flex flex-col gap-3 border border-white/10">
+          <StaggerContainer className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 pt-4">
+            <StaggerItem className="bg-surface-container/10 p-5 flex flex-col gap-3 border border-white/10">
               <span className="material-symbols-outlined text-primary-fixed text-[28px]">
                 window
               </span>
@@ -945,8 +1046,8 @@ export default function HomePage() {
                 Curtain walls, thermal break profiles, spider glass, sky
                 lanterns.
               </p>
-            </div>
-            <div className="bg-surface-container/10 p-5 flex flex-col gap-3 border border-white/10">
+            </StaggerItem>
+            <StaggerItem className="bg-surface-container/10 p-5 flex flex-col gap-3 border border-white/10">
               <span className="material-symbols-outlined text-primary-fixed text-[28px]">
                 carpenter
               </span>
@@ -957,8 +1058,8 @@ export default function HomePage() {
                 Hardwood fire doors, cabinetry, acoustic panels, reception
                 desks.
               </p>
-            </div>
-            <div className="bg-surface-container/10 p-5 flex flex-col gap-3 border border-white/10">
+            </StaggerItem>
+            <StaggerItem className="bg-surface-container/10 p-5 flex flex-col gap-3 border border-white/10">
               <span className="material-symbols-outlined text-primary-fixed text-[28px]">
                 bolt
               </span>
@@ -968,8 +1069,8 @@ export default function HomePage() {
               <p className="font-body-sm text-body-sm text-surface-container-highest">
                 Transformers, MV/LV power, sanitary piping, HVAC ventilation.
               </p>
-            </div>
-            <div className="bg-surface-container/10 p-5 flex flex-col gap-3 border border-white/10">
+            </StaggerItem>
+            <StaggerItem className="bg-surface-container/10 p-5 flex flex-col gap-3 border border-white/10">
               <span className="material-symbols-outlined text-primary-fixed text-[28px]">
                 layers
               </span>
@@ -979,8 +1080,8 @@ export default function HomePage() {
               <p className="font-body-sm text-body-sm text-surface-container-highest">
                 Drywall demising walls, cove lighting troughs, acoustic baffles.
               </p>
-            </div>
-            <div className="bg-surface-container/10 p-5 flex flex-col gap-3 border border-white/10">
+            </StaggerItem>
+            <StaggerItem className="bg-surface-container/10 p-5 flex flex-col gap-3 border border-white/10">
               <span className="material-symbols-outlined text-primary-fixed text-[28px]">
                 brush
               </span>
@@ -990,8 +1091,8 @@ export default function HomePage() {
               <p className="font-body-sm text-body-sm text-surface-container-highest">
                 Corporate, banking, and commercial tenant interior overhauls.
               </p>
-            </div>
-            <div className="bg-surface-container/10 p-5 flex flex-col gap-3 border border-white/10">
+            </StaggerItem>
+            <StaggerItem className="bg-surface-container/10 p-5 flex flex-col gap-3 border border-white/10">
               <span className="material-symbols-outlined text-primary-fixed text-[28px]">
                 construction
               </span>
@@ -1002,15 +1103,15 @@ export default function HomePage() {
                 Structural carbon-wrap retrofit, beam enlargement, facade
                 updating.
               </p>
-            </div>
-          </div>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* Case Study Spotlight */}
       <section className="w-full bg-surface-container py-20 px-6 lg:px-12 border-b border-outline-variant/30">
         <div className="max-w-7xl mx-auto flex flex-col gap-12">
-          <div className="flex flex-col gap-2">
+          <FadeUpView className="flex flex-col gap-2">
             <div className="flex items-center gap-2 font-label-sm text-label-sm text-primary tracking-widest uppercase">
               <span className="w-2 h-2 bg-primary"></span>
               <span>SEC_05 // CASE STUDY DOSSIER</span>
@@ -1018,11 +1119,14 @@ export default function HomePage() {
             <h2 className="font-headline-lg text-headline-lg text-on-surface uppercase tracking-tight">
               Project 008 Spotlight - Clinical Healthcare Center
             </h2>
-          </div>
+          </FadeUpView>
 
           <div className="bg-surface p-8 lg:p-12 border border-outline-variant/40">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-              <div className="lg:col-span-7 flex flex-col gap-8">
+              <SlideInView
+                direction="left"
+                className="lg:col-span-7 flex flex-col gap-8"
+              >
                 <div className="flex flex-col gap-3">
                   <span className="font-label-md text-label-md text-primary uppercase">
                     [ PROBLEM ARCHITECTURE ]
@@ -1084,9 +1188,12 @@ export default function HomePage() {
                     </p>
                   </div>
                 </div>
-              </div>
+              </SlideInView>
 
-              <div className="lg:col-span-5 bg-surface-container p-6 flex flex-col justify-between border border-outline-variant/40">
+              <SlideInView
+                direction="right"
+                className="lg:col-span-5 bg-surface-container p-6 flex flex-col justify-between border border-outline-variant/40"
+              >
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center justify-between pb-3 border-b border-outline-variant/40">
                     <span className="font-label-md text-label-md font-bold uppercase text-on-surface">
@@ -1158,7 +1265,7 @@ export default function HomePage() {
                     </span>
                   </div>
                 </div>
-              </div>
+              </SlideInView>
             </div>
           </div>
         </div>
@@ -1167,7 +1274,7 @@ export default function HomePage() {
       {/* Why Choose Yebis */}
       <section className="w-full bg-surface py-20 px-6 lg:px-12 border-b border-outline-variant/30">
         <div className="max-w-7xl mx-auto flex flex-col gap-12">
-          <div className="flex flex-col gap-2">
+          <FadeUpView className="flex flex-col gap-2">
             <div className="flex items-center gap-2 font-label-sm text-label-sm text-primary tracking-widest uppercase">
               <span className="w-2 h-2 bg-primary"></span>
               <span>SEC_06 // INSTITUTIONAL ASSURANCE</span>
@@ -1175,10 +1282,10 @@ export default function HomePage() {
             <h2 className="font-headline-lg text-headline-lg text-on-surface uppercase tracking-tight">
               Why Sovereign Clients &amp; Developers Choose Yebis
             </h2>
-          </div>
+          </FadeUpView>
 
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-            <div className="bg-surface-container-low p-6 flex flex-col gap-4 border border-outline-variant/30">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-5 gap-6">
+            <StaggerItem className="bg-surface-container-low p-6 flex flex-col gap-4 border border-outline-variant/30">
               <span className="font-label-md text-label-md text-primary font-bold">
                 01
               </span>
@@ -1190,8 +1297,8 @@ export default function HomePage() {
                 One single contract entity takes legal and operational
                 responsibility.
               </p>
-            </div>
-            <div className="bg-surface-container-low p-6 flex flex-col gap-4 border border-outline-variant/30">
+            </StaggerItem>
+            <StaggerItem className="bg-surface-container-low p-6 flex flex-col gap-4 border border-outline-variant/30">
               <span className="font-label-md text-label-md text-primary font-bold">
                 02
               </span>
@@ -1202,8 +1309,8 @@ export default function HomePage() {
                 We maintain our own salaried master carpenters, MEP certified
                 engineers, and concrete specialists, eliminating broker markups.
               </p>
-            </div>
-            <div className="bg-surface-container-low p-6 flex flex-col gap-4 border border-outline-variant/30">
+            </StaggerItem>
+            <StaggerItem className="bg-surface-container-low p-6 flex flex-col gap-4 border border-outline-variant/30">
               <span className="font-label-md text-label-md text-primary font-bold">
                 03
               </span>
@@ -1215,8 +1322,8 @@ export default function HomePage() {
                 passing third-party soil testing and structural stability
                 checks.
               </p>
-            </div>
-            <div className="bg-surface-container-low p-6 flex flex-col gap-4 border border-outline-variant/30">
+            </StaggerItem>
+            <StaggerItem className="bg-surface-container-low p-6 flex flex-col gap-4 border border-outline-variant/30">
               <span className="font-label-md text-label-md text-primary font-bold">
                 04
               </span>
@@ -1228,8 +1335,8 @@ export default function HomePage() {
                 forms, tied to verifiable milestone stages and third-party
                 engineer signoffs.
               </p>
-            </div>
-            <div className="bg-surface-container-low p-6 flex flex-col gap-4 border border-outline-variant/30">
+            </StaggerItem>
+            <StaggerItem className="bg-surface-container-low p-6 flex flex-col gap-4 border border-outline-variant/30">
               <span className="font-label-md text-label-md text-primary font-bold">
                 05
               </span>
@@ -1241,15 +1348,15 @@ export default function HomePage() {
                 volcanic red-clay challenges, municipal permits, and regional
                 port logistics.
               </p>
-            </div>
-          </div>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 
       {/* Field Testimonials */}
       <section className="w-full bg-surface-container-low py-20 px-6 lg:px-12 border-b border-outline-variant/30">
         <div className="max-w-7xl mx-auto flex flex-col gap-12">
-          <div className="flex flex-col gap-2">
+          <FadeUpView className="flex flex-col gap-2">
             <div className="flex items-center gap-2 font-label-sm text-label-sm text-primary tracking-widest uppercase">
               <span className="w-2 h-2 bg-primary"></span>
               <span>SEC_07 // CLIENT ATTESTATIONS</span>
@@ -1257,10 +1364,10 @@ export default function HomePage() {
             <h2 className="font-headline-lg text-headline-lg text-on-surface uppercase tracking-tight">
               Field Evaluations
             </h2>
-          </div>
+          </FadeUpView>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-surface p-8 flex flex-col justify-between gap-6 border border-outline-variant/40">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <StaggerItem className="bg-surface p-8 flex flex-col justify-between gap-6 border border-outline-variant/40">
               <p className="font-body-md text-body-md text-on-surface italic leading-relaxed">
                 &ldquo;Yebis delivered our G+8 commercial building in Kazanchis
                 with a level of MEP synchronization I have rarely observed in
@@ -1278,9 +1385,9 @@ export default function HomePage() {
                   COMMERCIAL CONTRACT // KAZANCHIS
                 </span>
               </div>
-            </div>
+            </StaggerItem>
 
-            <div className="bg-surface p-8 flex flex-col justify-between gap-6 border border-outline-variant/40">
+            <StaggerItem className="bg-surface p-8 flex flex-col justify-between gap-6 border border-outline-variant/40">
               <p className="font-body-md text-body-md text-on-surface italic leading-relaxed">
                 &ldquo;Building a medical facility requires strict adherence to
                 international cleanroom specs. Yebis handled the medical gas
@@ -1298,9 +1405,9 @@ export default function HomePage() {
                   HEALTHCARE CONTRACT // ADDIS ABABA
                 </span>
               </div>
-            </div>
+            </StaggerItem>
 
-            <div className="bg-surface p-8 flex flex-col justify-between gap-6 border border-outline-variant/40">
+            <StaggerItem className="bg-surface p-8 flex flex-col justify-between gap-6 border border-outline-variant/40">
               <p className="font-body-md text-body-md text-on-surface italic leading-relaxed">
                 &ldquo;For our family residence in Bole, we initially looked at
                 separate finishing contractors. Bringing Yebis in for the entire
@@ -1318,8 +1425,8 @@ export default function HomePage() {
                   TURNKEY RESIDENTIAL // BOLE
                 </span>
               </div>
-            </div>
-          </div>
+            </StaggerItem>
+          </StaggerContainer>
         </div>
       </section>
 
@@ -1327,7 +1434,10 @@ export default function HomePage() {
       <section className="w-full bg-surface py-20 px-6 lg:px-12" id="intake">
         <div className="max-w-7xl mx-auto">
           <div className="bg-inverse-surface text-on-primary p-8 lg:p-16 flex flex-col lg:flex-row gap-12 justify-between border border-outline-variant/30">
-            <div className="flex flex-col gap-6 max-w-xl">
+            <SlideInView
+              direction="left"
+              className="flex flex-col gap-6 max-w-xl"
+            >
               <div className="flex items-center gap-2 font-label-sm text-label-sm text-primary-fixed tracking-widest uppercase">
                 <span className="w-2 h-2 bg-primary"></span>
                 <span>INTAKE // CONSULTATION SPECIFICATION</span>
@@ -1354,19 +1464,30 @@ export default function HomePage() {
                     <span className="material-symbols-outlined text-primary text-[20px]">
                       call
                     </span>
-                    <span className="font-semibold text-white">DIRECT HOTLINES:</span>
+                    <span className="font-semibold text-white">
+                      DIRECT HOTLINES:
+                    </span>
                   </div>
                   <div className="pl-7 flex flex-wrap items-center gap-x-3 gap-y-1 font-label-sm text-label-sm text-surface-variant">
-                    <a href="tel:+251911517784" className="hover:text-primary transition-colors">
+                    <a
+                      href="tel:+251911517784"
+                      className="hover:text-primary transition-colors"
+                    >
                       HQ: +251 91 151 7784
                     </a>
                     <span>•</span>
-                    <a href="tel:+251913879093" className="hover:text-primary transition-colors">
+                    <a
+                      href="tel:+251913879093"
+                      className="hover:text-primary transition-colors"
+                    >
                       Tenders: +251 91 387 9093
                     </a>
                     <span>•</span>
-                    <a href="tel:+251911629279" className="hover:text-primary transition-colors">
-                      Ops: +251 91 162 9279
+                    <a
+                      href="tel:+251911629279"
+                      className="hover:text-primary transition-colors"
+                    >
+                      Ops: +251 91 162 9879
                     </a>
                   </div>
                 </div>
@@ -1377,9 +1498,12 @@ export default function HomePage() {
                   <span>CONTRACTS DESK: inquiries@yebisengineering.pro.et</span>
                 </div>
               </div>
-            </div>
+            </SlideInView>
 
-            <div className="bg-surface text-on-surface p-5 sm:p-8 lg:w-1/2 flex flex-col gap-5 border border-outline-variant/40">
+            <SlideInView
+              direction="right"
+              className="bg-surface text-on-surface p-5 sm:p-8 lg:w-1/2 flex flex-col gap-5 border border-outline-variant/40"
+            >
               <div className="font-label-md text-label-md uppercase text-on-surface-variant tracking-wider pb-2 border-b border-outline-variant/40 flex items-center justify-between">
                 <span>Project Technical Brief</span>
                 <span className="text-primary font-label-sm">
@@ -1387,7 +1511,7 @@ export default function HomePage() {
                 </span>
               </div>
 
-              {submitted ? (
+              {inquiryRef ? (
                 <div className="p-6 bg-surface-container border border-primary flex flex-col gap-3 my-auto text-center">
                   <div className="flex items-center justify-center text-primary">
                     <span className="material-symbols-outlined text-4xl">
@@ -1402,32 +1526,95 @@ export default function HomePage() {
                     Estimator. A structural principal will contact you within 48
                     operational hours.
                   </p>
-                  <span className="font-label-sm text-secondary">
-                    TICKET REF: YEB-ETH-
-                    {Math.floor(1000 + Math.random() * 9000)}
-                  </span>
+                  <div className="bg-surface-container-lowest border border-outline-variant/40 p-3 flex flex-col gap-1">
+                    <span className="font-label-sm text-[10px] text-secondary uppercase">
+                      OFFICIAL REFERENCE TICKET
+                    </span>
+                    <span className="font-mono text-base font-bold text-primary select-all">
+                      {inquiryRef}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setInquiryRef(null);
+                      setInquiryData({
+                        principalName: "",
+                        phone: "",
+                        sector: "Commercial Tower",
+                        location: "",
+                        description: "",
+                      });
+                    }}
+                    className="text-xs uppercase font-label-sm font-semibold text-secondary hover:text-primary transition-colors mt-1 underline cursor-pointer"
+                  >
+                    Submit Another Scope
+                  </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                <form
+                  onSubmit={handleSubmit}
+                  className="flex flex-col gap-4"
+                  noValidate
+                >
+                  {inquiryError && (
+                    <div className="p-2.5 bg-red-500/10 border border-red-500/30 text-red-700 text-xs font-label-sm flex items-center gap-2">
+                      <span className="material-symbols-outlined text-[16px]">
+                        error
+                      </span>
+                      <span>{inquiryError}</span>
+                    </div>
+                  )}
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1">
-                      <label className="font-label-sm text-label-sm uppercase text-on-surface-variant">
-                        Principal Name
+                      <label className="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center justify-between">
+                        <span>Principal Name *</span>
+                        {inquiryErrors.principalName && (
+                          <span className="text-red-600 text-[10px] normal-case">
+                            {inquiryErrors.principalName}
+                          </span>
+                        )}
                       </label>
                       <input
-                        required
-                        className="h-[38px] bg-surface-container-low px-3 text-body-sm font-body-sm text-on-surface outline-none border border-outline-variant/40 focus:border-primary"
+                        value={inquiryData.principalName}
+                        onChange={(e) =>
+                          setInquiryData({
+                            ...inquiryData,
+                            principalName: e.target.value,
+                          })
+                        }
+                        className={`h-[38px] bg-surface-container-low px-3 text-body-sm font-body-sm text-on-surface outline-none border transition-colors ${
+                          inquiryErrors.principalName
+                            ? "border-red-500"
+                            : "border-outline-variant/40 focus:border-primary"
+                        }`}
                         placeholder="e.g. Dawit Mengistu"
                         type="text"
                       />
                     </div>
                     <div className="flex flex-col gap-1">
-                      <label className="font-label-sm text-label-sm uppercase text-on-surface-variant">
-                        Contact Phone
+                      <label className="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center justify-between">
+                        <span>Contact Phone *</span>
+                        {inquiryErrors.phone && (
+                          <span className="text-red-600 text-[10px] normal-case">
+                            {inquiryErrors.phone}
+                          </span>
+                        )}
                       </label>
                       <input
-                        required
-                        className="h-[38px] bg-surface-container-low px-3 text-body-sm font-body-sm text-on-surface outline-none border border-outline-variant/40 focus:border-primary"
+                        value={inquiryData.phone}
+                        onChange={(e) =>
+                          setInquiryData({
+                            ...inquiryData,
+                            phone: e.target.value,
+                          })
+                        }
+                        className={`h-[38px] bg-surface-container-low px-3 text-body-sm font-body-sm text-on-surface outline-none border transition-colors ${
+                          inquiryErrors.phone
+                            ? "border-red-500"
+                            : "border-outline-variant/40 focus:border-primary"
+                        }`}
                         placeholder="+251 9..."
                         type="tel"
                       />
@@ -1446,17 +1633,35 @@ export default function HomePage() {
                           "Residential Compound",
                           "Specialized Subcontract Scope",
                         ]}
-                        defaultValue="Commercial Tower"
+                        defaultValue={inquiryData.sector}
+                        onChange={(val) =>
+                          setInquiryData({ ...inquiryData, sector: val })
+                        }
                         name="sector"
                       />
                     </div>
                     <div className="flex flex-col gap-1">
-                      <label className="font-label-sm text-label-sm uppercase text-on-surface-variant">
-                        Site Location
+                      <label className="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center justify-between">
+                        <span>Site Location *</span>
+                        {inquiryErrors.location && (
+                          <span className="text-red-600 text-[10px] normal-case">
+                            {inquiryErrors.location}
+                          </span>
+                        )}
                       </label>
                       <input
-                        required
-                        className="h-[38px] bg-surface-container-low px-3 text-body-sm font-body-sm text-on-surface outline-none border border-outline-variant/40 focus:border-primary"
+                        value={inquiryData.location}
+                        onChange={(e) =>
+                          setInquiryData({
+                            ...inquiryData,
+                            location: e.target.value,
+                          })
+                        }
+                        className={`h-[38px] bg-surface-container-low px-3 text-body-sm font-body-sm text-on-surface outline-none border transition-colors ${
+                          inquiryErrors.location
+                            ? "border-red-500"
+                            : "border-outline-variant/40 focus:border-primary"
+                        }`}
                         placeholder="e.g. Bole / Kazanchis / Regional"
                         type="text"
                       />
@@ -1464,29 +1669,54 @@ export default function HomePage() {
                   </div>
 
                   <div className="flex flex-col gap-1">
-                    <label className="font-label-sm text-label-sm uppercase text-on-surface-variant">
-                      Project Scope &amp; Target Timeline
+                    <label className="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center justify-between">
+                      <span>Project Scope &amp; Target Timeline *</span>
+                      {inquiryErrors.description && (
+                        <span className="text-red-600 text-[10px] normal-case">
+                          {inquiryErrors.description}
+                        </span>
+                      )}
                     </label>
                     <textarea
-                      required
-                      className="bg-surface-container-low px-3 py-2 text-body-sm font-body-sm text-on-surface outline-none border border-outline-variant/40 focus:border-primary max-h-[220px] resize-y"
+                      value={inquiryData.description}
+                      onChange={(e) =>
+                        setInquiryData({
+                          ...inquiryData,
+                          description: e.target.value,
+                        })
+                      }
+                      className={`bg-surface-container-low px-3 py-2 text-body-sm font-body-sm text-on-surface outline-none border transition-colors max-h-[220px] resize-y ${
+                        inquiryErrors.description
+                          ? "border-red-500"
+                          : "border-outline-variant/40 focus:border-primary"
+                      }`}
                       placeholder="Describe the structural parameters, total built-up area (sqm), or specific finishing / MEP scope required..."
                       rows={3}
                     ></textarea>
                   </div>
 
                   <button
-                    className="w-full bg-inverse-surface hover:bg-primary text-white font-label-lg text-label-lg uppercase py-3 transition-colors duration-150 flex items-center justify-center gap-2 cursor-pointer"
+                    disabled={isInquirySubmitting}
+                    className="w-full bg-inverse-surface hover:bg-primary disabled:opacity-50 text-white font-label-lg text-label-lg uppercase py-3 transition-colors duration-150 flex items-center justify-center gap-2 cursor-pointer"
                     type="submit"
                   >
-                    <span>Submit For Technical Review</span>
-                    <span className="material-symbols-outlined text-[16px]">
-                      send
-                    </span>
+                    {isInquirySubmitting ? (
+                      <>
+                        <span className="inline-block w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                        <span>Transmitting Telemetry...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Submit For Technical Review</span>
+                        <span className="material-symbols-outlined text-[16px]">
+                          send
+                        </span>
+                      </>
+                    )}
                   </button>
                 </form>
               )}
-            </div>
+            </SlideInView>
           </div>
         </div>
       </section>

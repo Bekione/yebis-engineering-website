@@ -1,9 +1,11 @@
+import { Suspense } from "react";
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Inter, JetBrains_Mono, Geist } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import SmoothScroll from "@/components/SmoothScroll";
+import { TopProgressBar } from "@/components/ui/top-progress-bar";
 import { cn } from "@/lib/utils";
 import {
   SITE_URL,
@@ -12,6 +14,7 @@ import {
   SITE_DESCRIPTION,
   OG_IMAGE,
   getOrganizationJsonLd,
+  VERIFICATION,
 } from "@/lib/seo";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
@@ -99,12 +102,22 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/favicon.ico", sizes: "any" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/android-chrome-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/android-chrome-512x512.png", sizes: "512x512", type: "image/png" },
     ],
     apple: [
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
+    shortcut: "/favicon.ico",
+  },
+  verification: {
+    google: VERIFICATION.google || undefined,
+    other: VERIFICATION.bing
+      ? { "msvalidate.01": VERIFICATION.bing }
+      : undefined,
   },
   manifest: "/site.webmanifest",
 };
@@ -155,6 +168,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-stripe-pattern text-on-surface">
+        <Suspense fallback={null}>
+          <TopProgressBar />
+        </Suspense>
         <SmoothScroll>
           <div className="flex flex-col min-h-screen w-full max-w-7xl mx-auto bg-surface border-x border-outline-variant/40 shadow-sm relative">
             <SiteHeader />
