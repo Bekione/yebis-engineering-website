@@ -67,7 +67,7 @@ export function ImageWithFallback({
             </span>
           </div>
           <div className="flex flex-col items-center gap-0.5 max-w-[85%]">
-            <span className="font-label-sm text-[11px] font-bold text-on-surface uppercase tracking-wider truncate w-full">
+            <span className="font-label-sm text-[11px] font-bold text-on-surface uppercase tracking-wider w-full">
               {fallbackTitle || alt || "Yebis Engineering"}
             </span>
             <span className="font-mono text-[9px] text-secondary uppercase tracking-widest">
@@ -77,7 +77,7 @@ export function ImageWithFallback({
         </div>
 
         {/* Technical Datum Line */}
-        <div className="absolute bottom-0 inset-x-0 h-[2px] bg-primary/20" />
+        {/* <div className="absolute bottom-0 inset-x-0 h-[2px] bg-primary/20" /> */}
       </div>
     );
   }
