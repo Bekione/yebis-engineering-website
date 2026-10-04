@@ -79,7 +79,7 @@ function generateInternalNotificationHtml(data: SubmissionPayload): string {
         <td style="padding: 10px 14px; font-weight: 600; color: #475569; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #e2e8f0; width: 35%; background: #f8fafc;">
           ${item.label}
         </td>
-        <td style="padding: 10px 14px; color: #0f172a; font-size: 14px; border-bottom: 1px solid #e2e8f0; font-family: monospace;">
+        <td style="padding: 10px 14px; color: #2b2d2b; font-size: 14px; border-bottom: 1px solid #e2e8f0; font-family: monospace;">
           ${item.value}
         </td>
       </tr>`
@@ -93,11 +93,11 @@ function generateInternalNotificationHtml(data: SubmissionPayload): string {
   <meta charset="utf-8">
   <title>New Submission - Yebis Engineering</title>
 </head>
-<body style="margin: 0; padding: 24px; background-color: #0b1120; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<body style="margin: 0; padding: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width: 640px; margin: 0 auto; background: #ffffff; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.25);">
     <!-- Header -->
     <tr>
-      <td style="background-color: #0f172a; padding: 24px 30px; border-bottom: 3px solid #c48016;">
+      <td style="background-color: #2b2d2b; padding: 24px 30px; border-bottom: 3px solid #c48016;">
         <table width="100%" cellpadding="0" cellspacing="0">
           <tr>
             <td>
@@ -128,7 +128,7 @@ function generateInternalNotificationHtml(data: SubmissionPayload): string {
     <!-- Body Spec Table -->
     <tr>
       <td style="padding: 24px 30px;">
-        <h3 style="margin: 0 0 14px 0; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #0f172a;">
+        <h3 style="margin: 0 0 14px 0; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #2b2d2b;">
           Submission Specifications
         </h3>
         <table width="100%" cellpadding="0" cellspacing="0" style="border: 1px solid #e2e8f0; border-collapse: collapse;">
@@ -140,7 +140,7 @@ function generateInternalNotificationHtml(data: SubmissionPayload): string {
           data.message
             ? `
         <div style="margin-top: 24px;">
-          <h3 style="margin: 0 0 8px 0; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #0f172a;">
+          <h3 style="margin: 0 0 8px 0; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #2b2d2b;">
             Scope Summary / Project Narrative
           </h3>
           <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-left: 4px solid #c48016; padding: 16px; font-size: 14px; line-height: 1.6; color: #1e293b; white-space: pre-wrap;">
@@ -155,7 +155,7 @@ ${data.message}
           data.email
             ? `
         <div style="margin-top: 28px; text-align: center;">
-          <a href="mailto:${data.email}?subject=RE: Yebis Engineering Inquiry [${data.ref}]" style="display: inline-block; background: #0f172a; color: #ffffff; text-decoration: none; padding: 12px 24px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-radius: 2px;">
+          <a href="mailto:${data.email}?subject=RE: Yebis Engineering Inquiry [${data.ref}]" style="display: inline-block; background: #2b2d2b; color: #ffffff; text-decoration: none; padding: 12px 24px; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; border-radius: 2px;">
             Reply to ${data.fullName} (${data.email})
           </a>
         </div>`
@@ -168,7 +168,7 @@ ${data.message}
     <tr>
       <td style="background: #f8fafc; padding: 18px 30px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #64748b; text-align: center; line-height: 1.5;">
         Yebis Engineering Grade 3 General Contractor &bull; Addis Ababa, Ethiopia<br>
-        Direct Hotlines: +251 91 151 7784 / +251 91 123 6075 &bull; yebisengineering.pro.et
+        Direct Hotlines: +251 91 151 7784 / +251 91 387 9093 &bull; yebisengineering.pro.et
       </td>
     </tr>
   </table>
@@ -188,11 +188,11 @@ function generateClientConfirmationHtml(data: SubmissionPayload): string {
   <meta charset="utf-8">
   <title>Receipt Confirmation - Yebis Engineering</title>
 </head>
-<body style="margin: 0; padding: 24px; background-color: #0b1120; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<body style="margin: 0; padding: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width: 640px; margin: 0 auto; background: #ffffff; border-radius: 4px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.25);">
     <!-- Header -->
     <tr>
-      <td style="background-color: #0f172a; padding: 28px 30px; border-bottom: 3px solid #c48016;">
+      <td style="background-color: #2b2d2b; padding: 28px 30px; border-bottom: 3px solid #c48016;">
         <span style="font-size: 11px; letter-spacing: 2px; color: #c48016; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 6px;">
           YEBIS ENGINEERING // GRADE 3 GENERAL CONTRACTOR
         </span>
@@ -220,7 +220,7 @@ function generateClientConfirmationHtml(data: SubmissionPayload): string {
                 <span style="font-size: 11px; font-weight: 700; letter-spacing: 1px; color: #64748b; text-transform: uppercase; display: block;">
                   OFFICIAL TRACKING / DOSSIER CODE
                 </span>
-                <span style="font-size: 20px; font-family: monospace; font-weight: 700; color: #0f172a; letter-spacing: 1px;">
+                <span style="font-size: 20px; font-family: monospace; font-weight: 700; color: #2b2d2b; letter-spacing: 1px;">
                   ${data.ref}
                 </span>
               </td>
@@ -240,7 +240,7 @@ function generateClientConfirmationHtml(data: SubmissionPayload): string {
           </div>
         </div>
 
-        <h3 style="margin: 0 0 8px 0; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; color: #0f172a;">
+        <h3 style="margin: 0 0 8px 0; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; color: #2b2d2b;">
           What Happens Next?
         </h3>
         <ul style="margin: 0 0 24px 0; padding-left: 20px; color: #475569; font-size: 14px; line-height: 1.7;">
@@ -249,7 +249,7 @@ function generateClientConfirmationHtml(data: SubmissionPayload): string {
           <li>If urgent site mobilization or emergency tender consultation is required, please reach our direct hotline below.</li>
         </ul>
 
-        <div style="background: #0f172a; color: #ffffff; padding: 18px; border-radius: 4px; text-align: center;">
+        <div style="background: #2b2d2b; color: #ffffff; padding: 18px; border-radius: 4px; text-align: center;">
           <span style="font-size: 11px; letter-spacing: 1px; color: #c48016; text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 4px;">
             DIRECT ENGINEERING HOTLINE
           </span>
@@ -394,9 +394,11 @@ export async function dispatchInquiryNotification(
   // Always back up locally first
   await recordLocalFallback(data);
 
-  // Trigger Telegram push alert and Webhook in background
-  void sendTelegramNotification(data);
-  void sendWebhookNotification(data);
+  // Await Telegram and Webhook so Vercel doesn't kill the function before they finish
+  await Promise.allSettled([
+    sendTelegramNotification(data),
+    sendWebhookNotification(data),
+  ]);
 
   const resendApiKey = process.env.RESEND_API_KEY;
   const smtpHost = process.env.SMTP_HOST;
