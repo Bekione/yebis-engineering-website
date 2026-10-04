@@ -305,9 +305,16 @@ async function sendTelegramNotification(data: SubmissionPayload): Promise<void> 
       `<b>Client:</b> <b>${escHtml(data.fullName)}</b>`,
       data.organization ? `<b>Org:</b> ${escHtml(data.organization)}` : null,
       data.phone ? (() => {
-        const raw = data.phone!.replace(/\s+/g, "");
-        const intl = raw.startsWith("0") ? `+251${raw.slice(1)}` : raw.startsWith("+") ? raw : `+251${raw}`;
-        return `<b>Phone:</b> <a href="tel:${intl}">${escHtml(data.phone!)}</a>`;
+        const clean = data.phone!.trim().replace(/[^\d+]/g, "");
+        let intl = clean;
+        if (clean.startsWith("0")) {
+          intl = `+251${clean.slice(1)}`;
+        } else if (clean.startsWith("251")) {
+          intl = `+${clean}`;
+        } else if (!clean.startsWith("+")) {
+          intl = `+251${clean}`;
+        }
+        return `<b>Phone:</b> ${intl}`;
       })() : null,
       data.email ? `<b>Email:</b> ${escHtml(data.email)}` : null,
       data.projectType ? `<b>Type:</b> ${escHtml(data.projectType.replace(/_/g, " ").toUpperCase())}` : null,
