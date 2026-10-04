@@ -25,6 +25,7 @@ export const contactFormSchema = z.object({
     .string()
     .trim()
     .min(10, "Scope summary / message must be at least 10 characters"),
+  _hp: z.string().optional().or(z.literal("")),
 });
 
 export type ContactFormData = z.infer<typeof contactFormSchema>;
@@ -65,6 +66,7 @@ export const projectBriefFormSchema = z.object({
     .trim()
     .optional()
     .or(z.literal("")),
+  _hp: z.string().optional().or(z.literal("")),
 });
 
 export type ProjectBriefFormData = z.infer<typeof projectBriefFormSchema>;
@@ -74,6 +76,12 @@ export const quickInquirySchema = z.object({
     .string()
     .trim()
     .min(2, "Principal name is required"),
+  email: z
+    .string()
+    .trim()
+    .email("Please enter a valid email address")
+    .optional()
+    .or(z.literal("")),
   phone: z
     .string()
     .trim()
@@ -89,6 +97,7 @@ export const quickInquirySchema = z.object({
     .string()
     .trim()
     .min(8, "Please provide scope parameters or timeline details"),
+  _hp: z.string().optional().or(z.literal("")),
 });
 
 export type QuickInquiryData = z.infer<typeof quickInquirySchema>;

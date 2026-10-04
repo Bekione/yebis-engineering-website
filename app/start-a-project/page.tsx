@@ -76,11 +76,10 @@ const SCALES = [
 ];
 
 const TIMELINES = [
-  "Immediate (within 30 days)",
-  "Q1 2025 (January–March)",
-  "Q2 2025 (April–June)",
-  "Q3/Q4 2025 (July–December)",
-  "2026 or Later",
+  "Immediate mobilization (within 30 days)",
+  "Next 1–3 Months (Near-term tender)",
+  "Next 3–6 Months (Mid-term planning)",
+  "6–12 Months (Strategic pipeline)",
   "Under Discussion / Flexible",
 ];
 
@@ -96,6 +95,9 @@ export default function StartProjectPage() {
     phone: "",
     description: "",
   });
+  const [honeypot, setHoneypot] = useState("");
+  const [submittedEmail, setSubmittedEmail] = useState("");
+  const [copied, setCopied] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -129,6 +131,7 @@ export default function StartProjectPage() {
       phone: contactData.phone,
       timeline: selectedTimeline,
       description: contactData.description,
+      _hp: honeypot,
     };
 
     const validation = projectBriefFormSchema.safeParse(payload);
@@ -161,9 +164,10 @@ export default function StartProjectPage() {
         return;
       }
 
+      setSubmittedEmail(contactData.email);
       setTrackingCode(data.trackingCode);
       window.scrollTo({ top: 250, behavior: "smooth" });
-    } catch (err) {
+    } catch {
       setServerError(
         "Network error submitting project brief. Please verify connection or call our hotlines.",
       );
@@ -174,6 +178,8 @@ export default function StartProjectPage() {
 
   function handleReset() {
     setTrackingCode(null);
+    setSubmittedEmail("");
+    setCopied(false);
     setSelectedDisciplines([]);
     setContactData({
       fullName: "",
@@ -182,6 +188,7 @@ export default function StartProjectPage() {
       phone: "",
       description: "",
     });
+    setHoneypot("");
     setErrors({});
     setServerError(null);
   }
@@ -285,8 +292,27 @@ export default function StartProjectPage() {
                     LOGGED &amp; VERIFIED
                   </span>
                 </div>
-                <div className="font-mono text-xl font-bold text-on-surface select-all tracking-wider">
-                  {trackingCode}
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-mono text-xl font-bold text-on-surface select-all tracking-wider">
+                    {trackingCode}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (trackingCode) {
+                        navigator.clipboard.writeText(trackingCode);
+                        setCopied(true);
+                        setTimeout(() => setCopied(false), 2500);
+                      }
+                    }}
+                    className="text-xs uppercase font-label-sm font-semibold text-primary hover:text-primary/80 transition-colors inline-flex items-center gap-1 cursor-pointer bg-surface-container px-2.5 py-1 border border-primary/30"
+                    title="Copy RFP Tracking Code"
+                  >
+                    <span className="material-symbols-outlined text-[14px]">
+                      {copied ? "check" : "content_copy"}
+                    </span>
+                    <span>{copied ? "Copied" : "Copy"}</span>
+                  </button>
                 </div>
                 <div className="grid grid-cols-2 gap-2 text-secondary text-[11px] pt-1 border-t border-outline-variant/20">
                   <div>
@@ -323,6 +349,18 @@ export default function StartProjectPage() {
                   </div>
                 </div>
               </div>
+
+              {submittedEmail && (
+                <div className="w-full max-w-lg bg-surface-container-low/80 border border-outline-variant/40 p-3 flex items-start gap-2.5 text-left font-body-sm text-body-sm text-on-surface-variant">
+                  <span className="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">
+                    mark_email_read
+                  </span>
+                  <span>
+                    An official confirmation receipt with your project specs has been dispatched to{" "}
+                    <strong className="text-on-surface">{submittedEmail}</strong>.
+                  </span>
+                </div>
+              )}
 
               <div className="flex flex-wrap items-center justify-center gap-space-sm pt-space-xs">
                 <button
@@ -534,9 +572,23 @@ export default function StartProjectPage() {
                       </div>
                     )}
 
+                    {/* Honeypot field (hidden from genuine users, traps automated spam bots) */}
+                    <div style={{ display: "none" }} aria-hidden="true">
+                      <label htmlFor="company_website_project_hp">Do not fill this field</label>
+                      <input
+                        id="company_website_project_hp"
+                        type="text"
+                        name="_hp"
+                        value={honeypot}
+                        onChange={(e) => setHoneypot(e.target.value)}
+                        tabIndex={-1}
+                        autoComplete="off"
+                      />
+                    </div>
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
                       <div className="flex flex-col gap-space-xs">
-                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex items-center justify-between">
+                        <label htmlFor="brief_fullName" className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex items-center justify-between">
                           <span>Full Name *</span>
                           {errors.fullName && (
                             <span className="text-red-600 text-[11px] normal-case">
@@ -545,7 +597,11 @@ export default function StartProjectPage() {
                           )}
                         </label>
                         <input
+                          id="brief_fullName"
+                          name="fullName"
                           type="text"
+                          autoComplete="name"
+                          required
                           value={contactData.fullName}
                           onChange={(e) =>
                             setContactData({
@@ -562,7 +618,7 @@ export default function StartProjectPage() {
                         />
                       </div>
                       <div className="flex flex-col gap-space-xs">
-                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex items-center justify-between">
+                        <label htmlFor="brief_organization" className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex items-center justify-between">
                           <span>Organization *</span>
                           {errors.organization && (
                             <span className="text-red-600 text-[11px] normal-case">
@@ -571,7 +627,11 @@ export default function StartProjectPage() {
                           )}
                         </label>
                         <input
+                          id="brief_organization"
+                          name="organization"
                           type="text"
+                          autoComplete="organization"
+                          required
                           value={contactData.organization}
                           onChange={(e) =>
                             setContactData({
@@ -590,7 +650,7 @@ export default function StartProjectPage() {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
                       <div className="flex flex-col gap-space-xs">
-                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex items-center justify-between">
+                        <label htmlFor="brief_email" className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex items-center justify-between">
                           <span>Email *</span>
                           {errors.email && (
                             <span className="text-red-600 text-[11px] normal-case">
@@ -599,7 +659,11 @@ export default function StartProjectPage() {
                           )}
                         </label>
                         <input
+                          id="brief_email"
+                          name="email"
                           type="email"
+                          autoComplete="email"
+                          required
                           value={contactData.email}
                           onChange={(e) =>
                             setContactData({
@@ -616,7 +680,7 @@ export default function StartProjectPage() {
                         />
                       </div>
                       <div className="flex flex-col gap-space-xs">
-                        <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex items-center justify-between">
+                        <label htmlFor="brief_phone" className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex items-center justify-between">
                           <span>Phone</span>
                           {errors.phone && (
                             <span className="text-red-600 text-[11px] normal-case">
@@ -625,7 +689,10 @@ export default function StartProjectPage() {
                           )}
                         </label>
                         <input
+                          id="brief_phone"
+                          name="phone"
                           type="tel"
+                          autoComplete="tel"
                           value={contactData.phone}
                           onChange={(e) =>
                             setContactData({

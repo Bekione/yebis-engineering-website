@@ -55,6 +55,9 @@ export default function ContactPage() {
     phone: "",
     message: "",
   });
+  const [honeypot, setHoneypot] = useState("");
+  const [submittedEmail, setSubmittedEmail] = useState("");
+  const [copied, setCopied] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -68,6 +71,7 @@ export default function ContactPage() {
     const payload = {
       category: selectedCategory,
       ...formData,
+      _hp: honeypot,
     };
 
     const validation = contactFormSchema.safeParse(payload);
@@ -99,9 +103,10 @@ export default function ContactPage() {
         return;
       }
 
+      setSubmittedEmail(formData.email);
       setTicketRef(data.ref);
       window.scrollTo({ top: 300, behavior: "smooth" });
-    } catch (err) {
+    } catch {
       setServerError("Network error. Please verify connection and retry, or call our direct hotlines.");
     } finally {
       setIsSubmitting(false);
@@ -110,6 +115,8 @@ export default function ContactPage() {
 
   function handleReset() {
     setTicketRef(null);
+    setSubmittedEmail("");
+    setCopied(false);
     setFormData({
       fullName: "",
       organization: "",
@@ -117,6 +124,7 @@ export default function ContactPage() {
       phone: "",
       message: "",
     });
+    setHoneypot("");
     setErrors({});
     setServerError(null);
   }
@@ -288,23 +296,55 @@ export default function ContactPage() {
                 <p className="font-body-md text-body-md text-on-surface-variant max-w-md">
                   Your inquiry has been routed to our corporate executive office and engineering desk. A designated principal will contact you within 48 operational hours.
                 </p>
-                <div className="bg-surface-container-low border border-outline-variant/50 p-4 w-full max-w-md flex flex-col gap-2 text-left">
+                <div className="bg-surface-container-low border border-outline-variant/50 p-4 w-full max-w-md flex flex-col gap-3 text-left">
                   <div className="flex items-center justify-between text-secondary font-label-sm text-[10px] uppercase border-b border-outline-variant/30 pb-1">
                     <span>OFFICIAL DOSSIER TRACKING CODE</span>
-                    <span className="text-primary font-bold">ACTIVE</span>
+                    <span className="text-primary font-bold">ACTIVE &amp; QUEUED</span>
                   </div>
-                  <div className="font-mono text-lg font-bold text-on-surface select-all tracking-wider">
-                    {ticketRef}
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-mono text-xl font-bold text-on-surface select-all tracking-wider">
+                      {ticketRef}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (ticketRef) {
+                          navigator.clipboard.writeText(ticketRef);
+                          setCopied(true);
+                          setTimeout(() => setCopied(false), 2500);
+                        }
+                      }}
+                      className="text-xs uppercase font-label-sm font-semibold text-primary hover:text-primary/80 transition-colors inline-flex items-center gap-1 cursor-pointer bg-surface-container px-2.5 py-1 border border-primary/30"
+                      title="Copy Tracking Code"
+                    >
+                      <span className="material-symbols-outlined text-[14px]">
+                        {copied ? "check" : "content_copy"}
+                      </span>
+                      <span>{copied ? "Copied" : "Copy"}</span>
+                    </button>
                   </div>
-                  <div className="text-secondary text-[11px] flex items-center justify-between pt-1">
+                  <div className="text-secondary text-[11px] flex items-center justify-between pt-1 border-t border-outline-variant/20">
                     <span>CATEGORY: {selectedCategory.toUpperCase()}</span>
                     <span>TIMESTAMP: {new Date().toLocaleTimeString()} EAT</span>
                   </div>
                 </div>
+
+                {submittedEmail && (
+                  <div className="w-full max-w-md bg-surface-container-low/80 border border-outline-variant/40 p-3 flex items-start gap-2.5 text-left font-body-sm text-body-sm text-on-surface-variant">
+                    <span className="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">
+                      mark_email_read
+                    </span>
+                    <span>
+                      An automated confirmation receipt has been dispatched to{" "}
+                      <strong className="text-on-surface">{submittedEmail}</strong>.
+                    </span>
+                  </div>
+                )}
+
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-surface-container hover:bg-surface-container-high text-on-surface border border-outline-variant font-label-sm text-label-sm uppercase font-semibold transition-colors mt-2"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-surface-container hover:bg-surface-container-high text-on-surface border border-outline-variant font-label-sm text-label-sm uppercase font-semibold transition-colors mt-2 cursor-pointer"
                 >
                   <span>Transmit Another Inquiry</span>
                   <span>↺</span>
@@ -366,17 +406,35 @@ export default function ContactPage() {
                     </div>
                   </div>
 
+                  {/* Honeypot field (hidden from genuine users, traps automated spam bots) */}
+                  <div style={{ display: "none" }} aria-hidden="true">
+                    <label htmlFor="company_website_contact_hp">Do not fill this field</label>
+                    <input
+                      id="company_website_contact_hp"
+                      type="text"
+                      name="_hp"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
+
                   {/* Name Fields */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
                     <div className="flex flex-col gap-space-xs">
-                      <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex flex-col items-start justify-between">
+                      <label htmlFor="contact_fullName" className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex flex-col items-start justify-between">
                         <span>Full Name *</span>
                         {errors.fullName && (
                           <span className="text-red-600 text-[11px] normal-case">{errors.fullName}</span>
                         )}
                       </label>
                       <input
+                        id="contact_fullName"
+                        name="fullName"
                         type="text"
+                        autoComplete="name"
+                        required
                         value={formData.fullName}
                         onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                         className={`bg-surface-container-low border px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none transition-colors ${
@@ -386,14 +444,18 @@ export default function ContactPage() {
                       />
                     </div>
                     <div className="flex flex-col gap-space-xs">
-                      <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex flex-col items-start justify-between">
+                      <label htmlFor="contact_organization" className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex flex-col items-start justify-between">
                         <span>Organization *</span>
                         {errors.organization && (
                           <span className="text-red-600 text-[11px] normal-case">{errors.organization}</span>
                         )}
                       </label>
                       <input
+                        id="contact_organization"
+                        name="organization"
                         type="text"
+                        autoComplete="organization"
+                        required
                         value={formData.organization}
                         onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
                         className={`bg-surface-container-low border px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none transition-colors ${
@@ -407,14 +469,18 @@ export default function ContactPage() {
                   {/* Contact Fields */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
                     <div className="flex flex-col gap-space-xs">
-                      <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex flex-col items-start justify-between">
+                      <label htmlFor="contact_email" className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex flex-col items-start justify-between">
                         <span>Email Address *</span>
                         {errors.email && (
                           <span className="text-red-600 text-[11px] normal-case">{errors.email}</span>
                         )}
                       </label>
                       <input
+                        id="contact_email"
+                        name="email"
                         type="email"
+                        autoComplete="email"
+                        required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className={`bg-surface-container-low border px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none transition-colors ${
@@ -424,14 +490,17 @@ export default function ContactPage() {
                       />
                     </div>
                     <div className="flex flex-col gap-space-xs">
-                      <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex flex-col items-start justify-between">
+                      <label htmlFor="contact_phone" className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex flex-col items-start justify-between">
                         <span>Phone Number</span>
                         {errors.phone && (
                           <span className="text-red-600 text-[11px] normal-case">{errors.phone}</span>
                         )}
                       </label>
                       <input
+                        id="contact_phone"
+                        name="phone"
                         type="tel"
+                        autoComplete="tel"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="bg-surface-container-low border border-outline-variant/40 px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors"
@@ -442,14 +511,17 @@ export default function ContactPage() {
 
                   {/* Message */}
                   <div className="flex flex-col gap-space-xs">
-                    <label className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex flex-col items-start justify-between">
+                    <label htmlFor="contact_message" className="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex flex-col items-start justify-between">
                       <span>Message / Scope Summary *</span>
                       {errors.message && (
                         <span className="text-red-600 text-[11px] normal-case">{errors.message}</span>
                       )}
                     </label>
                     <textarea
+                      id="contact_message"
+                      name="message"
                       rows={5}
+                      required
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className={`bg-surface-container-low border px-space-md py-space-sm font-body-md text-body-md text-on-surface focus:outline-none transition-colors max-h-[220px] resize-y ${

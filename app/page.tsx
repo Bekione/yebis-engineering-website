@@ -20,11 +20,15 @@ import {
 export default function HomePage() {
   const [inquiryData, setInquiryData] = useState({
     principalName: "",
+    email: "",
     phone: "",
     sector: "Commercial Tower",
     location: "",
     description: "",
   });
+  const [honeypot, setHoneypot] = useState("");
+  const [submittedEmail, setSubmittedEmail] = useState("");
+  const [copied, setCopied] = useState(false);
   const [inquiryErrors, setInquiryErrors] = useState<Record<string, string>>(
     {},
   );
@@ -37,7 +41,10 @@ export default function HomePage() {
     setInquiryError(null);
     setInquiryErrors({});
 
-    const validation = quickInquirySchema.safeParse(inquiryData);
+    const validation = quickInquirySchema.safeParse({
+      ...inquiryData,
+      _hp: honeypot,
+    });
     if (!validation.success) {
       const fieldErrors: Record<string, string> = {};
       validation.error.issues.forEach((err) => {
@@ -56,6 +63,7 @@ export default function HomePage() {
         body: JSON.stringify({
           type: "quick_inquiry",
           ...inquiryData,
+          _hp: honeypot,
         }),
       });
       const data = await res.json();
@@ -67,8 +75,9 @@ export default function HomePage() {
         }
         return;
       }
+      setSubmittedEmail(inquiryData.email);
       setInquiryRef(data.ref);
-    } catch (err) {
+    } catch {
       setInquiryError(
         "Network connection error. Please retry or contact our desk directly.",
       );
@@ -1526,20 +1535,57 @@ export default function HomePage() {
                     Estimator. A structural principal will contact you within 48
                     operational hours.
                   </p>
-                  <div className="bg-surface-container-lowest border border-outline-variant/40 p-3 flex flex-col gap-1">
-                    <span className="font-label-sm text-[10px] text-secondary uppercase">
-                      OFFICIAL REFERENCE TICKET
-                    </span>
-                    <span className="font-mono text-base font-bold text-primary select-all">
-                      {inquiryRef}
-                    </span>
+                  <div className="bg-surface-container-lowest border border-outline-variant/40 p-3 flex flex-col gap-2">
+                    <div className="flex items-center justify-between text-secondary font-label-sm text-[10px] uppercase">
+                      <span>OFFICIAL REFERENCE TICKET</span>
+                      <span className="text-primary font-bold">QUEUED</span>
+                    </div>
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="font-mono text-base font-bold text-primary select-all">
+                        {inquiryRef}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (inquiryRef) {
+                            navigator.clipboard.writeText(inquiryRef);
+                            setCopied(true);
+                            setTimeout(() => setCopied(false), 2500);
+                          }
+                        }}
+                        className="text-[11px] uppercase font-label-sm font-semibold text-primary hover:text-primary/80 transition-colors inline-flex items-center gap-1 cursor-pointer bg-surface-container px-2 py-0.5 border border-primary/30"
+                        title="Copy Reference"
+                      >
+                        <span className="material-symbols-outlined text-[13px]">
+                          {copied ? "check" : "content_copy"}
+                        </span>
+                        <span>{copied ? "Copied" : "Copy"}</span>
+                      </button>
+                    </div>
                   </div>
+
+                  {submittedEmail && (
+                    <div className="bg-surface-container-lowest/90 border border-outline-variant/40 p-2.5 flex items-start gap-2 text-left text-xs text-on-surface-variant">
+                      <span className="material-symbols-outlined text-primary text-[16px] shrink-0 mt-0.5">
+                        mark_email_read
+                      </span>
+                      <span>
+                        An automated receipt has been dispatched to{" "}
+                        <strong className="text-on-surface">{submittedEmail}</strong>.
+                      </span>
+                    </div>
+                  )}
+
                   <button
                     type="button"
                     onClick={() => {
                       setInquiryRef(null);
+                      setSubmittedEmail("");
+                      setCopied(false);
+                      setHoneypot("");
                       setInquiryData({
                         principalName: "",
+                        email: "",
                         phone: "",
                         sector: "Commercial Tower",
                         location: "",
@@ -1557,6 +1603,20 @@ export default function HomePage() {
                   className="flex flex-col gap-4"
                   noValidate
                 >
+                  {/* Honeypot field (hidden from genuine users, traps automated spam bots) */}
+                  <div style={{ display: "none" }} aria-hidden="true">
+                    <label htmlFor="company_website_home_hp">Do not fill this field</label>
+                    <input
+                      id="company_website_home_hp"
+                      type="text"
+                      name="_hp"
+                      value={honeypot}
+                      onChange={(e) => setHoneypot(e.target.value)}
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
+                  </div>
+
                   {inquiryError && (
                     <div className="p-2.5 bg-red-500/10 border border-red-500/30 text-red-700 text-xs font-label-sm flex items-center gap-2">
                       <span className="material-symbols-outlined text-[16px]">
@@ -1568,7 +1628,7 @@ export default function HomePage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1">
-                      <label className="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center justify-between">
+                      <label htmlFor="home_principalName" className="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center justify-between">
                         <span>Principal Name *</span>
                         {inquiryErrors.principalName && (
                           <span className="text-red-600 text-[10px] normal-case">
@@ -1577,6 +1637,11 @@ export default function HomePage() {
                         )}
                       </label>
                       <input
+                        id="home_principalName"
+                        name="principalName"
+                        type="text"
+                        autoComplete="name"
+                        required
                         value={inquiryData.principalName}
                         onChange={(e) =>
                           setInquiryData({
@@ -1590,11 +1655,10 @@ export default function HomePage() {
                             : "border-outline-variant/40 focus:border-primary"
                         }`}
                         placeholder="e.g. Dawit Mengistu"
-                        type="text"
                       />
                     </div>
                     <div className="flex flex-col gap-1">
-                      <label className="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center justify-between">
+                      <label htmlFor="home_phone" className="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center justify-between">
                         <span>Contact Phone *</span>
                         {inquiryErrors.phone && (
                           <span className="text-red-600 text-[10px] normal-case">
@@ -1603,6 +1667,11 @@ export default function HomePage() {
                         )}
                       </label>
                       <input
+                        id="home_phone"
+                        name="phone"
+                        type="tel"
+                        autoComplete="tel"
+                        required
                         value={inquiryData.phone}
                         onChange={(e) =>
                           setInquiryData({
@@ -1616,32 +1685,42 @@ export default function HomePage() {
                             : "border-outline-variant/40 focus:border-primary"
                         }`}
                         placeholder="+251 9..."
-                        type="tel"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-1">
-                      <label className="font-label-sm text-label-sm uppercase text-on-surface-variant">
-                        Sector
+                      <label htmlFor="home_email" className="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center justify-between">
+                        <span>Email (For Receipt / Reply)</span>
+                        {inquiryErrors.email && (
+                          <span className="text-red-600 text-[10px] normal-case">
+                            {inquiryErrors.email}
+                          </span>
+                        )}
                       </label>
-                      <CustomSelect
-                        options={[
-                          "Commercial Tower",
-                          "Institutional / Healthcare",
-                          "Residential Compound",
-                          "Specialized Subcontract Scope",
-                        ]}
-                        defaultValue={inquiryData.sector}
-                        onChange={(val) =>
-                          setInquiryData({ ...inquiryData, sector: val })
+                      <input
+                        id="home_email"
+                        name="email"
+                        type="email"
+                        autoComplete="email"
+                        value={inquiryData.email}
+                        onChange={(e) =>
+                          setInquiryData({
+                            ...inquiryData,
+                            email: e.target.value,
+                          })
                         }
-                        name="sector"
+                        className={`h-[38px] bg-surface-container-low px-3 text-body-sm font-body-sm text-on-surface outline-none border transition-colors ${
+                          inquiryErrors.email
+                            ? "border-red-500"
+                            : "border-outline-variant/40 focus:border-primary"
+                        }`}
+                        placeholder="email@domain.com"
                       />
                     </div>
                     <div className="flex flex-col gap-1">
-                      <label className="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center justify-between">
+                      <label htmlFor="home_location" className="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center justify-between">
                         <span>Site Location *</span>
                         {inquiryErrors.location && (
                           <span className="text-red-600 text-[10px] normal-case">
@@ -1650,6 +1729,10 @@ export default function HomePage() {
                         )}
                       </label>
                       <input
+                        id="home_location"
+                        name="location"
+                        type="text"
+                        required
                         value={inquiryData.location}
                         onChange={(e) =>
                           setInquiryData({
@@ -1663,13 +1746,31 @@ export default function HomePage() {
                             : "border-outline-variant/40 focus:border-primary"
                         }`}
                         placeholder="e.g. Bole / Kazanchis / Regional"
-                        type="text"
                       />
                     </div>
                   </div>
 
                   <div className="flex flex-col gap-1">
-                    <label className="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center justify-between">
+                    <label className="font-label-sm text-label-sm uppercase text-on-surface-variant">
+                      Sector
+                    </label>
+                    <CustomSelect
+                      options={[
+                        "Commercial Tower",
+                        "Institutional / Healthcare",
+                        "Residential Compound",
+                        "Specialized Subcontract Scope",
+                      ]}
+                      defaultValue={inquiryData.sector}
+                      onChange={(val) =>
+                        setInquiryData({ ...inquiryData, sector: val })
+                      }
+                      name="sector"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1">
+                    <label htmlFor="home_description" className="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center justify-between">
                       <span>Project Scope &amp; Target Timeline *</span>
                       {inquiryErrors.description && (
                         <span className="text-red-600 text-[10px] normal-case">
@@ -1678,6 +1779,9 @@ export default function HomePage() {
                       )}
                     </label>
                     <textarea
+                      id="home_description"
+                      name="description"
+                      required
                       value={inquiryData.description}
                       onChange={(e) =>
                         setInquiryData({
