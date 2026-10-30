@@ -6,6 +6,8 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import { TopProgressBar } from "@/components/ui/top-progress-bar";
+import { MaintenancePage } from "@/components/maintenance-page";
+import { IS_MAINTENANCE_MODE } from "@/lib/maintenance";
 import { cn } from "@/lib/utils";
 import {
   SITE_URL,
@@ -14,6 +16,7 @@ import {
   SITE_DESCRIPTION,
   OG_IMAGE,
   getOrganizationJsonLd,
+  getMaintenanceJsonLd,
   VERIFICATION,
 } from "@/lib/seo";
 
@@ -163,11 +166,19 @@ export default function RootLayout({
           key="jsonld-organization"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(getOrganizationJsonLd()),
+            __html: JSON.stringify(
+              IS_MAINTENANCE_MODE
+                ? getMaintenanceJsonLd()
+                : getOrganizationJsonLd()
+            ),
           }}
         />
       </head>
       <body className="min-h-full flex flex-col bg-stripe-pattern text-on-surface">
+        {IS_MAINTENANCE_MODE ? (
+          <MaintenancePage />
+        ) : (
+          <>
         <Suspense fallback={null}>
           <TopProgressBar />
         </Suspense>
@@ -180,6 +191,8 @@ export default function RootLayout({
             <SiteFooter />
           </div>
         </SmoothScroll>
+          </>
+        )}
       </body>
     </html>
   );

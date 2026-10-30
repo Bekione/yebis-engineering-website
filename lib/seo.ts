@@ -144,3 +144,53 @@ export function getOrganizationJsonLd() {
     ],
   };
 }
+
+/**
+ * Minimal Schema Graph for Maintenance Mode.
+ * Excludes all phone numbers, email addresses, and social profile links
+ * to comply with maintenance mode privacy requirements while maintaining
+ * search engine WebSite identification.
+ */
+export function getMaintenanceJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        url: `${SITE_URL}/`,
+        name: SITE_NAME,
+        alternateName: [
+          "Yebis Engineering",
+          "Yeshitila Tedla Building Contractor",
+          "Yebis Engineering Ethiopia",
+        ],
+        description: SITE_DESCRIPTION,
+        inLanguage: "en-US",
+      },
+      {
+        "@type": ["GeneralContractor", "ConstructionBusiness"],
+        "@id": `${SITE_URL}/#organization`,
+        name: SITE_NAME,
+        legalName:
+          "Yebis Engineering (Yeshitila Tedla & Brook Yeshitila General Partnership)",
+        taxID: "0001985917",
+        url: SITE_URL,
+        logo: `${SITE_URL}/assets/logo-dark.png`,
+        image: `${SITE_URL}/og-yebis.png`,
+        description: SITE_DESCRIPTION,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: COMPANY_ADDRESS.city,
+          addressCountry: "ET",
+        },
+        areaServed: [
+          {
+            "@type": "Country",
+            name: "Ethiopia",
+          },
+        ],
+      },
+    ],
+  };
+}
